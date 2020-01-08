@@ -39,6 +39,12 @@ class Route extends Bootstrap {
 			'action' => 'baseCadastro'
 		);
 
+		$routes['criaApontamento'] = array(
+			'route' => '/apontamento/criaApontamento',
+			'controller' => 'AppController',
+			'action' => 'criaApontamento'
+		);
+
 
 		$this->setRoutes($routes);
 	}

@@ -17,7 +17,7 @@
 
                 <h5 class="card-title text-center ">Apontamento de hora</h5>
 
-                <form name="insere_isso" method="POST" action="#">
+                <form name="insereApontamento" method="POST" action="/apontamento/criaApontamento">
                     <div class="form-row">
                         <div class="form-group col-lg-2"></div>
                         <div class="form-group col-lg-4">
@@ -43,7 +43,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4 ">
                             <label for="">N° chamado</label>
-                            <input type="" class="form-control bg-light" id="" placeholder="numero chamado">
+                            <input type="" name="numero chamado" class="form-control bg-light" id="" placeholder="numero chamado">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">tipo de atividade</label>
@@ -70,11 +70,11 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="">data final</label>
-                            <input type="datetime-local" class="form-control bg-light" id="data_final" placeholder="data final">
+                            <input type="datetime-local" name="data_final" class="form-control bg-light" id="data_final" placeholder="data final">
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="inputState">tipo de hora</label>
-                            <select id="inputState" class="form-control bg-light">
+                            <select id="" name="tipo_hora" class="form-control bg-light">
                             <?php foreach($this->view->tipo_hora as $tp_hora ){?>
                                 <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
                            <?php };?>
@@ -354,47 +354,4 @@
         </div>
     </div>
     </div>
-    <script type="text/javascript">
-    $('#cliente').change( function(e){
-        var cliente_id = $(this).val();
-        $.ajax({
-            type:"GET",
-            data:"cliente_id="+ cliente_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            var contratos ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
-
-            });
-            $('#contrato').html(contratos);
-        })
-    })
-
-
-
-        $('#tipo_atividade').change( function(e){
-        var tipo_atividade_id = $(this).val();
-        //console.log(tipo_atividade_id);
-        $.ajax({
-            type:"GET",
-            data:"tipo_atividade_id="+ tipo_atividade_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            //console.log($.parseJSON(data));
-            var atividades ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
-
-            });
-            $('#atividade').html(atividades);
-            })
-
-         })
-
-        
-    
-    
-    </script>
+     <script type="text/javascript" charset="utf8" src="/js/scripts.js"></script>

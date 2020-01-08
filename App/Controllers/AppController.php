@@ -45,11 +45,60 @@ class AppController extends Action {
 			$array_atividades = $atividade->getPorTipo();
 			echo json_encode($array_atividades);
 		}
-
-
-
-		//echo "esta funcionando";
 	}
+	//fim baseCadastro
+
+	public function criaApontamento(){
+		//print_r($_POST);
+		session_start();
+
+
+		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+			//echo "ok";
+			$apontamento = Container::getModel('Apontamento');
+			$apontamento->__set('dataInicial',$_POST['data_inicial']);
+			$apontamento->__set('dataFinal',$_POST['data_final']);
+			$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
+			$apontamento->__set('fkAtividadeId',$_POST['atividade']);
+			$apontamento->__set('fkContratoId',$_POST['contrato']);
+			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+			$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
+			
+
+			$existe = $apontamento->verificaExistencia();
+			if(isset($existe)){
+				echo "ja existe";
+				//decidir oque fazer
+				//fazer uma view pra receber um valor caso o usur ja exista
+
+			}else{
+				$apontamento->salvar();
+				echo '<pre>';
+				print_r($apontamento);
+				echo '</pre>';
+
+			}
+
+
+		}
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

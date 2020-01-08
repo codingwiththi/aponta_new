@@ -18,17 +18,20 @@ class AuthController extends Action {
 		// echo "<pre>";
 		// print_r($funcionario);
 		// echo "</pre>";
+
+		$funcionario->testedb();
+
 		$funcionario->autenticar();
 
 		//print_r($funcionario);
-		if($funcionario->__get('id') != '' && $funcionario->__get('nome')){
+		if($funcionario->__get('id') != '' && $funcionario->__get('nome')!=''){
 			//echo "esse cxara exite";
 			session_start();
 
 			session_start(); 
 			$_SESSION['id']= $funcionario->__get('id');
 			$_SESSION['nome']= $funcionario->__get('nome');
-			header("Location:/apontamento");
+			//header("Location:/apontamento");
 
 		}else{
 			//echo "tu nao exeite";
