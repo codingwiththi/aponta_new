@@ -1,0 +1,20 @@
+    <div class="wrapper2">
+        <form class="form-signin2" method="POST" action="/autenticar">       
+            <div class="form-group">
+                <label for="exampleInputEmail1">matricula</label>
+                <input type="text" name="matricula" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">senha</label>
+                <input type="password" name="senha" class="form-control" id="" placeholder="Password">
+              </div>
+              <?php if($this->view->login == 'erro'){?>
+              <div class ="row">
+                <div class="col">
+                  <span class="text text-danger"> "matricula ou senha invalida" </span>
+                </div>
+              </div>          
+              <?php }?>
+              <button type="submit" class="btn btn-primary">entrar</button>
+        </form>
+      </div>
