@@ -45,7 +45,19 @@ class Route extends Bootstrap {
 			'action' => 'criaApontamento'
 		);
 
+		$routes['alterarApotamento'] = array(
+			'route' => '/apontamento/alterarApotamento',
+			'controller' => 'AppController',
+			'action' => 'alterarApotamento'
+		);
 
+		$routes['excluirApotamento'] = array(
+			'route' => '/apontamento/excluirApotamento',
+			'controller' => 'AppController',
+			'action' => 'excluirApotamento'
+		);
+
+		
 		$this->setRoutes($routes);
 	}
 

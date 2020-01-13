@@ -9,6 +9,8 @@ use MF\Model\Container;
 class AppController extends Action {
 
 	public function apontamento(){
+		session_start();
+
 		//echo "chegou no apontamento";
 		$cliente = Container::getModel("cliente");
 		$this->view->clientes = $cliente->getAll();
@@ -19,8 +21,11 @@ class AppController extends Action {
 		$tipoAtividade =Container::getModel('TipoDeAtividade');
 		$this->view->tipoAtividade = $tipoAtividade->getAll();
 		//============================================
-
-		session_start();
+		$apontamento = Container::getModel('apontamento');
+		$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+		$this->view->apontamentosRecentes = $apontamento->recentes();
+		//============================================
+		//print_r($this->view->apontamentosRecentes);
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			$this->render('apontamento','layout2');
@@ -66,24 +71,63 @@ class AppController extends Action {
 			
 
 			$existe = $apontamento->verificaExistencia();
-			if(isset($existe)){
+			print_r($existe);
+			if(!isset($existe)){
 				echo "ja existe";
 				//decidir oque fazer
 				//fazer uma view pra receber um valor caso o usur ja exista
 
 			}else{
 				$apontamento->salvar();
-				echo '<pre>';
-				print_r($apontamento);
-				echo '</pre>';
-
+				// echo '<pre>';
+				// print_r($apontamento);
+				// echo '</pre>';
+				//fazer um header com mensagem de acertos
+				header('Location:/apontamento');
 			}
-
-
 		}
 
+	}
+
+	public function alterarApotamento(){
+		//echo "chegamos ate aqui";
+		//print_r($_POST);
+		try{
+			$apontamento = Container::getModel('Apontamento');
+			$apontamento->__set('id',$_POST['id_linha_edita']);
+			$apontamento->__set('dataInicial',$_POST['edita_dt_ini']);
+			$apontamento->__set('dataFinal',$_POST['edita_dt_fim']);
+			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
+			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
+			$apontamento->__set('fkContratoId',$_POST['edita_contrato']);
+			$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
+			$apontamento->__set('fkClienteId',$_POST['edita_cliente']);
+			$apontamento->update();
+			echo "sucesso";
+			} catch(Exception $e){
+	
+				echo "erro";
+			}
+		
+		//echo json_encode(['success'=> 'deu tudo certo' ]);
+	}
+
+
+
+	public function excluirApotamento(){
+		//print_r( $_POST);
+		try{
+		$apontamento = Container::getModel('Apontamento');
+		$apontamento->__set('id',$_POST['id_linha_edita']);
+		$apontamento->excluir();
+		echo "sucesso";
+		} catch(Exception $e){
+
+			echo "erro";
+		}
 
 	}
+
 
 
 

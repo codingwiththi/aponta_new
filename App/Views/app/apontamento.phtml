@@ -43,7 +43,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4 ">
                             <label for="">N° chamado</label>
-                            <input type="" name="numero chamado" class="form-control bg-light" id="" placeholder="numero chamado">
+                            <input type="" name="numero_chamado" class="form-control bg-light"  placeholder="numerochamado">
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">tipo de atividade</label>
@@ -103,9 +103,9 @@
             <!-- inicio div esquerda -->
             <!-- <div class="col-1"></div> -->
             <div class="col-12  ">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="tabela_apontamentos" name="tabela_apontamentos">
                     <thead>
-                        <tr >
+                        <tr id="1" >
                             <th class="th-sm">N° chamado
                             </th>
                             <th class="th-sm">cliente
@@ -129,112 +129,23 @@
                         </tr >
                     </thead>
                     <tbody>
-                        <tr id="1">
-                            <td>3154325</td>
-                            <td>Sulgás</td>
-                            <td>Manutenção</td>
-                            <td> atendimengsdafgadfgagdgto de plantão</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>extra</td>
-                            <td> 00:45:34</td>
+                        <?php foreach($this->view->apontamentosRecentes as $apontamento){?>
+                        <tr>
+                        <td style="display:none;" > <?php echo $apontamento['Id']; ?> </td>
+                            <td  > <?php echo $apontamento['num_chamado']; ?> </td>
+                            <td><?php echo $apontamento['cliente']; ?></td>
+                            <td><?php echo $apontamento['tipo_atividade']; ?></td>
+                            <td> <?php echo $apontamento['atividade']; ?></td>
+                            <td><?php echo $apontamento['Data_inicial']; ?></td>
+                            <td><?php echo $apontamento['Data_final']; ?></td>
+                            <td><?php echo $apontamento['tipo_hora']; ?></td>
+                            <td> <?php echo $apontamento['duracao']; ?></td>
                             <td style="text-align:center;">
                                 <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal"
                                     contenteditable="false">Edit</button>
                             </td>
                         </tr>
-                        <tr id="2">
-                            <td>245425</td>
-                            <td>Sulgás</td>
-                            <td>Manutenção</td>
-                            <td> atendimento de plantão</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>extra</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-
-                        </tr>
-                        <tr id="3">
-                            <td>9087087</td>
-                            <td>Sulgás</td>
-                            <td>Manutenção</td>
-                            <td> atesfgafsdgasdfgfdsgadfdgdfgadffndimento de plantão</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>extra</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-                        </tr>
-                        <tr id="4">
-                            <td>789567</td>
-                            <td>Prumo</td>
-                            <td>Manutenção</td>
-                            <td> Recuperaçãgadfgadfdfagdagdo de servidor</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011-04-10 12:45:34</td>
-                            <td>normal</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>5487578</td>
-                            <td>Prumo</td>
-                            <td>Manutenção</td>
-                            <td> Recuperaçãgadfgadfdfagdagdo de servidor</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>normal</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>986968</td>
-                            <td>Prumo</td>
-                            <td>Manutenção</td>
-                            <td> Recuperaçãgadfgadfdfagdagdo de servidor</td>
-                            <td>2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>normal</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <td>0976967</td>
-                            <td>Prumo</td>
-                            <td>Manutenção</td>
-                            <td>Conserto ativo</td>
-                            <td >2011/04/25 12:00:00</td>
-                            <td>2011/04/25 12:45:34</td>
-                            <td>Normal</td>
-                            <td> 00:45:34</td>
-                            <td style="text-align:center;">
-                                <button class="btn-sm btn-success" data-toggle="modal"
-                                    data-target="#myModal">Edit</button>
-                            </td>
-
-
-                        </tr>
+                        <?php } ?>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -283,37 +194,47 @@
 
                 </div>
                 <div class="modal-body">
-                    <form name="edita_isso">
+                    <form name="edita_isso" id= "edita_isso" method="POST" action="/apontamento/alterarApotamento">
                         <div class="form-row">
+                            <div class="form-group col-lg-3">
+                            <input type=hidden id="id_linha_edita" name="id_linha_edita">
+                            </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputState">Cliente</label>
-                                <select id="edita_cliente" class="form-control bg-light">
-                                    <option  value="00">Sulgás</option>
-                                    <option  value="01">Prumo</option>
-                                    <option value="1">Nexa</option>
+                                <select id="edita_cliente" name="edita_cliente" class="form-control bg-light">
+                                    <?php foreach($this->view->clientes as $cliente ){?>
+                                        <option value="<?php echo $cliente['id'] ?>"> <?php echo $cliente['nome']; ?> </option>
+                                   <?php };?>  
                                 </select>
                             </div>
+
+                        </div>
+                        <div class="form-row">
+                                <div class="form-group col-lg-6">
+                                <label for="inputState">Contrato</label>
+                                <select id="edita_contrato" name="edita_contrato" class="form-control bg-light">
+                                </select>
+                              </div>
+
                             <div class="form-group col-lg-6">
                                 <label for="">N° chamado</label>
-                                <input type="" class="form-control bg-light" id="edita_num_chamado" placeholder="numero chamado">
+                                <input type="text" class="form-control bg-light" id="edita_num_chamado" name="edita_num_chamado" placeholder="numero chamado">
                             </div>
+
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="inputState">tipo de atividade</label>
-                                <select id="edita_tp_atv" class="form-control bg-light">
-                                    <option value="9">Redes</option>
-                                    <option value="1">Voz</option>
-                                    <option value="245">Manutenção</option>
-
+                                <select id="edita_tp_atv" name="edita_tp_atv" class="form-control bg-light">
+                           <?php foreach($this->view->tipoAtividade as $tp_atividade ){?>
+                                <option value="<?php echo $tp_atividade['id'] ?>"> <?php echo $tp_atividade['tipo_atividade']; ?> </option>
+                           <?php }?>
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputState"> atividade</label>
-                                <select id="edita_atv" class="form-control bg-light">
-                                    <option valeu="76">Conserto ativo</option>
-                                    <option value="1">ATT</option>
+                                <select id="edita_atividade" name="edita_atividade" class="form-control bg-light">
                                 </select>
                             </div>
                         </div>
@@ -321,11 +242,11 @@
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="inputState">data inicial</label>
-                                <input type="datetime-local" class="form-control bg-light" id="edita_dt_ini" placeholder="data inicial">
+                                <input type="datetime-local" class="form-control bg-light" id="edita_dt_ini" name="edita_dt_ini" placeholder="data inicial">
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputState"> data final</label>
-                                <input type="datetime-local" class="form-control bg-light" id="edita_dt_fim" placeholder="data inicial">
+                                <input type="datetime-local" class="form-control bg-light" id="edita_dt_fim" name="edita_dt_fim" placeholder="data inicial">
                             </div>
                         </div>
                         <div class="form-row">
@@ -333,13 +254,14 @@
                             
                             <div class="form-group col-lg-6">
                                 <label for="inputState">tipo de hora</label>
-                                <select id="edita_tp_hr" class="form-control bg-light">
-                                    <option value="65">Extra</option>
-                                    <option value="1">normal</option>
+                                <select id="edita_tp_hr" name="edita_tp_hr" class="form-control bg-light">
+                                    <?php foreach($this->view->tipo_hora as $tp_hora ){?>
+                                        <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
+                                   <?php };?>
                                 </select>
                             </div>
                         </div>
-
+                        <span id="erro_edita" name="erro_edita" class="text-danger"></span>
                     </form>
 
 

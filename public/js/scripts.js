@@ -7,6 +7,20 @@ $(document).ready(function() {
 //posso apagar todos os inputs do formulario assim que eu clickar e deixar só o de escolher
 // fazer isso para que eu possa ja deixar o formulario montado com os selcts lá
 $(".btn-sm[data-target='#myModal']").click(function () {
+    // var id = $(this).parent().find('tr').attr('id');
+    // // console.log(id);
+    // var id = $('#tabela_apontamentos tr').click(function () { 
+    //     //var id = $(this).parent().find('tbody tr').attr('id');
+    //     //var id = $(this).attr("id");
+    //     //alert(id);
+    //     return $(this).attr("id");
+    // });
+    // var str = JSON.stringify(id, null, 4); // (Optional) beautiful indented output.
+    // alert(str);
+    // var teste = $(this).text();
+    // alert(teste);
+
+
     var columnHeadings = $("thead th").map(function () {
         return $(this).text();
     }).get();
@@ -15,49 +29,111 @@ $(".btn-sm[data-target='#myModal']").click(function () {
     var columnValues = $(this).parent().siblings().map(function () {
         return $(this).text();
     }).get();
-    // var modalBody = $('<div id="modalContent"></div>');
-    // var modalForm = $('<form role="form" name="modalForm" action="teste_edit.php" method="post">');
-    // $.each(columnHeadings, function (i, columnHeader) {
-    //     var formGroup = $('<div class="form-group"></div>');
-    //     formGroup.append('<label for="' + columnHeader + '">' + columnHeader + '</label>');
-    //     formGroup.append('<input class="form-control" name="' + columnHeader + i + '" id="' + columnHeader + i + '" value="' + columnValues[i] + '" />');
-    //     formGroup.append('#input_teste');
-    //     modalForm.append(formGroup);
-    // });
-    // modalBody.append(modalForm);
-    // $('.modal-body').html(modalBody);
-    //var ok = $('#edita_cliente option:selected').text();
-    //var ok = 
+    //console.log();
     console.log(columnValues);
     //esse é um select 
     //$('#edita_cliente').val(ok);
-    $('#edita_num_chamado').val(columnValues[0]);
-    $("#edita_cliente").val( $('option:contains("'+columnValues[1] +'")').val() );
-    $("#edita_tp_atv").val( $('option:contains("'+columnValues[2] +'")').val() );
-    $("#edita_atv").val( $('option:contains("'+columnValues[3] +'")').val() );
+    $('#id_linha_edita').val(columnValues[0]);
+    $('#edita_num_chamado').val(columnValues[1]);
+    $("#edita_cliente").val( $('option:contains("'+columnValues[2] +'")').val() );
+    $("#edita_tp_atv").val( $('option:contains("'+columnValues[3] +'")').val() );
+    $("#edita_atv").val( $('option:contains("'+columnValues[4] +'")').val() );
     //var data =new Date();
     //console.log(data);
+    columnValues[5] = columnValues[5].replace(" ","T");
+    $('#edita_dt_ini').val(columnValues[5]);
 
-    $('#edita_dt_ini').val("2019-12-05T22:02");            
-    $('#edita_dt_fim').val(columnValues[5]);
-    $("#edita_tp_hr").val( $('option:contains("'+columnValues[6] +'")').val() );
+    columnValues[6] = columnValues[6].replace(" ","T");
+    $('#edita_dt_fim').val(columnValues[6]);
+
+    $("#edita_tp_hr").val( $('option:contains("'+columnValues[7] +'")').val() );
 });
+
 $('.modal-footer .btn-primary').click(function () {
     //BOTAO SALVAR
     //SERIALIZO FORMULARIO E ENVIO PRA ROTA DE ALTERAR
-    $('form[name="edita_isso"]').submit();
+    //var teste =$('#edita_isso').serialize() ;
+    //console.log(teste);
+    // $('form[name="edita_isso"]').submit(
+    // //     function(){
+    // //     $.ajax({
+    // //         url: "/apontamento/alterarApotamento",
+    // //         method: "POST",
+    // //         data: $('#edita_isso').serialize(),
+    // //         type:'json',
+    // //         success: function(data) {
+    // //             if (data.error) {
+    // //                 printErrorMsg(data.error);
+    // //             } else {
+    // //                 console.log(data);
+    // //                 alert(data);
+    // //                 //window.location.href = "/apontamento/alterarApotamento";
+    // //             }
+    // //         }
+    // //     });
+    // // }
+    // );
+    var form =$('#edita_isso').serialize() ;
+    //var teste = "0k";
+    //console.log("ok");
+    $.ajax({
+        type:"POST",
+        data:form,
+        url:"/apontamento/alterarApotamento",
+        async:false
+    }).done(function(data){
+        console.log(data);
+        //window.location.href='/apontamento';
+        //exibir mensagem ou erro
+        $('#erro_edita').html("");
+
+        //se tiver tudo certo eu só recarrego a pagina
+    }).fail(function(xhr, status, error) {
+        //Ajax erro
+        $('#erro_edita').html("deu erro");
+        //alert('Error -');
+  })
+
 });
 
 $('.modal-footer .btn-danger').click(function () {
     //BOTAO excluir
     //SERIALIZO O FORMULARIO E ENVIO PARA A ROTA DE APAGAR
-    $('form[name="edita_isso"]').submit();
+    //pego o ID E  ENVIO VIA GET
+
+    // $('#edita_isso').submit(function (){
+    //     var teste =$('#edita_isso').serialize() ;
+    //     console.log(teste);
+    // });
+    var form =$('#edita_isso').serialize() ;
+    //var teste = "0k";
+    //console.log("ok");
+    $.ajax({
+        type:"POST",
+        data:form,
+        url:"/apontamento/excluirApotamento",
+        async:false
+    }).done(function(data){
+        console.log(data);
+        //exibir mensagem ou erro
+        //se tiver tudo certo eu só recarrego a pagina
+        window.location.href='/apontamento';
+        //exibir mensagem ou erro
+        $('#erro_edita').html("");
+
+    }).fail(function(xhr, status, error) {
+        //Ajax erro
+        $('#erro_edita').html("deu erro");
+        //alert('Error -');
+  })
+
+
 });
 
 // FIM ABRINDO MODAL R
 
 
-//PREEENCENDO SELECTS 
+//PREEENCENDO SELECTS---------------------------------- 
 $('#cliente').change( function(e){
         var cliente_id = $(this).val();
         $.ajax({
@@ -96,6 +172,52 @@ $('#cliente').change( function(e){
             })
 
          })
+
+
+
+//--------------- form editar/excluir dados -------------
+
+$('#edita_cliente').change( function(e){
+        var cliente_id = $(this).val();
+        $.ajax({
+            type:"GET",
+            data:"cliente_id="+ cliente_id,
+            url:"/apontamento/baseCadastro",
+            async:false
+        }).done(function (data) {
+            var contratos ="";
+            $.each($.parseJSON(data) ,function(chave,valor){
+                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
+
+            });
+            $('#edita_contrato').html(contratos);
+        })
+    })
+
+
+
+        $('#edita_tp_atv').change( function(e){
+        var tipo_atividade_id = $(this).val();
+        //console.log(tipo_atividade_id);
+        $.ajax({
+            type:"GET",
+            data:"tipo_atividade_id="+ tipo_atividade_id,
+            url:"/apontamento/baseCadastro",
+            async:false
+        }).done(function (data) {
+            //console.log($.parseJSON(data));
+            var atividades ="";
+            $.each($.parseJSON(data) ,function(chave,valor){
+                atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
+
+            });
+            $('#edita_atividade').html(atividades);
+            })
+
+         })
+
+
+
 
 
 

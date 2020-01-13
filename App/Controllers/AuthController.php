@@ -14,12 +14,8 @@ class AuthController extends Action {
 		$funcionario = Container::getModel('Funcionario');
 		$funcionario->__set('matricula',$_POST['matricula']);
 		$funcionario->__set('senha',$_POST['senha']);
-
-		// echo "<pre>";
-		// print_r($funcionario);
-		// echo "</pre>";
-
-		$funcionario->testedb();
+		//teste db 
+		//$funcionario->testedb();
 
 		$funcionario->autenticar();
 
@@ -31,7 +27,7 @@ class AuthController extends Action {
 			session_start(); 
 			$_SESSION['id']= $funcionario->__get('id');
 			$_SESSION['nome']= $funcionario->__get('nome');
-			//header("Location:/apontamento");
+			header("Location:/apontamento");
 
 		}else{
 			//echo "tu nao exeite";

@@ -6,14 +6,12 @@ class Connection {
 
 	public static function getDb() {
 		try {
-		    $servidor = "SNE0193";
-		    $instancia = "DEV";
-		    $porta = 50746;
-		    $database = "aponta";
-		    $usuario = "bruno";
-		    $senha = "q1w2e3r4t5";
 
-			$conn = new \PDO("sqlsrv:Server={$servidor}\\{$instancia},{$porta};Database={$database}",$usuario,$senha);
+			$conn = new \PDO(
+				"mysql:host=localhost;dbname=aponta;port=3306;charset=utf8",
+				"root",
+				"" 
+			);
 
 			return $conn;
 
@@ -25,6 +23,63 @@ class Connection {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Connection {
+
+// 	public static function getDb() {
+// 		try {
+// 		    $servidor = "SNE0193";
+// 		    $instancia = "DEV";
+// 		    $porta = 50746;
+// 		    $database = "aponta";
+// 		    $usuario = "bruno";
+// 		    $senha = "q1w2e3r4t5";
+
+// 			$conn = new \PDO("sqlsrv:Server={$servidor}\\{$instancia},{$porta};Database={$database}",$usuario,$senha);
+
+// 			return $conn;
+
+// 		} catch (\PDOException $e) {
+// 			//.. tratar de alguma forma ..//
+// 		    echo "Drivers disponiveis: " . implode( ",", \PDO::getAvailableDrivers() );
+//     		echo "\nErro: " . $e->getMessage();
+// 			echo $e;
+// 		}
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -55,15 +55,12 @@ class Funcionario extends Model{
 	}
 
 
-	    public function testedb(){
-        $query = "select @@version";
-        $stmt= $this->db->prepare($query);
-        $stmt->execute();
-
-        return $stmt->fectAll(\PDO::FETCH_ASSOC);
-
-
-    }
+    // public function testedb(){
+    //    $query = "select @@version";
+    //    $stmt= $this->db->prepare($query);
+    //    $stmt->execute();
+    //    return $stmt->fectAll(\PDO::FETCH_ASSOC);
+	//}
 
 
 
