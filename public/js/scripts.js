@@ -82,8 +82,8 @@ $('.modal-footer .btn-primary').click(function () {
         url:"/apontamento/alterarApotamento",
         async:false
     }).done(function(data){
-        console.log(data);
-        //window.location.href='/apontamento';
+        //console.log(data);
+        window.location.href='/apontamento';
         //exibir mensagem ou erro
         $('#erro_edita').html("");
 
@@ -216,9 +216,53 @@ $('#edita_cliente').change( function(e){
 
          })
 
-
-
-
-
-
 //FIM PREECHE SELCT
+
+
+// pagina historico 
+$(document).ready(function() {
+    // adicionando input
+    $('#historico thead th').each( function (indice) {
+        console.log(indice);
+        // if (indice < 5){
+            var title = $(this).text();
+            // $(this).html( '<p> frwwfrfrw</p>' );
+            $(this).html( '<input size="10" type="text" placeholder="'+title+'" />' );
+
+        // }
+
+    } );
+    
+    $('#historico').DataTable({
+        "responsive": true,
+        "scrollCollapse": true,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+
+        // "scrollY"   :'50vh',
+        "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "infoFiltered": "(filtrado de _MAX_ registros no total)"
+            }
+    });
+    // DataTable
+    var table = $('#historico').DataTable();
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change clear', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+
+
+// fim pagina historico

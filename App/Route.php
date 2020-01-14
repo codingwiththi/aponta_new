@@ -57,6 +57,12 @@ class Route extends Bootstrap {
 			'action' => 'excluirApotamento'
 		);
 
+		$routes['historico'] = array(
+			'route' => '/historico',
+			'controller' => 'AppController',
+			'action' => 'historico'
+		);
+
 		
 		$this->setRoutes($routes);
 	}

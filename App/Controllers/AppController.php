@@ -94,14 +94,7 @@ class AppController extends Action {
 		//print_r($_POST);
 		try{
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('id',$_POST['id_linha_edita']);
-			$apontamento->__set('dataInicial',$_POST['edita_dt_ini']);
-			$apontamento->__set('dataFinal',$_POST['edita_dt_fim']);
-			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
-			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
-			$apontamento->__set('fkContratoId',$_POST['edita_contrato']);
-			$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
-			$apontamento->__set('fkClienteId',$_POST['edita_cliente']);
+
 			$apontamento->update();
 			echo "sucesso";
 			} catch(Exception $e){
@@ -128,17 +121,21 @@ class AppController extends Action {
 
 	}
 
+	public function historico(){
+		session_start();
+		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+
+			$aponta = Container::getModel('Apontamento');
+			$aponta->__set('fkFuncionarioId',$_SESSION['id']);
+
+			$this->view->todosApontamentos = $aponta->getAll();
+			//print_r($this->view->todosApontamentos);
+			$this->render('historico','layout2');
 
 
+		}
 
-
-
-
-
-
-
-
-
+	}
 
 
 
