@@ -128,7 +128,37 @@ class Apontamento extends Model{
 
 
 
+    public function getPorIntervalo(){
+        $query = "SELECT apontamento.Id,
+        apontamento.num_chamado,
+        cliente.nome AS cliente,
+        tipo_atividade.tipo_atividade,
+        atividade.nome
+        as atividade,
+        apontamento.Data_inicial,
+        apontamento.Data_final,
+        tipo_hora.tipo_hora,
+        TIMESTAMPDIFF(MINUTE,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        apontamento.data_alteracao FROM apontamento 
+        JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+        JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
+        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+        JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
+        WHERE DATE_FORMAT(apontamento.Data_inicial, '%Y-%m-%d') >= :dataInicial 
+        and DATE_FORMAT(apontamento.Data_inicial, '%Y-%m-%d') <= :dataFinal
+        and apontamento.FK_func_Id = :fkFuncionarioId";
 
+        $stmt= $this->db->prepare($query);
+        $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
+        $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
+        $stmt->bindValue(':dataFinal',$this->__get('dataFinal')); 
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
 
 
 

@@ -121,15 +121,26 @@ class AppController extends Action {
 
 	}
 
+
 	public function historico(){
+		//print_r($_POST);
 		session_start();
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 
 			$aponta = Container::getModel('Apontamento');
 			$aponta->__set('fkFuncionarioId',$_SESSION['id']);
+			
+			if(isset($_POST['dataInicio'])){
+				$aponta->__set('dataInicial',$_POST['dataInicio']);
+				$aponta->__set('dataFinal',$_POST['dataFim']);
+				//print_r($_POST['dataInicio']);
+				$this->view->todosApontamentos = $aponta->getPorIntervalo();
 
-			$this->view->todosApontamentos = $aponta->getAll();
-			//print_r($this->view->todosApontamentos);
+			}else{
+				$this->view->todosApontamentos = $aponta->getAll();
+				//print_r($this->view->todosApontamentos);
+			}
+
 			$this->render('historico','layout2');
 
 

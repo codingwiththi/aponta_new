@@ -1,31 +1,37 @@
 <div class="container-fluid bg-light"  style="padding:10px;">
     <!-- <div class="formulario"> -->
         <div class="card">
-            <form>
-                <div class="col-2"></div>
+            <form name="consultaIntervalo" action='/historico' method="POST">
 
                 <div class="form-row align-items-center">
-                <div class="col-3">
-                    <label class="sr-only" for="inlineFormInput">Name</label>
-                    <input type="date" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
-                </div>
-                <div class="col-3">
-                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                    <div class="input-group mb-2">
-                    <div class="input-group-prepend">
+                <div class="col-1"></div>
+                    <div class="col-3">
+                        <label class="" for="">Data Inicial</label>
+                        <input type="date" class="form-control " id="" name="dataInicio" >
                     </div>
-                    <input type="date" class="form-control" id="inlineFormInputGroup" placeholder="Username">
+
+                    <div class="col-3">
+                        <label class="" for="">Data final</label>
+                        <!-- <div class="input-group-prepend"> -->
+                        <input type="date" class="form-control" id="" name="dataFim" >
+                        <!-- </div> -->
                     </div>
+                    
+                    <div class="col-1">
+                        <label class="" for=""></label>
+                        <button type="submit" class="btn btn-info sm-1">Consultar</button>
+                    </div>
+                
                 </div>
-                <div class="col-1">
-                    <button type="submit" class="btn btn-info sm-1">Consultar</button>
-                </div>
+                <div class="form-row align-items-center">
+                            <p> <a href="/historico"> clique aqui para limpar filtros </a> </p>
                 </div>
             </form>
         </div>
-    <!-- </div> -->
 
-</form>
+
+        
+    <!-- </div> -->
     <div class="card table-responsive " style="padding:10px; margin:3px">
          <!-- <div class="row">
              <div id="tes" class="col-12">
@@ -94,5 +100,5 @@
 
         <!-- </div> -->
     <!-- </div> -->
-    </div>
-    </div>
+    <!-- </div> -->
+</div>
