@@ -15,8 +15,7 @@ class AuthController extends Action {
 		$funcionario->__set('matricula',$_POST['matricula']);
 		$funcionario->__set('senha',$_POST['senha']);
 		//teste db 
-		//$funcionario->testedb();
-
+		
 		$funcionario->autenticar();
 
 		//print_r($funcionario);
