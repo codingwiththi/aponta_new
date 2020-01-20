@@ -48,8 +48,6 @@ class Funcionario extends Model{
 			$this->__set('nome',$funcionario['nome']);
 
 		}
-
-
 		return $funcionario;
 
 	}

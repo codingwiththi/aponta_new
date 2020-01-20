@@ -82,8 +82,8 @@ $('.modal-footer .btn-primary').click(function () {
         url:"/apontamento/alterarApotamento",
         async:false
     }).done(function(data){
-        //console.log(data);
-        window.location.href='/apontamento';
+        console.log(data);
+        //window.location.href='/apontamento';
         //exibir mensagem ou erro
         $('#erro_edita').html("");
 

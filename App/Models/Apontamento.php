@@ -26,7 +26,7 @@ class Apontamento extends Model{
 
 
     public function salvar(){
-        $query ="insert into apontamento(Data_inicial,Data_final,num_chamado,FK_atividade_Id,FK_contrato_Id,FK_func_Id,FK_tipo_hora_Id)values(:dataInicial,:dataFinal,:numeroChamado,:fkAtividadeId,:fkContratoId,:fkFuncionarioId,:fkTipoHoraId);";
+        $query ="insert into dbo.Apontamento(Data_inicial,Data_final,num_chamado,FK_atividade_Id,FK_contrato_Id,FK_func_Id,FK_tipo_hora_Id)values(CONVERT(DATETIME,:dataInicial,126),CONVERT(DATETIME,:dataFinal,126),:numeroChamado,:fkAtividadeId,:fkContratoId,:fkFuncionarioId,:fkTipoHoraId)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   
@@ -36,6 +36,7 @@ class Apontamento extends Model{
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->bindValue(':fkTipoHoraId',$this->__get('fkTipoHoraId'));
         $stmt->execute();
+        print_r($this);
         return $this;
     }
 
@@ -53,7 +54,22 @@ class Apontamento extends Model{
 
 
     public function Recentes(){;
-        $query="SELECT apontamento.Id,apontamento.num_chamado,cliente.nome AS cliente,tipo_atividade.tipo_atividade,atividade.nome as atividade, apontamento.Data_inicial, apontamento.Data_final, tipo_hora.tipo_hora,TIMESTAMPDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao FROM apontamento JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) WHERE apontamento.FK_func_Id = :fkFuncionarioId AND apontamento.data_alteracao > DATE_SUB(NOW(), INTERVAL 2 DAY)";
+        $query="SELECT apontamento.Id,
+        apontamento.num_chamado,
+        cliente.nome AS cliente,
+        tipo_atividade.tipo_atividade,
+        atividade.nome as atividade,
+        apontamento.Data_inicial,
+        apontamento.Data_final,
+        tipo_hora.tipo_hora,DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao 
+        FROM apontamento 
+        JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+        JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
+        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+        JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
+        WHERE apontamento.FK_func_Id = :fkFuncionarioId AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE()) ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->execute();
@@ -71,7 +87,7 @@ class Apontamento extends Model{
 
     public function update(){
         $query = "update apontamento set num_chamado = :numeroChamado,
-        Data_inicial = :dataInicial,Data_final=:dataFinal,
+        Data_inicial = CONVERT(DATETIME,:dataInicial,126),Data_final=CONVERT(DATETIME,:dataFinal,126),
         FK_atividade_Id = :fkAtividadeId,
         FK_contrato_Id = :fkContratoId,
         FK_tipo_hora_Id = :fkTipoHoraId
@@ -101,7 +117,7 @@ class Apontamento extends Model{
         apontamento.Data_inicial,
         apontamento.Data_final,
         tipo_hora.tipo_hora,
-        TIMESTAMPDIFF(MINUTE,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
@@ -121,13 +137,6 @@ class Apontamento extends Model{
 
     }
 
-
-
-
-
-
-
-
     public function getPorIntervalo(){
         $query = "SELECT apontamento.Id,
         apontamento.num_chamado,
@@ -138,7 +147,7 @@ class Apontamento extends Model{
         apontamento.Data_inicial,
         apontamento.Data_final,
         tipo_hora.tipo_hora,
-        TIMESTAMPDIFF(MINUTE,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
@@ -146,8 +155,8 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
-        WHERE DATE_FORMAT(apontamento.Data_inicial, '%Y-%m-%d') >= :dataInicial 
-        and DATE_FORMAT(apontamento.Data_inicial, '%Y-%m-%d') <= :dataFinal
+        WHERE apontamento.Data_inicial >= CONVERT(DATETIME,:dataInicial,126) 
+        and apontamento.Data_inicial <= CONVERT(DATETIME,:dataFinal,126)
         and apontamento.FK_func_Id = :fkFuncionarioId";
 
         $stmt= $this->db->prepare($query);
@@ -159,9 +168,6 @@ class Apontamento extends Model{
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }
-
-
-
 
 
 

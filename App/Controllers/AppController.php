@@ -54,18 +54,18 @@ class AppController extends Action {
 	//fim baseCadastro
 
 	public function criaApontamento(){
-		//print_r($_POST);
+		print_r($_POST);
 		session_start();
 
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			//echo "ok";
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('dataInicial',$_POST['data_inicial']);
-			$apontamento->__set('dataFinal',$_POST['data_final']);
+			$apontamento->__set('dataInicial',strval($_POST['data_inicial'].':00'));
+			$apontamento->__set('dataFinal',strval($_POST['data_final'].':00'));
 			$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
 			$apontamento->__set('fkAtividadeId',$_POST['atividade']);
-			$apontamento->__set('fkContratoId',$_POST['contrato']);
+			$apontamento->__set('fkContratoId',strval($_POST['contrato']));
 			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 			$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
 			
@@ -79,11 +79,11 @@ class AppController extends Action {
 
 			}else{
 				$apontamento->salvar();
-				// echo '<pre>';
-				// print_r($apontamento);
-				// echo '</pre>';
+				echo '<pre>';
+				print_r($apontamento);
+				echo '</pre>';
 				//fazer um header com mensagem de acertos
-				header('Location:/apontamento');
+				//header('Location:/apontamento');
 			}
 		}
 
@@ -92,8 +92,19 @@ class AppController extends Action {
 	public function alterarApotamento(){
 		//echo "chegamos ate aqui";
 		//print_r($_POST);
+		session_start();
 		try{
 			$apontamento = Container::getModel('Apontamento');
+			$apontamento->__set('dataInicial',strval($_POST['edita_dt_ini']));
+			$apontamento->__set('dataFinal',strval($_POST['edita_dt_fim']));
+			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
+			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
+			$apontamento->__set('fkContratoId',strval($_POST['edita_contrato']));
+			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+			$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
+			$apontamento->__set('id',$_POST['id_linha_edita']);
+
+			print_r($apontamento);
 
 			$apontamento->update();
 			echo "sucesso";
@@ -131,8 +142,8 @@ class AppController extends Action {
 			$aponta->__set('fkFuncionarioId',$_SESSION['id']);
 			
 			if(isset($_POST['dataInicio'])){
-				$aponta->__set('dataInicial',$_POST['dataInicio']);
-				$aponta->__set('dataFinal',$_POST['dataFim']);
+				$aponta->__set('dataInicial',strval($_POST['dataInicio'].'T00:00:00'));
+				$aponta->__set('dataFinal',strval($_POST['dataFim'].'T00:00:00'));
 				//print_r($_POST['dataInicio']);
 				$this->view->todosApontamentos = $aponta->getPorIntervalo();
 
