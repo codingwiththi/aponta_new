@@ -33,11 +33,11 @@ class Funcionario extends Model{
 	// }
 
 	public function autenticar(){
-		$query = "select id,nome,matricula from funcionario where matricula =:matricula and senha = :senha";
+		$query = "select id,displayName as nome,SamAccountName from funcionario where SamAccountName =:matricula";
 		$stmt = $this->db->prepare($query);
 
 		$stmt->bindValue(':matricula',$this->__get('matricula'));
-		$stmt->bindValue(':senha',$this->__get('senha'));
+		//$stmt->bindValue(':senha',$this->__get('senha'));
 		$stmt->execute();
 
 		$funcionario= $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -52,13 +52,13 @@ class Funcionario extends Model{
 
 	}
 
-
-    public function testedb(){
-       $query = "select @@version";
-       $stmt= $this->db->prepare($query);
-       $stmt->execute();
-       return $stmt->fetch(\PDO::FETCH_ASSOC);
-	}
+//  public function testedb(){
+//        $query = "select @@version";
+//        $stmt= $this->db->prepare($query);
+//        $stmt->execute();
+//        return $stmt->fetch(\PDO::FETCH_ASSOC);
+	
+//    }
 
 
 

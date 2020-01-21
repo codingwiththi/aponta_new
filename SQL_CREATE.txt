@@ -1,0 +1,72 @@
+insert into dbo.Funcionario (nome,matricula,senha) values ('Ricardo','1','a')
+go
+--commit;
+
+
+--select * from dbo.Funcionario
+
+
+
+-- Geraï¿½ï¿½o de Modelo fï¿½sico
+-- Sql ANSI 2003 - brModelo.
+
+
+
+CREATE TABLE dbo.Cliente (
+Id INTEGER not null PRIMARY KEY IDENTITY(1,1),
+CNPJ VARCHAR(50),
+nome VARCHAR(80)
+)
+go
+
+CREATE TABLE dbo.Tipo_hora (
+Id INTEGER PRIMARY KEY NOT NULL IDENTITY(1,1),
+tipo_hora VARCHAR(10)
+)
+go
+CREATE TABLE dbo.Apontamento (
+Id INTEGER PRIMARY KEY IDENTITY(1,1),
+Data_inicial DATETIME,
+Data_final DATETIME,
+data_alteracao DATETIME,
+num_chamado VARCHAR(50),
+FK_atividade_Id INTEGER,
+FK_contrato_Id INTEGER,
+FK_tipo_hora_Id INTEGER,
+FK_func_Id INTEGER,
+FOREIGN KEY(FK_tipo_hora_Id) REFERENCES Tipo_hora (Id)
+)
+go
+
+CREATE TABLE dbo.Atividade (
+Id INTEGER PRIMARY KEY NOT NULL IDENTITY(1,1),
+nome VARCHAR(10),
+FK_tipo_ativ_Id INTEGER
+)
+go
+CREATE TABLE dbo.Tipo_atividade (
+Id INTEGER PRIMARY KEY NOT NULL IDENTITY(1,1),
+tipo_atividade VARCHAR(100)
+)
+go
+CREATE TABLE dbo.Contrato (
+contrato VARCHAR(10),
+Id INTEGER PRIMARY KEY NOT NULL IDENTITY(1,1),
+FK_cliente_Id INTEGER,
+FOREIGN KEY(FK_cliente_Id) REFERENCES Cliente (Id)
+)
+
+
+CREATE table dbo.Departamento (
+    nome VARCHAR(100),
+    Id INTEGER PRIMARY KEY NOT NULL IDENTITY(1,1),
+)
+
+go
+ALTER TABLE dbo.Apontamento ADD FOREIGN KEY(FK_atividade_Id) REFERENCES dbo.Atividade (Id)
+go
+ALTER TABLE dbo.Apontamento ADD FOREIGN KEY(FK_contrato_Id) REFERENCES dbo.Contrato (Id)
+go
+ALTER TABLE dbo.Apontamento ADD FOREIGN KEY(FK_func_Id) REFERENCES dbo.Funcionario (Id)
+go
+ALTER TABLE dbo.Atividade ADD FOREIGN KEY(FK_tipo_ativ_Id) REFERENCES dbo.Tipo_atividade (Id)

@@ -83,7 +83,7 @@ class AppController extends Action {
 				print_r($apontamento);
 				echo '</pre>';
 				//fazer um header com mensagem de acertos
-				//header('Location:/apontamento');
+				header('Location:/apontamento');
 			}
 		}
 

@@ -4,7 +4,6 @@ $(document).ready(function() {
 } );
 
 //ABRINDO MODEL E PEGANDO DADOS PARA ALETRAR E APAGAR
-//posso apagar todos os inputs do formulario assim que eu clickar e deixar só o de escolher
 // fazer isso para que eu possa ja deixar o formulario montado com os selcts lá
 $(".btn-sm[data-target='#myModal']").click(function () {
     // var id = $(this).parent().find('tr').attr('id');
@@ -47,6 +46,43 @@ $(".btn-sm[data-target='#myModal']").click(function () {
     $('#edita_dt_fim').val(columnValues[6]);
 
     $("#edita_tp_hr").val( $('option:contains("'+columnValues[7] +'")').val() );
+
+//-- preeencher a o select dinamico de dentro da opção editar
+        var tipo_atividade_id = $('#edita_tp_atv').val();
+            console.log(tipo_atividade_id);
+            $.ajax({
+                type:"GET",
+                data:"tipo_atividade_id="+ tipo_atividade_id,
+                url:"/apontamento/baseCadastro",
+                async:false
+            }).done(function (data) {
+                //console.log($.parseJSON(data));
+                var atividades ="";
+                $.each($.parseJSON(data) ,function(chave,valor){
+                    atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
+    
+                });
+                $('#edita_atividade').html(atividades);
+                })
+//----------------------------------------------------------------------------
+// --------------------------- preeencher contrato edita
+
+        var cliente_id = $('#edita_cliente').val();
+        $.ajax({
+            type:"GET",
+            data:"cliente_id="+ cliente_id,
+            url:"/apontamento/baseCadastro",
+            async:false
+        }).done(function (data) {
+            var contratos ="";
+            $.each($.parseJSON(data) ,function(chave,valor){
+                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
+
+            });
+            $('#edita_contrato').html(contratos);
+        })
+//fim preeencher contrato editaaaaa ----------------------------------------------
+    
 });
 
 $('.modal-footer .btn-primary').click(function () {
@@ -133,8 +169,12 @@ $('.modal-footer .btn-danger').click(function () {
 // FIM ABRINDO MODAL R
 
 
-//PREEENCENDO SELECTS---------------------------------- 
-$('#cliente').change( function(e){
+//PREEENCENDO SELECTS----------------------------------
+
+
+
+
+$('#cliente').on('change load DOMContentLoaded', function(e){
         var cliente_id = $(this).val();
         $.ajax({
             type:"GET",
@@ -177,7 +217,7 @@ $('#cliente').change( function(e){
 
 //--------------- form editar/excluir dados -------------
 
-$('#edita_cliente').change( function(e){
+$('#edita_cliente').on('change load DOMContentLoaded',function(e){
         var cliente_id = $(this).val();
         $.ajax({
             type:"GET",
@@ -196,7 +236,7 @@ $('#edita_cliente').change( function(e){
 
 
 
-        $('#edita_tp_atv').change( function(e){
+        $('#edita_tp_atv').on('change load DOMContentLoaded',function(e){
         var tipo_atividade_id = $(this).val();
         //console.log(tipo_atividade_id);
         $.ajax({
@@ -216,6 +256,9 @@ $('#edita_cliente').change( function(e){
 
          })
 
+         $(document).ready(function() {
+            
+        } );
 //FIM PREECHE SELCT
 
 
