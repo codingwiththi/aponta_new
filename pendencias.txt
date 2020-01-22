@@ -10,4 +10,5 @@ aceitar pendentes
 	metodo - apontamento- getpendentes (ai o vinicius decide se aceita ou não)
 //-----------------------------------------------------------------
 desempenho - tela com o desempenho individual
-	     tela com o desempenho geral(group by setor) 
+	     tela com o desempenho geral(group by setor) -> redes -> noc -> suporte especializado 
+         ou desempenho individual -> talvez pa um grafico
