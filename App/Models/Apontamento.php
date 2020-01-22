@@ -15,6 +15,7 @@ class Apontamento extends Model{
     private $fkContratoId;
     private $fkFuncionarioId;
     private $fkTipoHoraId;
+    private $fkStatusId;
 
     public function __get($atributo){
         return $this->$atributo;
@@ -26,7 +27,7 @@ class Apontamento extends Model{
 
 
     public function salvar(){
-        $query ="insert into dbo.Apontamento(Data_inicial,Data_final,num_chamado,FK_atividade_Id,FK_contrato_Id,FK_func_Id,FK_tipo_hora_Id)values(CONVERT(DATETIME,:dataInicial,126),CONVERT(DATETIME,:dataFinal,126),:numeroChamado,:fkAtividadeId,:fkContratoId,:fkFuncionarioId,:fkTipoHoraId)";
+        $query ="insert into dbo.Apontamento(Data_inicial,Data_final,num_chamado,FK_atividade_Id,FK_contrato_Id,FK_func_Id,FK_tipo_hora_Id,FK_status_Id)values(CONVERT(DATETIME,:dataInicial,126),CONVERT(DATETIME,:dataFinal,126),:numeroChamado,:fkAtividadeId,:fkContratoId,:fkFuncionarioId,:fkTipoHoraId,:fkStatusId)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   
@@ -35,8 +36,10 @@ class Apontamento extends Model{
         $stmt->bindValue(':fkContratoId',$this->__get('fkContratoId'));
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->bindValue(':fkTipoHoraId',$this->__get('fkTipoHoraId'));
+        $stmt->bindValue(':fkStatusId',$this->__get('fkStatusId'));
+
         $stmt->execute();
-        print_r($this);
+        //print_r($this);
         return $this;
     }
 
@@ -61,6 +64,7 @@ class Apontamento extends Model{
         atividade.nome as atividade,
         apontamento.Data_inicial,
         apontamento.Data_final,
+        apontamento.FK_status_Id,
         tipo_hora.tipo_hora,DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao 
         FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
@@ -117,6 +121,7 @@ class Apontamento extends Model{
         apontamento.Data_inicial,
         apontamento.Data_final,
         tipo_hora.tipo_hora,
+        apontamento.FK_status_Id,
         DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 

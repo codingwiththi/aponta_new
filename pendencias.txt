@@ -1,0 +1,13 @@
+PENDÊNCIAS 
+
+
+menu - historico 
+	mudar cor de acordo com o status - criar cor ou ném mostrar qunado ele for inativo?
+	colocar campo que caso o manager tiver "filhos" poder consultar os deles -> criar uma tela só pra isso
+//----------------------------------------------------------------------------------------
+aceitar pendentes 
+	pegar só com o status pedentes
+	metodo - apontamento- getpendentes (ai o vinicius decide se aceita ou não)
+//-----------------------------------------------------------------
+desempenho - tela com o desempenho individual
+	     tela com o desempenho geral(group by setor) 

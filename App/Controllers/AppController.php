@@ -54,8 +54,8 @@ class AppController extends Action {
 	//fim baseCadastro
 
 	public function criaApontamento(){
-		print_r($_POST);
-		session_start();
+		//print_r($_POST);
+		session_start();		
 
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
@@ -68,7 +68,15 @@ class AppController extends Action {
 			$apontamento->__set('fkContratoId',strval($_POST['contrato']));
 			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 			$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
-			
+			//data inicial menor que 2 dias atrás o staus vira pendente
+			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
+			if ($_POST['data_inicial'] < $data_comparacao){
+				$apontamento->__set('fkStatusId',1);
+
+			}else{
+
+				$apontamento->__set('fkStatusId',2);
+			}
 
 			$existe = $apontamento->verificaExistencia();
 			print_r($existe);

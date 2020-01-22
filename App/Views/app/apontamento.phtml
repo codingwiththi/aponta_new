@@ -130,8 +130,9 @@
                     </thead>
                     <tbody>
                         <?php foreach($this->view->apontamentosRecentes as $apontamento){?>
-                        <tr>
-                        <td style="display:none;" > <?php echo $apontamento['Id']; ?> </td>
+                        <tr <?php if($apontamento['FK_status_Id']=='1'){ echo "class=bg-info";} ?> >
+                        <td style="display:none;" > <?php echo $apontamento['Id'];?> </td>
+                            
                             <td  > <?php echo $apontamento['num_chamado']; ?> </td>
                             <td><?php echo $apontamento['cliente']; ?></td>
                             <td><?php echo $apontamento['tipo_atividade']; ?></td>

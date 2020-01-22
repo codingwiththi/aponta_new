@@ -1,6 +1,9 @@
 <div class="container-fluid bg-light"  style="padding:10px;">
     <!-- <div class="formulario"> -->
+    <div class="row">
+        <div class="col-8">
         <div class="card">
+            <div class="card-body">
             <form name="consultaIntervalo" action='/historico' method="POST">
 
                 <div class="form-row align-items-center">
@@ -26,7 +29,32 @@
                 <div class="form-row align-items-center">
                             <p> <a href="/historico"> clique aqui para limpar filtros </a> </p>
                 </div>
-            </form>
+       
+
+            </div>
+        </div>
+        
+        </div>
+
+
+        <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+            <form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input placeholder">
+  </div>
+</form>
+
+</div>
+            </div>
+        </div>
+
         </div>
 
 
@@ -64,7 +92,7 @@
             </thead>
             <tbody>
                 <?php foreach($this->view->todosApontamentos as $aponta){?>
-                <tr>
+                <tr <?php if($aponta['FK_status_Id']=='1'){ echo "class=bg-danger";} ?>>
                     <td> <?php echo $aponta['num_chamado']; ?> </td>
                     <td><?php echo $aponta['cliente']; ?></td>
                     <td><?php echo $aponta['tipo_atividade']; ?></td>
