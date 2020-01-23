@@ -103,7 +103,7 @@ class AppController extends Action {
 		session_start();
 		try{
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('dataInicial',strval($_POST['edita_dt_ini']));
+			$apontamento->__set('dataInicial',strval($_POST['edita_dt_ini'].':00'));
 			$apontamento->__set('dataFinal',strval($_POST['edita_dt_fim']));
 			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
 			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
@@ -114,8 +114,10 @@ class AppController extends Action {
 
 			print_r($apontamento);
 
-			$apontamento->update();
-			echo "sucesso";
+			$verifica_update = $apontamento->update();
+			print_r($verifica_update);
+			//if isset deu certo
+			//else deu errado
 			} catch(Exception $e){
 	
 				echo "erro";

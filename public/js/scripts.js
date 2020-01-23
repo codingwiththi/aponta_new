@@ -129,7 +129,7 @@ $('.modal-footer .btn-primary').click(function() {
         async: false
     }).done(function(data) {
         console.log(data);
-        //window.location.href='/apontamento';
+        //window.location.href = '/apontamento';
         //exibir mensagem ou erro
         $('#erro_edita').html("");
 
@@ -328,4 +328,4 @@ $(document).ready(function() {
 
 //ativando o data table de apontamento pendentes
 
-//---------------------------
+//---------------------------//

@@ -27,7 +27,23 @@ class Apontamento extends Model{
 
 
     public function salvar(){
-        $query ="insert into dbo.Apontamento(Data_inicial,Data_final,num_chamado,FK_atividade_Id,FK_contrato_Id,FK_func_Id,FK_tipo_hora_Id,FK_status_Id)values(CONVERT(DATETIME,:dataInicial,126),CONVERT(DATETIME,:dataFinal,126),:numeroChamado,:fkAtividadeId,:fkContratoId,:fkFuncionarioId,:fkTipoHoraId,:fkStatusId)";
+        $query ="insert into dbo.Apontamento
+        (Data_inicial,
+        Data_final,
+        num_chamado,
+        FK_atividade_Id,
+        FK_contrato_Id,
+        FK_func_Id,
+        FK_tipo_hora_Id,
+        FK_status_Id)values
+        (CONVERT(DATETIME,:dataInicial,126),
+        CONVERT(DATETIME,:dataFinal,126),
+        :numeroChamado,
+        :fkAtividadeId,
+        :fkContratoId,
+        :fkFuncionarioId,
+        :fkTipoHoraId,
+        :fkStatusId)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   

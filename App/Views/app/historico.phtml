@@ -1,7 +1,7 @@
 <div class="container-fluid bg-light"  style="padding:10px;">
     <!-- <div class="formulario"> -->
     <div class="row">
-        <div class="col-8">
+        <div class="col-12">
         <div class="card">
             <div class="card-body">
             <form name="consultaIntervalo" action='/historico' method="POST">
@@ -10,13 +10,13 @@
                 <div class="col-1"></div>
                     <div class="col-3">
                         <label class="" for="">Data Inicial</label>
-                        <input type="date" class="form-control " id="" name="dataInicio" >
+                        <input type="date" class="form-control bg-light" id="" name="dataInicio" >
                     </div>
 
                     <div class="col-3">
                         <label class="" for="">Data final</label>
                         <!-- <div class="input-group-prepend"> -->
-                        <input type="date" class="form-control" id="" name="dataFim" >
+                        <input type="date" class="form-control bg-light" id="" name="dataFim" >
                         <!-- </div> -->
                     </div>
                     
@@ -37,7 +37,7 @@
         </div>
 
 
-        <div class="col-4">
+        <!-- <div class="col-4">
         <div class="card">
             <div class="card-body">
             <form>
@@ -54,7 +54,7 @@
 
 
             </div>
-        </div>
+        </div> -->
 
         </div>
 
@@ -93,7 +93,7 @@
             </thead>
             <tbody>
                 <?php foreach($this->view->todosApontamentos as $aponta){?>
-                <tr <?php if($aponta['FK_status_Id']=='1'){ echo "class=bg-danger";} ?>>
+                <tr <?php if($aponta['FK_status_Id']=='1'){ echo "";} ?>>
                     <td> <?php echo $aponta['num_chamado']; ?> </td>
                     <td><?php echo $aponta['cliente']; ?></td>
                     <td><?php echo $aponta['tipo_atividade']; ?></td>
