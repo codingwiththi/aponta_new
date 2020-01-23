@@ -63,6 +63,11 @@ class Route extends Bootstrap {
 			'action' => 'historico'
 		);
 
+		$routes['pendentes'] = array(
+			'route' => '/pendentes',
+			'controller' => 'AppController',
+			'action' => 'pendentes'
+		);
 		
 		$this->setRoutes($routes);
 	}

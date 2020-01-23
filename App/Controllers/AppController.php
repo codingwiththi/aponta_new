@@ -169,6 +169,11 @@ class AppController extends Action {
 
 
 
+	public function pendentes(){
+		$this->render('pendentes','layout2');
+	}
+
+
 
 
 

@@ -1,11 +1,21 @@
 //ativando o data table 
 $(document).ready(function() {
     $('#example').DataTable();
-} );
+
+});
+//---------------------------
+
+
+
+// ativando tabela de apontamento pendentes
+
+//fim tabela apontamentos pendentes
+
+
 
 //ABRINDO MODEL E PEGANDO DADOS PARA ALETRAR E APAGAR
 // fazer isso para que eu possa ja deixar o formulario montado com os selcts lá
-$(".btn-sm[data-target='#myModal']").click(function () {
+$(".btn-sm[data-target='#myModal']").click(function() {
     // var id = $(this).parent().find('tr').attr('id');
     // // console.log(id);
     // var id = $('#tabela_apontamentos tr').click(function () { 
@@ -20,12 +30,12 @@ $(".btn-sm[data-target='#myModal']").click(function () {
     // alert(teste);
 
 
-    var columnHeadings = $("thead th").map(function () {
+    var columnHeadings = $("thead th").map(function() {
         return $(this).text();
     }).get();
     columnHeadings.pop();
     // console.log(columnHeadings);
-    var columnValues = $(this).parent().siblings().map(function () {
+    var columnValues = $(this).parent().siblings().map(function() {
         return $(this).text();
     }).get();
     //console.log();
@@ -34,58 +44,58 @@ $(".btn-sm[data-target='#myModal']").click(function () {
     //$('#edita_cliente').val(ok);
     $('#id_linha_edita').val(columnValues[0]);
     $('#edita_num_chamado').val(columnValues[1]);
-    $("#edita_cliente").val( $('option:contains("'+columnValues[2] +'")').val() );
-    $("#edita_tp_atv").val( $('option:contains("'+columnValues[3] +'")').val() );
-    $("#edita_atv").val( $('option:contains("'+columnValues[4] +'")').val() );
+    $("#edita_cliente").val($('option:contains("' + columnValues[2] + '")').val());
+    $("#edita_tp_atv").val($('option:contains("' + columnValues[3] + '")').val());
+    $("#edita_atv").val($('option:contains("' + columnValues[4] + '")').val());
     //var data =new Date();
     //console.log(data);
-    columnValues[5] = columnValues[5].replace(" ","T");
+    columnValues[5] = columnValues[5].replace(" ", "T");
     $('#edita_dt_ini').val(columnValues[5]);
 
-    columnValues[6] = columnValues[6].replace(" ","T");
+    columnValues[6] = columnValues[6].replace(" ", "T");
     $('#edita_dt_fim').val(columnValues[6]);
 
-    $("#edita_tp_hr").val( $('option:contains("'+columnValues[7] +'")').val() );
+    $("#edita_tp_hr").val($('option:contains("' + columnValues[7] + '")').val());
 
-//-- preeencher a o select dinamico de dentro da opção editar
-        var tipo_atividade_id = $('#edita_tp_atv').val();
-            console.log(tipo_atividade_id);
-            $.ajax({
-                type:"GET",
-                data:"tipo_atividade_id="+ tipo_atividade_id,
-                url:"/apontamento/baseCadastro",
-                async:false
-            }).done(function (data) {
-                //console.log($.parseJSON(data));
-                var atividades ="";
-                $.each($.parseJSON(data) ,function(chave,valor){
-                    atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
-    
-                });
-                $('#edita_atividade').html(atividades);
-                })
-//----------------------------------------------------------------------------
-// --------------------------- preeencher contrato edita
+    //-- preeencher a o select dinamico de dentro da opção editar
+    var tipo_atividade_id = $('#edita_tp_atv').val();
+    console.log(tipo_atividade_id);
+    $.ajax({
+            type: "GET",
+            data: "tipo_atividade_id=" + tipo_atividade_id,
+            url: "/apontamento/baseCadastro",
+            async: false
+        }).done(function(data) {
+            //console.log($.parseJSON(data));
+            var atividades = "";
+            $.each($.parseJSON(data), function(chave, valor) {
+                atividades += '<option value="' + valor.id + '">' + valor.nome + '</option>'
 
-        var cliente_id = $('#edita_cliente').val();
-        $.ajax({
-            type:"GET",
-            data:"cliente_id="+ cliente_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            var contratos ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
+            });
+            $('#edita_atividade').html(atividades);
+        })
+        //----------------------------------------------------------------------------
+        // --------------------------- preeencher contrato edita
+
+    var cliente_id = $('#edita_cliente').val();
+    $.ajax({
+            type: "GET",
+            data: "cliente_id=" + cliente_id,
+            url: "/apontamento/baseCadastro",
+            async: false
+        }).done(function(data) {
+            var contratos = "";
+            $.each($.parseJSON(data), function(chave, valor) {
+                contratos += '<option value="' + valor.id + '">' + valor.contrato + '</option>'
 
             });
             $('#edita_contrato').html(contratos);
         })
-//fim preeencher contrato editaaaaa ----------------------------------------------
-    
+        //fim preeencher contrato editaaaaa ----------------------------------------------
+
 });
 
-$('.modal-footer .btn-primary').click(function () {
+$('.modal-footer .btn-primary').click(function() {
     //BOTAO SALVAR
     //SERIALIZO FORMULARIO E ENVIO PRA ROTA DE ALTERAR
     //var teste =$('#edita_isso').serialize() ;
@@ -109,15 +119,15 @@ $('.modal-footer .btn-primary').click(function () {
     // //     });
     // // }
     // );
-    var form =$('#edita_isso').serialize() ;
+    var form = $('#edita_isso').serialize();
     //var teste = "0k";
     //console.log("ok");
     $.ajax({
-        type:"POST",
-        data:form,
-        url:"/apontamento/alterarApotamento",
-        async:false
-    }).done(function(data){
+        type: "POST",
+        data: form,
+        url: "/apontamento/alterarApotamento",
+        async: false
+    }).done(function(data) {
         console.log(data);
         //window.location.href='/apontamento';
         //exibir mensagem ou erro
@@ -128,11 +138,11 @@ $('.modal-footer .btn-primary').click(function () {
         //Ajax erro
         $('#erro_edita').html("deu erro");
         //alert('Error -');
-  })
+    })
 
 });
 
-$('.modal-footer .btn-danger').click(function () {
+$('.modal-footer .btn-danger').click(function() {
     //BOTAO excluir
     //SERIALIZO O FORMULARIO E ENVIO PARA A ROTA DE APAGAR
     //pego o ID E  ENVIO VIA GET
@@ -141,19 +151,19 @@ $('.modal-footer .btn-danger').click(function () {
     //     var teste =$('#edita_isso').serialize() ;
     //     console.log(teste);
     // });
-    var form =$('#edita_isso').serialize() ;
+    var form = $('#edita_isso').serialize();
     //var teste = "0k";
     //console.log("ok");
     $.ajax({
-        type:"POST",
-        data:form,
-        url:"/apontamento/excluirApotamento",
-        async:false
-    }).done(function(data){
+        type: "POST",
+        data: form,
+        url: "/apontamento/excluirApotamento",
+        async: false
+    }).done(function(data) {
         console.log(data);
         //exibir mensagem ou erro
         //se tiver tudo certo eu só recarrego a pagina
-        window.location.href='/apontamento';
+        window.location.href = '/apontamento';
         //exibir mensagem ou erro
         $('#erro_edita').html("");
 
@@ -161,7 +171,7 @@ $('.modal-footer .btn-danger').click(function () {
         //Ajax erro
         $('#erro_edita').html("deu erro");
         //alert('Error -');
-  })
+    })
 
 
 });
@@ -174,138 +184,148 @@ $('.modal-footer .btn-danger').click(function () {
 
 
 
-$('#cliente').on('change load DOMContentLoaded', function(e){
-        var cliente_id = $(this).val();
-        $.ajax({
-            type:"GET",
-            data:"cliente_id="+ cliente_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            var contratos ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
+$('#cliente').on('change load DOMContentLoaded', function(e) {
+    var cliente_id = $(this).val();
+    $.ajax({
+        type: "GET",
+        data: "cliente_id=" + cliente_id,
+        url: "/apontamento/baseCadastro",
+        async: false
+    }).done(function(data) {
+        var contratos = "";
+        $.each($.parseJSON(data), function(chave, valor) {
+            contratos += '<option value="' + valor.id + '">' + valor.contrato + '</option>'
 
-            });
-            $('#contrato').html(contratos);
-        })
+        });
+        $('#contrato').html(contratos);
+    })
+})
+
+
+
+$('#tipo_atividade').change(function(e) {
+    var tipo_atividade_id = $(this).val();
+    //console.log(tipo_atividade_id);
+    $.ajax({
+        type: "GET",
+        data: "tipo_atividade_id=" + tipo_atividade_id,
+        url: "/apontamento/baseCadastro",
+        async: false
+    }).done(function(data) {
+        //console.log($.parseJSON(data));
+        var atividades = "";
+        $.each($.parseJSON(data), function(chave, valor) {
+            atividades += '<option value="' + valor.id + '">' + valor.nome + '</option>'
+
+        });
+        $('#atividade').html(atividades);
     })
 
-
-
-        $('#tipo_atividade').change( function(e){
-        var tipo_atividade_id = $(this).val();
-        //console.log(tipo_atividade_id);
-        $.ajax({
-            type:"GET",
-            data:"tipo_atividade_id="+ tipo_atividade_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            //console.log($.parseJSON(data));
-            var atividades ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
-
-            });
-            $('#atividade').html(atividades);
-            })
-
-         })
+})
 
 
 
 //--------------- form editar/excluir dados -------------
 
-$('#edita_cliente').on('change load DOMContentLoaded',function(e){
-        var cliente_id = $(this).val();
-        $.ajax({
-            type:"GET",
-            data:"cliente_id="+ cliente_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            var contratos ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                contratos += '<option value="'+valor.id + '">'+valor.contrato+ '</option>' 
+$('#edita_cliente').on('change load DOMContentLoaded', function(e) {
+    var cliente_id = $(this).val();
+    $.ajax({
+        type: "GET",
+        data: "cliente_id=" + cliente_id,
+        url: "/apontamento/baseCadastro",
+        async: false
+    }).done(function(data) {
+        var contratos = "";
+        $.each($.parseJSON(data), function(chave, valor) {
+            contratos += '<option value="' + valor.id + '">' + valor.contrato + '</option>'
 
-            });
-            $('#edita_contrato').html(contratos);
-        })
+        });
+        $('#edita_contrato').html(contratos);
+    })
+})
+
+
+
+$('#edita_tp_atv').on('change load DOMContentLoaded', function(e) {
+    var tipo_atividade_id = $(this).val();
+    //console.log(tipo_atividade_id);
+    $.ajax({
+        type: "GET",
+        data: "tipo_atividade_id=" + tipo_atividade_id,
+        url: "/apontamento/baseCadastro",
+        async: false
+    }).done(function(data) {
+        //console.log($.parseJSON(data));
+        var atividades = "";
+        $.each($.parseJSON(data), function(chave, valor) {
+            atividades += '<option value="' + valor.id + '">' + valor.nome + '</option>'
+
+        });
+        $('#edita_atividade').html(atividades);
     })
 
+})
 
+$(document).ready(function() {
 
-        $('#edita_tp_atv').on('change load DOMContentLoaded',function(e){
-        var tipo_atividade_id = $(this).val();
-        //console.log(tipo_atividade_id);
-        $.ajax({
-            type:"GET",
-            data:"tipo_atividade_id="+ tipo_atividade_id,
-            url:"/apontamento/baseCadastro",
-            async:false
-        }).done(function (data) {
-            //console.log($.parseJSON(data));
-            var atividades ="";
-            $.each($.parseJSON(data) ,function(chave,valor){
-                atividades += '<option value="'+valor.id + '">'+valor.nome+ '</option>' 
-
-            });
-            $('#edita_atividade').html(atividades);
-            })
-
-         })
-
-         $(document).ready(function() {
-            
-        } );
+});
 //FIM PREECHE SELCT
 
 
 // pagina historico 
 $(document).ready(function() {
     // adicionando input
-    $('#historico thead th').each( function (indice) {
+    $('#historico thead th').each(function(indice) {
         console.log(indice);
         // if (indice < 5){
-            var title = $(this).text();
-            // $(this).html( '<p> frwwfrfrw</p>' );
-            $(this).html( '<input size="10" type="text" placeholder="'+title+'" />' );
+        var title = $(this).text();
+        // $(this).html( '<p> frwwfrfrw</p>' );
+        $(this).html('<input size="10" type="text" placeholder="' + title + '" />');
 
         // }
 
-    } );
-    
+    });
+
     $('#historico').DataTable({
         "responsive": true,
         "scrollCollapse": true,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
 
         // "scrollY"   :'50vh',
         "language": {
-                "lengthMenu": "Mostrando _MENU_ registros por página",
-                "zeroRecords": "Nada encontrado",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
-                "infoEmpty": "Nenhum registro disponível",
-                "infoFiltered": "(filtrado de _MAX_ registros no total)"
-            }
+            "lengthMenu": "Mostrando _MENU_ registros por página",
+            "zeroRecords": "Nada encontrado",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Nenhum registro disponível",
+            "infoFiltered": "(filtrado de _MAX_ registros no total)"
+        }
     });
     // DataTable
     var table = $('#historico').DataTable();
- 
+
     // Apply the search
-    table.columns().every( function () {
+    table.columns().every(function() {
         var that = this;
- 
-        $( 'input', this.header() ).on( 'keyup change clear', function () {
-            if ( that.search() !== this.value ) {
+
+        $('input', this.header()).on('keyup change clear', function() {
+            if (that.search() !== this.value) {
                 that
-                    .search( this.value )
+                    .search(this.value)
                     .draw();
             }
-        } );
-    } );
-} );
+        });
+    });
+});
 
 
 // fim pagina historico
+
+//-----------------------------------------------------------
+
+
+//ativando o data table de apontamento pendentes
+
+//---------------------------
