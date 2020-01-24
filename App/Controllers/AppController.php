@@ -63,7 +63,7 @@ class AppController extends Action {
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 
 			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
-			$data_atual = date('Y-m-d\TH:i');
+			$data_atual = date('Y-m-d');
 			print_r($_POST);
 
 
@@ -73,9 +73,12 @@ class AppController extends Action {
 				header('Location:/apontamento?cadastroAponta=erroCadastro');//
 			}else{
 				//echo "ok";
+				$dataInicio = $_POST['data_inicial'] ."T".$_POST['hora_inicial'].':00';
+				$dataTermino = $_POST['data_final'] ."T".$_POST['hora_final'].':00';
+				echo $dataInicio;
 				$apontamento = Container::getModel('Apontamento');
-				$apontamento->__set('dataInicial',strval($_POST['data_inicial'].':00'));
-				$apontamento->__set('dataFinal',strval($_POST['data_final'].':00'));
+				$apontamento->__set('dataInicial',strval($dataInicio));
+				$apontamento->__set('dataFinal',strval($dataTermino));
 				$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
 				$apontamento->__set('fkAtividadeId',$_POST['atividade']);
 				$apontamento->__set('fkContratoId',strval($_POST['contrato']));
