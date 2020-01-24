@@ -326,6 +326,22 @@ $(document).ready(function() {
 //-----------------------------------------------------------
 
 
+
+// função para validar o formulario de inserção
+//----------------------------------------------------
+
+
+function validarFomr(frm) {
+
+    var datainicio = frm.data_inicial.value;
+    var datafinal = frm.data_inicial.value;
+
+    i
+
+}
+
+//---------------------------------
+
 //ativando o data table de apontamento pendentes
 
 //---------------------------//

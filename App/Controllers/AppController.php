@@ -11,6 +11,8 @@ class AppController extends Action {
 	public function apontamento(){
 		session_start();
 
+		$this->view->dataInvalida = isset($_GET['cadastroAponta'])?$_GET['cadastroAponta'] : ''  ;//esse codigo significa estado incial
+
 		//echo "chegou no apontamento";
 		$cliente = Container::getModel("cliente");
 		$this->view->clientes = $cliente->getAll();
@@ -59,43 +61,55 @@ class AppController extends Action {
 
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
-			//echo "ok";
-			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('dataInicial',strval($_POST['data_inicial'].':00'));
-			$apontamento->__set('dataFinal',strval($_POST['data_final'].':00'));
-			$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
-			$apontamento->__set('fkAtividadeId',$_POST['atividade']);
-			$apontamento->__set('fkContratoId',strval($_POST['contrato']));
-			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
-			$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
-			//data inicial menor que 2 dias atrás o staus vira pendente
+
 			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
-			if ($_POST['data_inicial'] < $data_comparacao){
-				$apontamento->__set('fkStatusId',1);
+			$data_atual = date('Y-m-d\TH:i');
+			print_r($_POST);
 
+
+			//se a data inicial for maior que a daata atual eu nao posso cadastrar
+			if($_POST['data_inicial'] > $data_atual or $_POST['data_final'] > $data_atual ){
+				$this->view->dataInvalida = 0;//zero significa erro
+				header('Location:/apontamento?cadastroAponta=erroCadastro');//
 			}else{
+				//echo "ok";
+				$apontamento = Container::getModel('Apontamento');
+				$apontamento->__set('dataInicial',strval($_POST['data_inicial'].':00'));
+				$apontamento->__set('dataFinal',strval($_POST['data_final'].':00'));
+				$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
+				$apontamento->__set('fkAtividadeId',$_POST['atividade']);
+				$apontamento->__set('fkContratoId',strval($_POST['contrato']));
+				$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+				$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
+				//data inicial menor que 2 dias atrás o staus vira pendente
 
-				$apontamento->__set('fkStatusId',2);
-			}
+				if ($_POST['data_inicial'] < $data_comparacao){
+					$apontamento->__set('fkStatusId',1);
 
-			$existe = $apontamento->verificaExistencia();
-			print_r($existe);
-			if(!isset($existe)){
-				echo "ja existe";
-				//decidir oque fazer
-				//fazer uma view pra receber um valor caso o usur ja exista
+				}else{
+					$apontamento->__set('fkStatusId',2);
+				}
 
-			}else{
-				$apontamento->salvar();
-				echo '<pre>';
-				print_r($apontamento);
-				echo '</pre>';
-				//fazer um header com mensagem de acertos
-				header('Location:/apontamento');
-			}
-		}
+				$existe = $apontamento->verificaExistencia();
+				print_r($existe);
+				if(!isset($existe)){
+					echo "ja existe";
+					//decidir oque fazer
+					//fazer uma view pra receber um valor caso o usur ja exista
 
-	}
+				}else{
+					$apontamento->salvar();
+					// echo '<pre>';
+					// print_r($apontamento);
+					// echo '</pre>';
+					//fazer um header com mensagem de acertos
+					//header('Location:/apontamento');
+				}
+
+			}//fim verifica data
+		}//fim verifica sessão
+
+	}//fim metodo
 
 	public function alterarApotamento(){
 		//echo "chegamos ate aqui";

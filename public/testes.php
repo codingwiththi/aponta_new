@@ -2,6 +2,9 @@
 
 
 
+echo date('Y-m-d\TH:i:s')."</br>";
+
+
 $data = new DateTime();
 //print_r($data);
 echo $data->format('Y-m-d\TH:i:s');
@@ -11,7 +14,8 @@ echo "<br>";
 
 $x = date('Y-m-d\TH:i:s', strtotime('+5 days'));
 echo $x;
-
+$date = date('Y-m-d\TH:i:s');
+echo $date;
 
 
 if('2020-01-22T19:20:20' < $x){
