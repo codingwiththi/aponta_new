@@ -128,13 +128,18 @@ class AppController extends Action {
 		session_start();
 		try{
 			//verificar data negativaaa 
-			print_r($_POST);
+			//print_r($_POST);
+			$data_atual = date('Y-m-d\TH:i:s');
+
 			$dataInicio = $_POST['edita_dt_ini'] ."T".$_POST['edita_time_ini'];
 			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'].":00.000";
 
 			//data precisar respeitar as regras de negocios
-			if($dataTermino < $dataInicio ){
+			if(($dataTermino < $dataInicio) or ($dataInicio > $data_atual or $dataFinal > $data_atual) ){
 				//if data inicio < (data atual - 2 days) == erro
+				$this->view->dataInvalida = 0;//zero significa erro
+				header('Location:/apontamento?cadastroAponta=erroCadastro');//
+
 			}
 		
 			// nao pode ser anterior a dois dias 
