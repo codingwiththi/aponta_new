@@ -64,7 +64,7 @@ class AppController extends Action {
 
 			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
 			$data_atual = date('Y-m-d');
-			print_r($_POST);
+			//print_r($_POST);
 
 
 			//se a data inicial for maior que a daata atual eu nao posso cadastrar
@@ -72,42 +72,50 @@ class AppController extends Action {
 				$this->view->dataInvalida = 0;//zero significa erro
 				header('Location:/apontamento?cadastroAponta=erroCadastro');//
 			}else{
-				//echo "ok";
+				//verificar data negativaaa 
 				$dataInicio = $_POST['data_inicial'] ."T".$_POST['hora_inicial'].':00';
 				$dataTermino = $_POST['data_final'] ."T".$_POST['hora_final'].':00';
-				echo $dataInicio;
-				$apontamento = Container::getModel('Apontamento');
-				$apontamento->__set('dataInicial',strval($dataInicio));
-				$apontamento->__set('dataFinal',strval($dataTermino));
-				$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
-				$apontamento->__set('fkAtividadeId',$_POST['atividade']);
-				$apontamento->__set('fkContratoId',strval($_POST['contrato']));
-				$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
-				$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
-				//data inicial menor que 2 dias atrás o staus vira pendente
-
-				if ($_POST['data_inicial'] < $data_comparacao){
-					$apontamento->__set('fkStatusId',1);
-
+				// IF DATA NEGATIVA EU CRIO A VIEW DE ERROd
+				if($dataTermino > $dataInicio ){
+					$this->view->dataInvalida = 0;//zero significa erro
+					header('Location:/apontamento?cadastroAponta=erroCadastro');//
 				}else{
-					$apontamento->__set('fkStatusId',2);
-				}
+					//-------------------------
+					//echo "ok";
+					
+					//echo $dataInicio;
+					$apontamento = Container::getModel('Apontamento');
+					$apontamento->__set('dataInicial',strval($dataInicio));
+					$apontamento->__set('dataFinal',strval($dataTermino));
+					$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
+					$apontamento->__set('fkAtividadeId',$_POST['atividade']);
+					$apontamento->__set('fkContratoId',strval($_POST['contrato']));
+					$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+					$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
+					//data inicial menor que 2 dias atrás o staus vira pendente
+					if ($_POST['data_inicial'] < $data_comparacao){
+						$apontamento->__set('fkStatusId',1);
 
-				$existe = $apontamento->verificaExistencia();
-				print_r($existe);
-				if(!isset($existe)){
-					echo "ja existe";
-					//decidir oque fazer
-					//fazer uma view pra receber um valor caso o usur ja exista
+					}else{
+						$apontamento->__set('fkStatusId',2);
+					}
+					$existe = $apontamento->verificaExistencia();
+					print_r($existe);
+					if(!isset($existe)){
+						echo "ja existe";
+						//decidir oque fazer
+						//fazer uma view pra receber um valor caso o usur ja exista
 
-				}else{
-					$apontamento->salvar();
-					// echo '<pre>';
-					// print_r($apontamento);
-					// echo '</pre>';
-					//fazer um header com mensagem de acertos
-					//header('Location:/apontamento');
-				}
+					}else{
+						$apontamento->salvar();
+						// echo '<pre>';
+						// print_r($apontamento);
+						// echo '</pre>';
+						//fazer um header com mensagem de acertos
+						header('Location:/apontamento');
+					}
+
+			}//fim verifica data negativa
 
 			}//fim verifica data
 		}//fim verifica sessão
@@ -119,9 +127,21 @@ class AppController extends Action {
 		//print_r($_POST);
 		session_start();
 		try{
+			//verificar data negativaaa 
+			print_r($_POST);
+			$dataInicio = $_POST['edita_dt_ini'] ."T".$_POST['edita_time_ini'];
+			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'].":00.000";
+
+			//data precisar respeitar as regras de negocios
+			if($dataTermino < $dataInicio ){
+				//if data inicio < (data atual - 2 days) == erro
+			}
+		
+			// nao pode ser anterior a dois dias 
+			//não pode ser maior 
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('dataInicial',strval($_POST['edita_dt_ini'].':00'));
-			$apontamento->__set('dataFinal',strval($_POST['edita_dt_fim']));
+			$apontamento->__set('dataInicial',$dataInicio);
+			$apontamento->__set('dataFinal',$dataTermino);
 			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
 			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
 			$apontamento->__set('fkContratoId',strval($_POST['edita_contrato']));

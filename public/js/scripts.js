@@ -33,6 +33,7 @@ $(".btn-sm[data-target='#myModal']").click(function() {
     var columnHeadings = $("thead th").map(function() {
         return $(this).text();
     }).get();
+
     columnHeadings.pop();
     // console.log(columnHeadings);
     var columnValues = $(this).parent().siblings().map(function() {
@@ -49,13 +50,29 @@ $(".btn-sm[data-target='#myModal']").click(function() {
     $("#edita_atv").val($('option:contains("' + columnValues[4] + '")').val());
     //var data =new Date();
     //console.log(data);
-    columnValues[5] = columnValues[5].replace(" ", "T");
-    $('#edita_dt_ini').val(columnValues[5]);
-
-    columnValues[6] = columnValues[6].replace(" ", "T");
-    $('#edita_dt_fim').val(columnValues[6]);
+    //columnValues[5] = columnValues[5].replace(" ", "T");
+    var data_inicio = columnValues[5].split(" ");
+    //console.log(data_inicio);
+    $('#edita_dt_ini').val(data_inicio[0]);
+    $('#edita_time_ini').val(data_inicio[1]);
+    //columnValues[6] = columnValues[6].replace("", "T");
+    var data_fim = columnValues[6].split(" ");
+    $('#edita_dt_fim').val(data_fim[0]);
+    $('#edita_time_fim').val(data_fim[1]);
 
     $("#edita_tp_hr").val($('option:contains("' + columnValues[7] + '")').val());
+
+    //------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
     //-- preeencher a o select dinamico de dentro da opção editar
     var tipo_atividade_id = $('#edita_tp_atv').val();
@@ -129,7 +146,7 @@ $('.modal-footer .btn-primary').click(function() {
         async: false
     }).done(function(data) {
         console.log(data);
-        //window.location.href = '/apontamento';
+        window.location.href = '/apontamento';
         //exibir mensagem ou erro
         $('#erro_edita').html("");
 
@@ -331,14 +348,14 @@ $(document).ready(function() {
 //----------------------------------------------------
 
 
-function validarFomr(frm) {
+// function validarFomr(frm) {
 
-    var datainicio = frm.data_inicial.value;
-    var datafinal = frm.data_inicial.value;
+//     var datainicio = frm.data_inicial.value;
+//     var datafinal = frm.data_inicial.value;
 
-    i
+//     i
 
-}
+// }
 
 //---------------------------------
 
