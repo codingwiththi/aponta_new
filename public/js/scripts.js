@@ -1,11 +1,35 @@
 //ativando o data table 
 $(document).ready(function() {
     $('#example').DataTable();
+    //ativar datatable
+    //------------------------------------
+    var data_inicial = document.getElementById('data_inicial');
+    var data_final = document.getElementById('data_final');
+    var hora_inicial = document.getElementById('hora_inicial');
+    var hora_final = document.getElementById('hora_final');
+
+    //---
+    //preeenchendo datas atuais
+    var data_temp = new Date();
+    var data_string = data_temp.toISOString();
+    var data_atual = data_string.split("T", 2);
+    //console.log(data_atual);
+    data_inicial.value = data_atual[0];
+    data_final.value = data_atual[0];
+    //preenchendo horas -> preeenchendo mesmo
+    //console.log(data_atual[1]);
+    //AUTO PREEENCHER DATA
+    hora_inicial.value = data_atual[1].split(":", 1) + ":00";
+    hora_final.value = data_atual[1].split(":", 1) + ":00";
+
 
 });
 //---------------------------
 
 
+
+// var data = new Date()
+// var dia = data.getDate();
 
 // ativando tabela de apontamento pendentes
 
@@ -136,6 +160,10 @@ $('.modal-footer .btn-primary').click(function() {
     // //     });
     // // }
     // );
+    //FAZER VALIDAÇÃO DE DATA AQUIIII
+
+
+    //FAZER VALIDAÇÃO DE DATA AQUI
     var form = $('#edita_isso').serialize();
     //var teste = "0k";
     //console.log("ok");

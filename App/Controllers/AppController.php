@@ -65,8 +65,6 @@ class AppController extends Action {
 			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
 			$data_atual = date('Y-m-d');
 			//print_r($_POST);
-
-
 			//se a data inicial for maior que a daata atual eu nao posso cadastrar
 			if($_POST['data_inicial'] > $data_atual or $_POST['data_final'] > $data_atual ){
 				$this->view->dataInvalida = 0;//zero significa erro
@@ -76,13 +74,12 @@ class AppController extends Action {
 				$dataInicio = $_POST['data_inicial'] ."T".$_POST['hora_inicial'].':00';
 				$dataTermino = $_POST['data_final'] ."T".$_POST['hora_final'].':00';
 				// IF DATA NEGATIVA EU CRIO A VIEW DE ERROd
-				if($dataTermino > $dataInicio ){
+				if($dataTermino < $dataInicio ){
 					$this->view->dataInvalida = 0;//zero significa erro
 					header('Location:/apontamento?cadastroAponta=erroCadastro');//
 				}else{
 					//-------------------------
 					//echo "ok";
-					
 					//echo $dataInicio;
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
@@ -139,10 +136,9 @@ class AppController extends Action {
 				//if data inicio < (data atual - 2 days) == erro
 				$this->view->dataInvalida = 0;//zero significa erro
 				header('Location:/apontamento?cadastroAponta=erroCadastro');//
+			}else{
 
-			}
-		
-			// nao pode ser anterior a dois dias 
+							// nao pode ser anterior a dois dias 
 			//não pode ser maior 
 			$apontamento = Container::getModel('Apontamento');
 			$apontamento->__set('dataInicial',$dataInicio);
@@ -160,6 +156,8 @@ class AppController extends Action {
 			print_r($verifica_update);
 			//if isset deu certo
 			//else deu errado
+			}
+
 			} catch(Exception $e){
 	
 				echo "erro";
