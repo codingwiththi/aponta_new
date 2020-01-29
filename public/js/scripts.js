@@ -25,9 +25,23 @@ $(document).ready(function() {
 
 });
 //---------------------------
+//formulario insere
+$(document).ready(function() {
+    $('#botao').click(function() {
+        //variavel recebe isso ou aquilo
+        var data_inicio = $('#data_inicio').val();
+        var data_final = $('#hora_final').val();
+        var hora_inicio = $('#data_final').val();
+        var hora_final = $('#hora_final').val();
+        console.log(data_final, data_inicial);
 
 
+    });
 
+});
+//fim formulario insere
+
+//------------------------------------------------
 // var data = new Date()
 // var dia = data.getDate();
 
@@ -161,7 +175,6 @@ $('.modal-footer .btn-primary').click(function() {
     // // }
     // );
     //FAZER VALIDAÇÃO DE DATA AQUIIII
-
 
     //FAZER VALIDAÇÃO DE DATA AQUI
     var form = $('#edita_isso').serialize();
