@@ -26,19 +26,19 @@ $(document).ready(function() {
 });
 //---------------------------
 //formulario insere
-$(document).ready(function() {
-    $('#botao').click(function() {
-        //variavel recebe isso ou aquilo
-        var data_inicio = $('#data_inicio').val();
-        var data_final = $('#hora_final').val();
-        var hora_inicio = $('#data_final').val();
-        var hora_final = $('#hora_final').val();
-        console.log(data_final, data_inicial);
+// $(document).ready(function() {
+//     $('#botao').click(function() {
+//         //variavel recebe isso ou aquilo
+//         var data_inicio = $('#data_inicio').val();
+//         var data_final = $('#hora_final').val();
+//         var hora_inicio = $('#data_final').val();
+//         var hora_final = $('#hora_final').val();
+//         console.log(data_final, data_inicial);
 
 
-    });
+//     });
 
-});
+// });
 //fim formulario insere
 
 //------------------------------------------------
@@ -175,6 +175,17 @@ $('.modal-footer .btn-primary').click(function() {
     // // }
     // );
     //FAZER VALIDAÇÃO DE DATA AQUIIII
+    var data_inicio = $('#data_inicio').val();
+    var data_final = $('#hora_final').val();
+    var hora_inicio = $('#data_final').val();
+    var hora_final = $('#hora_final').val();
+    //console.log(data_final, data_inicial);
+    if (data_inicio > data_atual) {
+        //mostrar error
+        $('#alert_erro').html('deu errooooo').slideDown(500);
+        $('#hora_final').focus;
+        return false;
+    }
 
     //FAZER VALIDAÇÃO DE DATA AQUI
     var form = $('#edita_isso').serialize();
