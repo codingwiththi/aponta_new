@@ -7,13 +7,12 @@ $(document).ready(function() {
     var data_final = document.getElementById('data_final');
     var hora_inicial = document.getElementById('hora_inicial');
     var hora_final = document.getElementById('hora_final');
-
     //---
     //preeenchendo datas atuais
     var data_temp = new Date();
     var data_string = data_temp.toISOString();
     var data_atual = data_string.split("T", 2);
-    //console.log(data_atual);
+    console.log(data_temp, data_string, data_atual);
     data_inicial.value = data_atual[0];
     data_final.value = data_atual[0];
     //preenchendo horas -> preeenchendo mesmo
@@ -22,8 +21,40 @@ $(document).ready(function() {
     hora_inicial.value = data_atual[1].split(":", 1) + ":00";
     hora_final.value = data_atual[1].split(":", 1) + ":00";
 
-
 });
+
+
+function parseStringToDate(dateStr, horaStr) {
+    var parts = dateStr.split("-");
+    //console.log(parts);
+    return new Date(parts[0] + "-" + parts[1] + "-" + parts[2] + "T" + horaStr + ":00");
+}
+//inicio valida form
+//----------------------------------------
+function ValidaFormInsert() {
+    //FAZER VALIDAÇÃO DE DATA AQUIIII
+    var data_inicio = $('#data_inicial').val();
+    var hora_inicio = $('#hora_inicial').val();
+    var data_final = $('#data_final').val();
+    var hora_final = $('#hora_final').val();
+    console.log(parseStringToDate(data_inicio, hora_inicio));
+    if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
+        //mostrar error
+        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').slideDown(500);
+        $('#data_inicial').focus();
+        $('#hora_inicial').focus();
+        $('#data_final').focus();
+        $('#hora_final').focus().slideDown(500);
+
+        return false;
+    }
+
+}
+//----------------------------------------
+
+
+
+
 //---------------------------
 //formulario insere
 // $(document).ready(function() {
@@ -174,18 +205,6 @@ $('.modal-footer .btn-primary').click(function() {
     // //     });
     // // }
     // );
-    //FAZER VALIDAÇÃO DE DATA AQUIIII
-    var data_inicio = $('#data_inicio').val();
-    var data_final = $('#hora_final').val();
-    var hora_inicio = $('#data_final').val();
-    var hora_final = $('#hora_final').val();
-    //console.log(data_final, data_inicial);
-    if (data_inicio > data_atual) {
-        //mostrar error
-        $('#alert_erro').html('deu errooooo').slideDown(500);
-        $('#hora_final').focus;
-        return false;
-    }
 
     //FAZER VALIDAÇÃO DE DATA AQUI
     var form = $('#edita_isso').serialize();

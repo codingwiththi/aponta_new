@@ -20,3 +20,9 @@ PENDÊNCIAS
 	tela com o desempenho geral(group by setor) -> redes -> noc -> suporte especializado 
 	ou desempenho individual -> talvez pa um grafico
 //-----------------------------------------------------------------------------------------------------
+
+
+
+// -------------------------------
+posso Criar um metodo que observa os campos de "seleciona o campo tal"  
+e se valor for nulo ou algo assim eu nao deixo o fomr Postar

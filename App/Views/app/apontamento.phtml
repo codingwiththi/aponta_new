@@ -17,7 +17,7 @@
 
                 <h5 class="card-title text-center ">Apontamento de hora</h5>
 
-                <form name="insereApontamento" method="POST" action="/apontamento/criaApontamento">
+                <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
                     <div class="form-row">
                         <div class="form-group col-lg-2"></div>
                         <div class="form-group col-lg-4">
@@ -43,7 +43,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4 ">
                             <label for="">N° chamado</label>
-                            <input type="" name="numero_chamado" class="form-control bg-light"  placeholder="numerochamado" required>
+                            <input type="" name="numero_chamado" id="numero_chamado" class="form-control bg-light"  placeholder="numerochamado" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputState">tipo de atividade</label>
@@ -100,16 +100,19 @@
 
                     <?php if($this->view->dataInvalida == "erroCadastro"){?>
                     <div class ="row">
-                    <div class="col-4"></div>
-                        <div class="col-8"  style="align = center">
-                        <h6 class="text text-danger"> Intervalo de data invalido,teste novamente</h6>
+                    <div class="col-6"></div>
+                        <div class="col-3"  style="align = center">
+                        <h6 class="text text-danger" > Intervalo de data invalido,teste novamente</h6>
                         </div>
                     </div>          
                 <?php }?>
                 <div class="row">
-                    <div class="col">
-                        <div id="alert_erro"> ygfyutugtfyitfyify </div>
+                <div class="col-5" ></div>
+                    <div class="col-4">
+                        <div id="alert_erro" class="text text-danger" style="align = center">  </div>
                     </div>
+                    <div class="col-2" ></div>
+
                 </div>
                     <div class="form-row">
                         <div class="form-group col-4"></div>
