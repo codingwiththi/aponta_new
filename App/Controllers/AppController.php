@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+// date_default_timezone_set('America/Sao_Paulo'); 
 
 //os recursos do miniframework
 use MF\Controller\Action;
@@ -70,10 +71,13 @@ class AppController extends Action {
 			//se a data inicial for maior que a daata atual eu nao posso cadastrar
 			if( ($dataInicio > $data_atual or $dataTermino > $data_atual ) or ($dataTermino <= $dataInicio)) {
 				$this->view->dataInvalida = 0;//zero significa erro
-				echo $dataInicio . "<br>" . $dataTermino . "<br>" . $data_atual;
+				echo "data invalida";
+				echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
 				//header('Location:/apontamento?cadastroAponta=erroCadastro');//
 			}else{
-				//verificar data negativaaa 
+				//verificar data negativaaa
+				echo "data negativa";
+				echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
 				
 				// IF DATA NEGATIVA EU CRIO A VIEW DE ERROd
 				if($dataTermino < $dataInicio ){
@@ -83,6 +87,9 @@ class AppController extends Action {
 					//-------------------------
 					//echo "ok";
 					//echo $dataInicio;
+					echo "tudo certo";
+					echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
+
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
 					$apontamento->__set('dataFinal',strval($dataTermino));
@@ -111,7 +118,7 @@ class AppController extends Action {
 						// print_r($apontamento);
 						// echo '</pre>';
 						//fazer um header com mensagem de acertos
-						header('Location:/apontamento');
+						//header('Location:/apontamento');
 					}
 
 			}//fim verifica data negativa
