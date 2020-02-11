@@ -68,6 +68,12 @@ class Route extends Bootstrap {
 			'controller' => 'AppController',
 			'action' => 'pendentes'
 		);
+
+		$routes['concluido'] = array(
+			'route' => '/concluido',
+			'controller' => 'AppController',
+			'action' => 'concluido'
+		);
 		
 		$this->setRoutes($routes);
 	}

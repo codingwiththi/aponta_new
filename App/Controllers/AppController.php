@@ -226,6 +226,9 @@ class AppController extends Action {
 
 
 
+	public function concluido(){
+		$this->render('concluido','layout2');
+	}
 
 
 }

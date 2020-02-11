@@ -81,6 +81,10 @@ class AuthController extends Action {
 		// 	//echo "tu nao exeite";
 		// 	//header('Location:/?login=erro');
 		// }
+
+
+
+		
 	}
 
 
