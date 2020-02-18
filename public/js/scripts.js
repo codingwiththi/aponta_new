@@ -134,16 +134,6 @@ $(".btn-sm[data-target='#myModal']").click(function() {
 
     //------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
-
-
-
     //-- preeencher a o select dinamico de dentro da opção editar
     var tipo_atividade_id = $('#edita_tp_atv').val();
     console.log(tipo_atividade_id);
@@ -218,9 +208,11 @@ $('.modal-footer .btn-primary').click(function() {
         async: false
     }).done(function(data) {
         console.log(data);
-        window.location.href = '/apontamento';
         //exibir mensagem ou erro
-        $('#erro_edita').html("");
+        if (data == 'certo')
+            window.location.href = '/apontamento';
+        else
+            $('#erro_edita').html(data);
 
         //se tiver tudo certo eu só recarrego a pagina
     }).fail(function(xhr, status, error) {

@@ -1,4 +1,29 @@
 PENDÊNCIAS 
+Novas pendecias :
+
+inserção apontamento: 
+ - TESTAR TODAS A POSSIBILIDADES DE DATAS 
+ 	(DATA MAIOR QUE ATUAL, DATAS ANTERIOR A DOIS DIAS)
+
+update apontamento:
+ - TESTAR TODAS A POSSIBILIDADES DE DATAS EXIBIR MENSAGEM EM CASO DE ERROS
+ 	(DATA MAIOR QUE ATUAL, DATAS ANTERIOR A DOIS DIAS)
+
+
+visualizaçao:
+	-> TELA DE ACEITAR PENDENTES
+		descrção: tela com os chamados pendetes dos funcionarios que eu sou manager
+	-> TELA DE EXIBIR HISTORICO
+		descrição: tela com todos os dias do mes e o registros de qunato o funcionario apontou naquele dia
+	
+	-> BARRA DE PROGRESSO DIÁRIO 
+		descrção: porcentagem de horas apontadas em relação a carga trabalhada 
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------
 
 
 // ---(menu) - historico 

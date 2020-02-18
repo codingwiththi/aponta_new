@@ -58,8 +58,7 @@ class AppController extends Action {
 
 	public function criaApontamento(){
 		//print_r($_POST);
-		session_start();		
-
+		session_start();
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 
@@ -87,8 +86,8 @@ class AppController extends Action {
 					//-------------------------
 					//echo "ok";
 					//echo $dataInicio;
-					echo "tudo certo";
-					echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
+					// echo "tudo certo";
+					// echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
 
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
@@ -118,7 +117,7 @@ class AppController extends Action {
 						// print_r($apontamento);
 						// echo '</pre>';
 						//fazer um header com mensagem de acertos
-						//header('Location:/apontamento');
+						header('Location:/apontamento');
 					}
 
 			}//fim verifica data negativa
@@ -136,35 +135,63 @@ class AppController extends Action {
 			//verificar data negativaaa 
 			//print_r($_POST);
 			$data_atual = date('Y-m-d\TH:i:s');
+			$data_comparacao = date('Y-m-d\TH:i:s', strtotime('-2 days'));
+			//verificando se a hora inicio esta no formato aceito pelo convert (função sql server)
+			if(strlen($_POST['edita_time_ini']) < 6){
+				$_POST['edita_time_ini'] = $_POST['edita_time_ini'].":00.000";
+				//echo $_POST['edita_time_ini'];
+			}
+			//verificando se a hora fim esta no formato aceito pelo convert (função sql server)
+			if (strlen($_POST['edita_time_fim']) < 6){
+				$_POST['edita_time_fim'] = $_POST['edita_time_fim'].":00.000";
+				//echo $_POST['edita_time_fim'];
+			}
+			//------------------------------------------------------
+
 
 			$dataInicio = $_POST['edita_dt_ini'] ."T".$_POST['edita_time_ini'];
-			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'].":00.000";
+			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'];
 
 			//data precisar respeitar as regras de negocios
 			if(($dataTermino < $dataInicio) or ($dataInicio > $data_atual or $dataFinal > $data_atual) ){
 				//if data inicio < (data atual - 2 days) == erro
-				$this->view->dataInvalida = 0;//zero significa erro
-				header('Location:/apontamento?cadastroAponta=erroCadastro');//
+				//$this->view->dataInvalida = 0;//zero significa erro
+				// header('Location:/apontamento?cadastroAponta=erroCadastro');//
+				echo "erro data invalida";
 			}else{
 
-							// nao pode ser anterior a dois dias 
-			//não pode ser maior 
-			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('dataInicial',$dataInicio);
-			$apontamento->__set('dataFinal',$dataTermino);
-			$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
-			$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
-			$apontamento->__set('fkContratoId',strval($_POST['edita_contrato']));
-			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
-			$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
-			$apontamento->__set('id',$_POST['id_linha_edita']);
+				// nao pode ser anterior a dois dias
+				//if 
+					//se for anterior aos dois dias eu seto o id como pendente
+				if ($dataInicio < $data_comparacao ){
+					$status_apontamento = 1;
+					//1 == pendente
+				}else{
+					$status_apontamento = 2;
+					//2 == valido
+				}
+				//não pode ser maior 
+				$apontamento = Container::getModel('Apontamento');
+				$apontamento->__set('dataInicial',$dataInicio);
+				$apontamento->__set('dataFinal',$dataTermino);
+				$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
+				$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
+				$apontamento->__set('fkContratoId',strval($_POST['edita_contrato']));
+				$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+				$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
+				$apontamento->__set('id',$_POST['id_linha_edita']);
+				$apontamento->__set('fkStatusId',$status_apontamento);
 
-			print_r($apontamento);
-
-			$verifica_update = $apontamento->update();
-			print_r($verifica_update);
-			//if isset deu certo
-			//else deu errado
+				//print_r($apontamento);
+				$verifica_update = $apontamento->update();
+				if(!$verifica_update){
+					echo "errado";
+				}else{
+					echo "certo";
+				}
+				//print_r($verifica_update);
+				//if isset deu certo
+				//else deu errado
 			}
 
 			} catch(Exception $e){

@@ -110,7 +110,8 @@ class Apontamento extends Model{
         Data_inicial = CONVERT(DATETIME,:dataInicial,126),Data_final=CONVERT(DATETIME,:dataFinal,126),
         FK_atividade_Id = :fkAtividadeId,
         FK_contrato_Id = :fkContratoId,
-        FK_tipo_hora_Id = :fkTipoHoraId
+        FK_tipo_hora_Id = :fkTipoHoraId,
+        FK_status_Id = :fkStatusId
         where Id=:id";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':id',$this->__get('id'));
@@ -120,6 +121,8 @@ class Apontamento extends Model{
         $stmt->bindValue(':fkAtividadeId',$this->__get('fkAtividadeId'));
         $stmt->bindValue(':fkContratoId',$this->__get('fkContratoId'));
         $stmt->bindValue(':fkTipoHoraId',$this->__get('fkTipoHoraId'));
+        $stmt->bindValue(':fkStatusId',$this->__get('fkStatusId'));
+
         $stmt->execute();
         
         return $this;
