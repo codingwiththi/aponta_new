@@ -209,7 +209,7 @@ $('.modal-footer .btn-primary').click(function() {
     }).done(function(data) {
         console.log(data);
         //exibir mensagem ou erro
-        if (data == 'certo')
+        if (data == 1)
             window.location.href = '/apontamento';
         else
             $('#erro_edita').html(data);

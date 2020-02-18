@@ -187,7 +187,8 @@ class AppController extends Action {
 				if(!$verifica_update){
 					echo "errado";
 				}else{
-					echo "certo";
+					echo 1;
+
 				}
 				//print_r($verifica_update);
 				//if isset deu certo
