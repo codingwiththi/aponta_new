@@ -1,3 +1,22 @@
+/* estilização da tabela na rota pendentes  */
+
+.tableFixHead {
+    overflow: auto;
+}
+
+.tableFixHead thead th {
+    background: rgb(121, 187, 224);
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: -12;
+}
+
+
+/* fim estilização da tabela na rota pendentes  */
+
+
 /* classe alet fomr insere */
 
 #alert_erro {

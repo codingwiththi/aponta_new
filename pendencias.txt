@@ -1,5 +1,12 @@
 PENDÊNCIAS 
 Novas pendecias :
+29/02
+pagina concluidos 
+
+deixar barra de rolagem fixa no final da pagina e no lado
+
+--------------------
+
 
 inserção apontamento: 
  - TESTAR TODAS A POSSIBILIDADES DE DATAS 
