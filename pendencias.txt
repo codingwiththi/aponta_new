@@ -1,8 +1,10 @@
 PENDÊNCIAS 
 Novas pendecias :
-29/02
+20/02
 pagina concluidos 
 
+div com 80% do tamanho da pagina =  com scroll vertical e horizontal 
+os outros 20% filtro  
 deixar barra de rolagem fixa no final da pagina e no lado
 
 --------------------
