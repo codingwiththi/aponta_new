@@ -19,8 +19,6 @@ class AuthController extends Action {
 
 		//---------------------------------------------------------------
 		//verificar se usuario não existe
-
-
 		$usuario = $_POST['matricula']."@corp.nexa.com.br";
 		$password = $_POST['senha'];
 		if ($ldapcon){
@@ -44,10 +42,20 @@ class AuthController extends Action {
 				//print_r($funcionario);
 				if($funcionario->__get('id') != '' && $funcionario->__get('nome')!=''){
 					//echo "esse cara exite";
-					session_start();
 					session_start(); 
 					$_SESSION['id']= $funcionario->__get('id');
 					$_SESSION['nome']= $funcionario->__get('nome');
+
+					$manager = $funcionario->isManager();
+					if($manager['manager'] == 1){
+						//print_r($manager);
+						//echo "DEU CERTO";
+						$_SESSION['manager'] = true; 
+					}else{
+						//echo "nao deu";
+						$_SESSION['manager'] = false;
+					}
+
 					header("Location:/apontamento");
 
 				}else{

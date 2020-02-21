@@ -61,7 +61,11 @@ class Apontamento extends Model{
 
 
     public function verificaExistencia(){
-        $query = "select Id from apontamento where num_chamado =:numeroChamado,Data_inicial = :dataInicial and Data_final =:dataFinal";
+        $query = "select Id 
+        from apontamento 
+        where num_chamado =:numeroChamado,
+        Data_inicial = :dataInicial 
+        and Data_final =:dataFinal";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   
@@ -195,7 +199,7 @@ class Apontamento extends Model{
 
 
 
-
+    
 
 }
 

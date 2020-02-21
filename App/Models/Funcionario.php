@@ -52,6 +52,22 @@ class Funcionario extends Model{
 
 	}
 
+	public function isManager(){
+		$query = "with 
+		managers as 
+		(select distinct manager from Funcionario)
+		select count(manager) as manager from managers where manager LIKE ? ";
+		$stmt = $this->db->prepare($query);
+		$nome = $this->__get('nome');
+		$stmt->bindValue(1,"%" . $nome . "%");
+		$stmt->execute();
+		$manager= $stmt->fetch(\PDO::FETCH_ASSOC);
+
+
+		return $manager;
+
+	}
+
 //  public function testedb(){
 //        $query = "select @@version";
 //        $stmt= $this->db->prepare($query);
@@ -59,6 +75,29 @@ class Funcionario extends Model{
 //        return $stmt->fetch(\PDO::FETCH_ASSOC);
 	
 //    }
+public function getPendentesManager (){
+    $query = "select apontamento.id,
+                funcionario.displayName as nome,
+                apontamento.num_chamado,
+                DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+                apontamento.Data_inicial,
+                funcionario.department,
+                cliente.nome AS cliente
+                from apontamento inner join status on (Apontamento.FK_status_Id = status.id) 
+                inner join Funcionario on (Apontamento.FK_func_Id = Funcionario.id)
+                inner join Contrato on ( Apontamento.FK_contrato_Id = Contrato.Id)
+                JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+                where status.id =2 and Funcionario.manager like ?";
+        $stmt= $this->db->prepare($query);
+        $nome = $this->__get('nome');
+        //return $nome;
+		$stmt->bindValue(1,"%" . $nome . "%");
+		$stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    } 
+
 
 
 
