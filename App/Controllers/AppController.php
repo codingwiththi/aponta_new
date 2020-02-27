@@ -249,24 +249,25 @@ class AppController extends Action {
 
 
 	public function pendentes(){
+		session_start();
 
+		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+			$this->render('pendentes','layout2');
+		}else{
+			header("location: /?login=erro");
+		}
 		//verificar se é um manager
 		// session manager == true??? então faço tudo 
-		session_start();
 		$func = Container::getModel('funcionario');
 		$aponta = Container::getModel('apontamento');
 		$func->__set('nome',$_SESSION['nome'] );
 		//echo $_SESSION['nome'];
 		//echo $func->__get('nome');
 		$pendentes = $func->getPendentesManager();
-		//$this->view->todosApontamentos = $aponta->getAll(); view recebendo os dados 
+		//$this->view->meusPendentes = $func->getPendentesManager(); view recebendo os dados 
 
-		print_r($pendentes);
-		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
-			$this->render('pendentes','layout2');
-		}else{
-			header("location: /?login=erro");
-		}
+		//print_r($pendentes);
+		//session_start();
 
 
 	}
@@ -274,6 +275,7 @@ class AppController extends Action {
 
 
 	public function concluido(){
+		session_start();
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			$this->render('concluido','layout2');
 		}else{

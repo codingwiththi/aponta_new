@@ -1,13 +1,56 @@
 PENDÊNCIAS 
 Novas pendecias :
-20/02
-pagina concluidos 
 
-div com 80% do tamanho da pagina =  com scroll vertical e horizontal 
-os outros 20% filtro  
-deixar barra de rolagem fixa no final da pagina e no lado
+27/02
+-----------------------------------------------------------------------------------
+PAGINA HISTORICO
 
---------------------
+ - consertar layout dos botões 
+ - verificar responsividade dessa tela
+ - verificar adptabilidade da tabela na div
+ - não aceitar intervalo de data negativo
+ - limpar filtros deve ser um botão
+
+-----------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------
+PAGINA CONCLUIDOS 
+ - 20%  da div será um filtro  
+ - div com 80% do tamanho da pagina =  com scroll vertical e horizontal 
+ - deixar barra de rolagem fixa no final da pagina e no lado para a tablea rolar para 
+ os dois lados 
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+pagina pendentes 
+ - listar funcionarios 
+ - listar os pendentes dos meus funcionarios 
+ - e deixar botoes pra aceitar (um botão pra cada evento pendentes, combo box pra marcar todos )
+ - BOTÂO LIMPAR FILTROS É APENAS UM UM HREF RECARREGANDO A PAGINA
+-------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------
+pagina apontamento
+ - deixar mensagem de aguardando antes de prencher o selcet de contrato e atividade
+ - validar se inserlções esão dando certo
+ - NÃO POSSO DEIXAR ELE INSERIR SEM PREENCHER OS CAMPOS CONTRATO E ATIVIDADE
+
+edita apontamento - 
+ - retornar erros em cada de operação 
+ - e tratar as execções
+ - mandar mensagem de confirmação
+ - 
+--------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------
+ESTRUTURA DE PROJETO
+
+organizar codigo em javascript
+
+
+---------------------------------------------------------------------------------------
+
+
 
 
 inserção apontamento: 
