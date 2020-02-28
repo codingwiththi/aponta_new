@@ -10,22 +10,23 @@
                 </div>
                 <div class="card-body">
 
-                    <form>
+                    <form name="pendentes" action="/pendentes" method='POST'>
                         <div class="form-row">
                             <div class="form-group col-7">
                                 <label for="inputState">Funcionario</label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Teste 1</option>
-                                    <option>...</option>
+                                <select name="funcionario" class="form-control">
+                                <?php ;foreach($this->view->meusFuncionario as $func ){?>
+                                <option value="<?php echo $func['id'] ?>"> <?php echo $func['nome']; ?> </option>
+                           <?php };?>
                                 </select>
                             </div>
                             <div class="form-group col-2">
                             <label for="inputState"> </br></label>
-                                <button type="button" class=" btn-primary btn-sm btn-block">pesquisar</button>
+                                <button type="submit" class=" btn-primary btn-sm btn-block">pesquisar</button>
                             </div>
                             <div class="form-group col-2">
                             <label for="inputState"> </br></label>
-                                <button type="button" class=" btn-danger btn-sm  btn-block">Limpar filtro</button>
+                                <button type="button" class=" btn-danger btn-sm  btn-block"><a href="/pendentes" class="text-white">Limpar filtro </a></button>
                             </div>
                         </div>
                     </form>
@@ -58,6 +59,7 @@
                         </th>
                         <th class="th-sm">
                         <button class="btn-sm btn-primary" >marcar</button>
+                        
                         </th>
 
 
@@ -89,6 +91,8 @@
                         <td>GRG</td>
                         <td style="text-align:center;">
                             <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
+                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
+
                         </td>
                     </tr>
                     <tr>

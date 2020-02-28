@@ -249,25 +249,43 @@ class AppController extends Action {
 
 
 	public function pendentes(){
+
+
 		session_start();
 
+
+
+		//verifica ismanager
+		//se for pode continuar 
+		//senao acaba aqui
+		//verificar se é um manager
+		// session manager == true??? então faço tudo
+
+
+
+		$func = Container::getModel('funcionario');
+		$aponta = Container::getModel('apontamento');
+		$func->__set('nome',$_SESSION['nome'] );
+		$this->view->meusFuncionario = $func->GetFuncByManager();
+		//print_r($this->view->meusFuncionario);
+		//echo $_SESSION['nome'];
+		//echo $func->__get('nome');
+		//$pendentes = $func->getPendentesManager();
+		//$this->view->meusPendentes = $func->getPendentesManager(); view recebendo os dados 
+		//print_r($pendentes);
+		//session_start();
+		if(!$_POST){
+			echo "sem post";
+		}else{
+			print_r($_POST);
+		}
+
+		
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			$this->render('pendentes','layout2');
 		}else{
 			header("location: /?login=erro");
 		}
-		//verificar se é um manager
-		// session manager == true??? então faço tudo 
-		$func = Container::getModel('funcionario');
-		$aponta = Container::getModel('apontamento');
-		$func->__set('nome',$_SESSION['nome'] );
-		//echo $_SESSION['nome'];
-		//echo $func->__get('nome');
-		$pendentes = $func->getPendentesManager();
-		//$this->view->meusPendentes = $func->getPendentesManager(); view recebendo os dados 
-
-		//print_r($pendentes);
-		//session_start();
 
 
 	}

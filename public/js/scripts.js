@@ -41,7 +41,7 @@ function ValidaFormInsert() {
     console.log(parseStringToDate(data_inicio, hora_inicio));
     if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
         //mostrar error
-        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').slideDown(500);
+        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').fadeIn(300).delay(5000).fadeOut(400);
         $('#data_inicial').focus();
         $('#hora_inicial').focus();
         $('#data_final').focus();
@@ -212,16 +212,21 @@ $('.modal-footer .btn-primary').click(function() {
         if (data == 1)
             window.location.href = '/apontamento';
         else
-            $('#erro_edita').html(data);
+            $('#erro_edita').html(data).fadeIn(300).delay(5000).fadeOut(400);
 
         //se tiver tudo certo eu só recarrego a pagina
     }).fail(function(xhr, status, error) {
         //Ajax erro
         $('#erro_edita').html("deu erro");
+
+        $('#erro_edita').fadeIn(300).delay(1500).fadeOut(400);
         //alert('Error -');
     })
 
 });
+
+
+
 
 $('.modal-footer .btn-danger').click(function() {
     //BOTAO excluir

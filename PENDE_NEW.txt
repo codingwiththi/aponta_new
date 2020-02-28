@@ -1,0 +1,25 @@
+LISTAS OS COM HORAS ATRASADAS OUUUUU COM CAMPO EDITAVEL ==TRUE;
+
+
+
+COLOCAR UM FORM PRA FILTRAR NUMERO DO CHAMADO
+
+------------------------------------------------
+TELA PENDENTES
+ -  AO PERTAR BOTÃO ABRIR MODAL COM DUAS OPÇÕES
+	- SUGERIR EDIÇÃO 
+	- ACEITAR
+------------------------------------------------
+---------------------------------------------------
+TELA HISTORICO - 
+ - SE ELE FOR SUPERVISOR RENDERIZO UMA TELA 
+	- NESSA TELA VAI TER UM FILTRO DE PESSOA 
+	- E NA CONSULTA VAI TER 
+	- E ELA COMECA SEM NINGUEM  APÓES ELE CONSULTAR VAI TER ALGUÉM
+
+ - SE ELE NÃO FOR RENDERIZO OUTRA 
+	- A TELA QUE JA ESTÁ PRONTA
+	- SEM MUDANÇA
+
+
+---------------------------------------------------

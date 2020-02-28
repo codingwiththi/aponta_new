@@ -100,6 +100,19 @@ public function getPendentesManager (){
 
 
 
+	public function GetFuncByManager(){
+
+	$query = "SELECT id,displayName as nome FROM funcionario WHERE manager like ? order by 2";
+	$stmt= $this->db->prepare($query);
+	$nome ='Vinicius Detoni Capelli Soares';//$this->__get('nome');
+	$stmt->bindValue(1,"%" . $nome . "%");
+	$stmt->execute();
+
+	return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+	}
+
+
 
 
 

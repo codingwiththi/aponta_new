@@ -1,28 +1,100 @@
- <?php
+ <!-- <?php
 
-// $x = '2019-03-15';
-// echo date($x.'\TH:i:s');
-
-$mes = '03';      // Mês desejado, pode ser por ser obtido por POST, GET, etc.
-$ano = date("Y"); // Ano atual
-$ultimo_dia = date("t", mktime(0,0,0,$mes,'01',$ano)); // Mágica, plim!
-echo $ultimo_dia ."<br>";
-echo $ano_mes = date("Y-m") . "<br>"; // Ano atual
-
-$d = array();
-for($i=1;$i < $ultimo_dia + 1 ;$i++){
-    //echo $i;
-    $ii = (string) $i;
-    echo "data str ". $ii;
-    echo "data : " . $ano_mes = date("Y-m-$ii") . "<br>"; // Ano atual
-    // $ano_mes = $ano_mes. "-$i";   
-    // print($ano_mes);
-    $x = "("."$ano"."$mes"."$ii".")";
-    $semanaNr = date("d - l", strtotime(date($x)+ "1 DAY"));
-    $d[$i] = $semanaNr;
-    echo "<br>". $semanaNr ."<br>";
+ 
+/**
+ * PHP encrypt and decrypt example
+ *
+ * Simple method to encrypt or decrypt a plain text string initialization
+ * vector(IV) has to be the same when encrypting and decrypting in PHP 5.4.9.
+ *
+ * @link http://naveensnayak.wordpress.com/2013/03/12/simple-php-encrypt-and-decrypt/
+ *
+ * @param string $action Acceptable values are `encrypt` or `decrypt`.
+ * @param string $string The string value to encrypt or decrypt.
+ * @return string
+ */
+function encrypt_decrypt($action, $string)
+{
+  $output = false;
+ 
+  $encrypt_method = "AES-256-CBC";
+  $secret_key = 'This is my secret key';
+  $secret_iv = 'This is my secret iv';
+ 
+  // hash
+  $key = hash('sha256', $secret_key);
+ 
+  // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a
+  // warning
+  $iv = substr(hash('sha256', $secret_iv), 0, 16);
+ 
+  if ($action == 'encrypt')
+  {
+    $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+    $output = base64_encode($output);
+  }
+  else
+  {
+    if ($action == 'decrypt')
+    {
+      $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+    }
+  }
+ 
+  return $output;
 }
-print_r($d);
+ 
+ 
+//
+// usage
+//
+ 
+$plain_txt = "This is my plain text";
+echo "Plain Text = $plain_txt\\n";
+ 
+$encrypted_txt = encrypt_decrypt('encrypt', $plain_txt);
+echo "Encrypted Text = $encrypted_txt\n";
+ 
+$decrypted_txt = encrypt_decrypt('decrypt', $encrypted_txt);
+echo "Decrypted Text = $decrypted_txt\n";
+ 
+if ($plain_txt === $decrypted_txt)
+  echo "SUCCESS";
+else
+  echo "FAILED";
+ 
+echo "\n";
+ 
+
+//  $y = '2019-03-15';
+//  echo date($y.'\TH:i:s');
+// $x = sha1("bruno");
+
+// echo $x."<br>";
+
+// echo md5($x);
+
+// echo "ok";
+// $mes = '03';      // Mês desejado, pode ser por ser obtido por POST, GET, etc.
+// $ano = date("Y"); // Ano atual
+// $ultimo_dia = date("t", mktime(0,0,0,$mes,'01',$ano)); // Mágica, plim!
+// echo $ultimo_dia ."<br>";
+// echo $ano_mes = date("Y-m") . "<br>"; // Ano atual
+
+// $d = array();
+// for($i=1;$i < $ultimo_dia + 1 ;$i++){
+//     //echo $i;
+//     $ii = (string) $i;
+//     echo "data str ". $ii;
+//     echo "data : " . $ano_mes = date("Y-m-$ii") . "<br>"; // Ano atual
+//     // $ano_mes = $ano_mes. "-$i";   
+//     // print($ano_mes);
+//     $x = "("."$ano"."$mes"."$ii".")";
+//     $semanaNr = date("d - l", strtotime(date($x)+ "1 DAY"));
+//     $d[$i] = $semanaNr;
+//     echo "<br>". $semanaNr ."<br>";
+// }
+// print_r($d);
 // echo date('Y-m-d\TH:i:s')."</br>";
 
 
@@ -81,4 +153,4 @@ print_r($d);
 // }
 
 
-?>
+?> -->
