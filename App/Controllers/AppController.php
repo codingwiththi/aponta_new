@@ -278,15 +278,13 @@ class AppController extends Action {
 		$this->view->meusPendentes = $func->getPendentesManager(); 
 		//print_r($pendentes);
 		//session_start();
-		if(!$_POST){
-			echo "sem post";
-		}else{
+		if($_POST){
 			print_r($_POST);
+			//$_POST['funcionario']
 			//jogo o id do user para o metodo
-			// $this->view->meusPendentes = $func->getPendentesManager(); 
+			// $this->view->meusPendentes = $func->getPendentesManagerByfuncId(); 
 			//
 		}
-
 		
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			$this->render('pendentes','layout2');

@@ -27,6 +27,8 @@ pagina pendentes
  - listar os pendentes dos meus funcionarios 
  - e deixar botoes pra aceitar (um botão pra cada evento pendentes, combo box pra marcar todos )
  - BOTÂO LIMPAR FILTROS É APENAS UM UM HREF RECARREGANDO A PAGINA
+ - BOTAO PRA INVERTER COLUNA 
+ 
 -------------------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------------
