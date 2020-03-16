@@ -10,6 +10,7 @@ class Funcionario extends Model{
 	private $nome;
 	private $matricula;
 	private $senha;
+	private $manager;
 
 	public function __get($atributo){
 		return $this->$atributo; 
@@ -89,7 +90,7 @@ public function getPendentesManager (){
                 JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
                 where status.id =2 and Funcionario.manager like ?";
         $stmt= $this->db->prepare($query);
-        $nome = $this->__get('nome');
+        $nome = 'Vinicius Detoni Capelli Soares';//$this->__get('nome');
         //return $nome;
 		$stmt->bindValue(1,"%" . $nome . "%");
 		$stmt->execute();

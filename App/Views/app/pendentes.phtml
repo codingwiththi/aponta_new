@@ -67,135 +67,22 @@
                 </thead>
                 <tbody>
                     
-                    <tr>
-                        <td style="display:none;"></td>
-
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                        <input type="checkbox" aria-label="Checkbox for following text input">
-                        </td>
-                    </tr>
-                    <tr>
-
-                       <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="display:none;"></td>
-
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-
-                       <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
-                        <tr>
-
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
-                        <tr>
-
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
-                        <tr>
-
-                        <td style="display:none;"></td>
-                        <td>shtsr</td>
-                        <td>GRG</td>
-                        <td>GR</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td>GRG</td>
-                        <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal" contenteditable="false">Edit</button>
-                        </td>
-                        </tr>
+                <?php foreach($this->view->meusPendentes as $Pendentes){?>
+                <tr>
+                    <td style="display:none;"> <?php echo $aponta['id']; ?> </td>
+                    <td><?php echo $Pendentes['nome']; ?></td>
+                    <td><?php echo $Pendentes['department']; ?></td>
+                    <td> <?php echo $Pendentes['cliente']; ?></td>
+                    <td><?php echo $Pendentes['num_chamado']; ?></td>
+                    <td><?php echo $Pendentes['Data_inicial']; ?></td>
+                    <td><?php echo $Pendentes['duracao']; ?></td>
+                    <td style="text-align:center;">
+                        <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal"
+                        contenteditable="false">Edit</button>
+                    </td>
+                </tr>
+                <?php }?>
+                    
                 </tbody>
                 <tfoot>
                     <tr>

@@ -1,4 +1,4 @@
- <!-- <?php
+ <?php
 
  
 // /**
@@ -128,7 +128,7 @@
 
 // ldap_set_option($ldapcon, LDAP_OPT_PROTOCOL_VERSION,3);
 // ldap_set_option($ldapcon, LDAP_OPT_REFERRALS, 0);
-// //print_r($ldapcon);
+// print_r($ldapcon);
 // //$person = "bvnascimento".$dominio;
 // //-----------------------------------------------------------
 // if ($ldapcon){
@@ -137,20 +137,47 @@
 //     print_r($bind);
 //     if ($bind) {
 //         echo "LDAP bind successful…";
-//         $filter = "(samaccountname=bvnascimento*)";
-//         $result = ldap_search($ldapcon,"OU=GERENCIAMENTO_EMPRESA,OU=NEXA TECNOLOGIA,DC=corp,DC=nexa,DC=com,DC=br",$filter) or exit("Unable to search");
+//         $filter = "(mailnickname=*)";
+//         $result = ldap_search($ldapcon,"OU=NEXA TECNOLOGIA,DC=corp,DC=nexa,DC=com,DC=br",$filter) or exit("Unable to search");
 // 		$entries = ldap_get_entries($ldapcon, $result);
 		
+// 		ECHO "OK";
 // 		print "<pre>";
 //         print_r ($entries);
 // 		print "</pre>";
+	//$x = [];
 
-//     }else {
-//         echo "LDAP bind failed…";
 
-//     }
+	// 	foreach($entries[0] as $key){
+	// 		//print_r($key[0]);
+	// 		//echo "<br>";
+	// 		$x['teste'] = $key[0];
+	// 		print_r($x);
 
-// }
+	// 	}
+	// 	echo json_encode($x);
+
+		// $retorno = [];
+		// $retorno["company"] = @$info[0]["company"][0];		
+		// $retorno["department"] =  trim( @$info[0]["department"][0] );
+		// $retorno["title"] =  @$info[0]["title"][0];
+		// $retorno["name"] =  $info[0]["name"][0];			
+		// $retorno["mail"] =  @$info[0]["mail"][0];
+		// $retorno["samaccountname"] =  @$info[0]["samaccountname"][0];
+		// $retorno["telephonenumber"] =  @$info[0]["telephonenumber"][0];
+		// $retorno["extensionattribute4"] = @$info[0]["extensionattribute4"][0];
+		// $retorno["extensionattribute2"] = @$info[0]["extensionattribute2"][0];			
+		// $retorno["manager"] = str_replace("CN=", "",explode(",", @$info[0]["manager"][0])[0]);	 
+
+
+
+
+    }else {
+        echo "LDAP bind failed…";
+
+    }
+
+}
 
 
 

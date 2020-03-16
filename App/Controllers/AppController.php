@@ -56,6 +56,7 @@ class AppController extends Action {
 	}
 	//fim baseCadastro
 
+
 	public function criaApontamento(){
 		//print_r($_POST);
 		session_start();
@@ -250,34 +251,40 @@ class AppController extends Action {
 
 	public function pendentes(){
 
-
 		session_start();
-
-
-
 		//verifica ismanager
 		//se for pode continuar 
 		//senao acaba aqui
 		//verificar se é um manager
-		// session manager == true??? então faço tudo
-
-
-
 		$func = Container::getModel('funcionario');
 		$aponta = Container::getModel('apontamento');
-		$func->__set('nome',$_SESSION['nome'] );
+		$func->__set('nome',$_SESSION['nome'] );// session manager == true??? então faço tudo
+
+		$manager = $func->isManager();
+		print_r($manager);	 
+		if($manager['manager'] == 0){
+			echo "não é manager";
+			//RENDER VOCE NAO TEM ACESSO
+			//HEADER LOCATION 
+		}else{
+			echo "é manager";
+			//setor o atributo manager como true 
+		}
 		$this->view->meusFuncionario = $func->GetFuncByManager();
 		//print_r($this->view->meusFuncionario);
 		//echo $_SESSION['nome'];
 		//echo $func->__get('nome');
-		//$pendentes = $func->getPendentesManager();
-		//$this->view->meusPendentes = $func->getPendentesManager(); view recebendo os dados 
+		$pendentes = $func->getPendentesManager();
+		$this->view->meusPendentes = $func->getPendentesManager(); 
 		//print_r($pendentes);
 		//session_start();
 		if(!$_POST){
 			echo "sem post";
 		}else{
 			print_r($_POST);
+			//jogo o id do user para o metodo
+			// $this->view->meusPendentes = $func->getPendentesManager(); 
+			//
 		}
 
 		

@@ -118,6 +118,7 @@ class Apontamento extends Model{
         FK_status_Id = :fkStatusId
         where Id=:id";
         $stmt = $this->db->prepare($query);
+        
         $stmt->bindValue(':id',$this->__get('id'));
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   
