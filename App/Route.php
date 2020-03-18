@@ -75,6 +75,29 @@ class Route extends Bootstrap {
 			'action' => 'concluido'
 		);
 		
+		$routes['editaveis'] = array(
+			'route' => '/editaveis',
+			'controller' => 'AppController',
+			'action' => 'editaveis'
+		);
+		$routes['editaveisPendentes'] = array(
+			'route' => '/editaveis/Pendentes',
+			'controller' => 'AppController',
+			'action' => 'editaveisPendentes'
+		);
+
+
+		$routes['aceitarPendentes'] = array(
+			'route' => '/Pendentes/Aceitar',
+			'controller' => 'AppController',
+			'action' => 'aceitarPendentes'
+		);
+		
+
+
+
+
+
 		$this->setRoutes($routes);
 	}
 

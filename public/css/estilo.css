@@ -1,5 +1,39 @@
 /* estilização da tabela na rota pendentes  */
 
+
+/* .tableConcluidos {
+    overflow: auto;
+} */
+
+
+/* 
+.tableConcluidos thead {
+    position: sticky;
+    top: 0;
+} */
+
+.divconcluidos {
+    overflow-x: scroll;
+    overflow: auto;
+    height: 300px;
+    margin-left: 20em;
+}
+
+
+/* 
+.headcol {
+    position: absolute;
+    left: 0;
+    width: 20em;
+    top: auto;
+    height: 80%;
+    /* background-color: lightblue; 
+
+
+} 
+
+*/
+
 .tableFixHead {
     overflow: auto;
 }

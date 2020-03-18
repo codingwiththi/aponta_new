@@ -228,7 +228,7 @@ $('.modal-footer .btn-primary').click(function() {
 
 
 
-$('.modal-footer .btn-danger').click(function() {
+$('#exclui_apontamento').click(function() {
     //BOTAO excluir
     //SERIALIZO O FORMULARIO E ENVIO PARA A ROTA DE APAGAR
     //pego o ID E  ENVIO VIA GET
@@ -431,3 +431,59 @@ $(document).ready(function() {
 //ativando o data table de apontamento pendentes
 
 //---------------------------//
+
+
+//MODAL DA PAGINA PENDENTES
+//------------------------------------------------------
+$(".btn-sm[data-target='#modalHist']").click(function() {
+
+    console.log("entrei");
+    var columnHeadings = $("thead th").map(function() {
+        return $(this).text();
+    }).get();
+
+    columnHeadings.pop();
+    // console.log(columnHeadings);
+    var columnValues = $(this).parent().siblings().map(function() {
+        return $(this).text();
+    }).get();
+    //console.log();
+    console.log(columnValues);
+
+
+    $('#id_hist').val(columnValues[0]);
+    $('#cliente_hist').val(columnValues[3]);
+    $('#nome_hist').val(columnValues[1]);
+    $('#duracao_hist').val(columnValues[6]);
+    $('#num_chamado_hist').val(columnValues[4]);
+    $('#data_hist').val(columnValues[5]);
+
+
+});
+
+// enviar para rota de revisar pendentes
+$("#revisar_pendentes").click(function() {
+
+    //FAZER VALIDAÇÃO DE DATA AQUI
+    var form = $('#pendentes_aceitar').serialize();
+    //var teste = "0k";
+    //console.log("ok");
+    $.ajax({
+        type: "POST",
+        data: form,
+        url: "/editaveis/Pendentes",
+        async: false
+    }).done(function(data) {
+        console.log(data);
+        //exibir mensagem ou erro
+        if (data == 1)
+            $('#edita_pendente_msg').html("Alteração sugerida com sucesso").fadeIn(250).delay(4000).fadeOut(300);
+        //     window.location.href = '/apontamento';
+        // else
+        //     $('#erro_edita').html(data).fadeIn(300).delay(5000).fadeOut(400);
+
+        //se tiver tudo certo eu só recarrego a pagina
+    })
+
+
+});

@@ -11,7 +11,9 @@ class Funcionario extends Model{
 	private $matricula;
 	private $senha;
 	private $manager;
-
+	private $fk_id_supervisionado;
+	
+	
 	public function __get($atributo){
 		return $this->$atributo; 
 	}
@@ -97,7 +99,32 @@ public function getPendentesManager (){
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-    } 
+	} 
+	
+
+	public function getPendentesByFunc(){
+        $query = "select apontamento.id,
+                funcionario.displayName as nome,
+                apontamento.num_chamado,
+				DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+								apontamento.Data_inicial,
+								funcionario.department,
+								cliente.nome AS cliente
+								from apontamento inner join status on (Apontamento.FK_status_Id = status.id)
+								inner join Funcionario on (Apontamento.FK_func_Id =
+				Funcionario.id)
+								inner join Contrato on ( Apontamento.FK_contrato_Id =
+				Contrato.Id)
+                JOIN cliente ON (contrato.FK_cliente_Id =  cliente.Id)
+                where status.id =2 and Funcionario.id = :fk_id_supervisionado";
+
+        $stmt= $this->db->prepare($query);
+        $stmt->bindValue(':fk_id_supervisionado',$this->__get('fk_id_supervisionado'));
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
 
 
 

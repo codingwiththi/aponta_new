@@ -1,0 +1,76 @@
+<div class="container-fluid bg-light" style=" height: 100%; "   >
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-7">
+
+            <div class="card">
+                <div class="card-header">
+                    SUGERIR EDIÇÃO
+                </div>
+                <div class="card-body">
+
+                    <form name="editaveis" action="/editaveis" method='POST'>
+                        <div class="form-row">
+                            <div class="form-group col-7">
+                                <label for="inputState">Numero do chamado</label>
+                                <input type="text" class="form-control bg-light" required id="chamado_editavel" name="chamado_editavel"
+                                    placeholder="numero do chamado">
+
+                            </div>
+                            <div class="form-group col-2">
+                                <label for="inputState"> </br></label>
+                                <button type="submit" class=" btn-primary btn-sm btn-block">pesquisar</button>
+                            </div>
+                            
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+<div class="row " style=" padding: 10px; " >
+
+<?php foreach($this->view->editaPorChamado as $chamado){?>
+
+    <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">
+    <div class="col-3">
+        <div class="card" >
+            <input type="text" value="<?php echo $chamado['Id'] ?>" style="display:none;" class="form-control bg-light" id="id_edt" readonly  name="id_edt">
+            <img src="img/logo-nexa-1.png" width="50" height="100" class="card-img-top img-responsive" >
+            <div class="card-body">
+                <h5 class="card-title">Chamado: <?php echo $chamado['num_chamado'] ?></h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Data inicio: <?php  echo $chamado['Data_inicial'] ?></li>
+                    <li class="list-group-item"> Duração(min): <?php echo $chamado['duracao'] ?></li>
+                    <li class="list-group-item">Funcionario: <?php echo $chamado['nome'] ?></li>
+                </ul>            
+                <button type="submit" class="btn-success" id="" >Confirmar</button>
+            </div>
+        </div>
+    </div>
+    </form>
+
+<?php }?>
+    
+
+    
+</div>
+
+
+
+<!-- fim cards -->
+
+
+
+
+
+
+
+</div>

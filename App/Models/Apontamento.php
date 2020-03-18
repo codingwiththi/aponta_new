@@ -16,6 +16,8 @@ class Apontamento extends Model{
     private $fkFuncionarioId;
     private $fkTipoHoraId;
     private $fkStatusId;
+    private $editavel;
+    private $data_editavel;
 
     public function __get($atributo){
         return $this->$atributo;
@@ -93,7 +95,7 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
-        WHERE apontamento.FK_func_Id = :fkFuncionarioId AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE()) ";
+        WHERE (apontamento.FK_func_Id = :fkFuncionarioId AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()))";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->execute();
@@ -200,7 +202,77 @@ class Apontamento extends Model{
 
 
 
+    public function  aceitaPendente(){
+        $query = "update apontamento set 
+        FK_status_Id = 1
+        where Id=:id";
+        $stmt = $this->db->prepare($query);
+        if(!$stmt){
+            return $db->errorInfo();
+        }
+        
+        $stmt->bindValue(':id',$this->__get('id'));
+        $stmt->execute();
+        
+        return $this;
+
+    }
+
     
+
+    public function tornarEditavel(){
+        // zero nao é editavell
+        // 1 é editavels
+        $query = "update apontamento set 
+        editavel = 1,
+        data_editavel = GETDATE()
+        where Id=:id";
+        $stmt = $this->db->prepare($query);
+        if(!$stmt){
+            return $db->errorInfo();
+        }
+        
+        $stmt->bindValue(':id',$this->__get('id'));
+        $stmt->bindValue(':data_editavel',$this->__get('data_editavel'));
+
+        $stmt->execute();
+        
+        return $this;
+
+    }
+
+    public function getPorNumeroChamado(){
+
+        $query="SELECT apontamento.Id,
+        apontamento.num_chamado,
+        funcionario.displayName as nome,
+        cliente.nome AS cliente,
+        tipo_atividade.tipo_atividade,
+        atividade.nome as atividade,
+        apontamento.Data_inicial,
+        apontamento.Data_final,
+        apontamento.FK_status_Id,
+        tipo_hora.tipo_hora,DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao 
+        FROM apontamento 
+        JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+        JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
+        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+        JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
+        WHERE apontamento.num_chamado = :numeroChamado";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':numeroChamado',$this->__get('numeroChamado'));
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    
+
+
+
+
+
 
 }
 

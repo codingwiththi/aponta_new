@@ -1,6 +1,6 @@
 <div class="container-fluid bg-light">
 
-<div class="row">
+    <div class="row">
         <div class="col-2"></div>
         <div class="col-7">
 
@@ -15,18 +15,19 @@
                             <div class="form-group col-7">
                                 <label for="inputState">Funcionario</label>
                                 <select name="funcionario" class="form-control">
-                                <?php ;foreach($this->view->meusFuncionario as $func ){?>
-                                <option value="<?php echo $func['id'] ?>"> <?php echo $func['nome']; ?> </option>
-                           <?php };?>
+                                    <?php ;foreach($this->view->meusFuncionario as $func ){?>
+                                    <option value="<?php echo $func['id'] ?>"> <?php echo $func['nome']; ?> </option>
+                                    <?php };?>
                                 </select>
                             </div>
                             <div class="form-group col-2">
-                            <label for="inputState"> </br></label>
+                                <label for="inputState"> </br></label>
                                 <button type="submit" class=" btn-primary btn-sm btn-block">pesquisar</button>
                             </div>
                             <div class="form-group col-2">
-                            <label for="inputState"> </br></label>
-                                <button type="button" class=" btn-danger btn-sm  btn-block"><a href="/pendentes" class="text-white">Limpar filtro </a></button>
+                                <label for="inputState"> </br></label>
+                                <button type="button" class=" btn-danger btn-sm  btn-block"><a href="/pendentes"
+                                        class="text-white">Limpar filtro </a></button>
                             </div>
                         </div>
                     </form>
@@ -40,9 +41,10 @@
     </div>
 
 
-    <div class="row" style="padding-top:10px; overflow: auto; height: 100%; " >
+    <div class="row" style="padding-top:10px; overflow: auto; height: 100%; ">
         <div class="col-12">
-            <table class="table table-striped table-bordered display tableFixHead " id="apontamentosPendentes" name="apontamentosPendentes">
+            <table class="table table-striped table-bordered display tableFixHead " id="apontamentosPendentes"
+                name="apontamentosPendentes">
                 <thead>
                     <tr id="1">
                         <th class="th-sm"> Nome funcionario
@@ -58,31 +60,31 @@
                         <th class="th-sm">Duracão
                         </th>
                         <th class="th-sm">
-                        <button class="btn-sm btn-primary" >marcar</button>
-                        
+                            <button class="btn-sm btn-primary">marcar</button>
+
                         </th>
 
 
                     </tr>
                 </thead>
                 <tbody>
-                    
-                <?php foreach($this->view->meusPendentes as $Pendentes){?>
-                <tr>
-                    <td style="display:none;"> <?php echo $aponta['id']; ?> </td>
-                    <td><?php echo $Pendentes['nome']; ?></td>
-                    <td><?php echo $Pendentes['department']; ?></td>
-                    <td> <?php echo $Pendentes['cliente']; ?></td>
-                    <td><?php echo $Pendentes['num_chamado']; ?></td>
-                    <td><?php echo $Pendentes['Data_inicial']; ?></td>
-                    <td><?php echo $Pendentes['duracao']; ?></td>
-                    <td style="text-align:center;">
-                        <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal"
-                        contenteditable="false">Edit</button>
-                    </td>
-                </tr>
-                <?php }?>
-                    
+
+                    <?php foreach($this->view->meusPendentes as $Pendentes){?>
+                    <tr>
+                        <td style="display:none;"> <?php echo $Pendentes['id']; ?> </td>
+                        <td><?php echo $Pendentes['nome']; ?></td>
+                        <td><?php echo $Pendentes['department']; ?></td>
+                        <td> <?php echo $Pendentes['cliente']; ?></td>
+                        <td><?php echo $Pendentes['num_chamado']; ?></td>
+                        <td><?php echo $Pendentes['Data_inicial']; ?></td>
+                        <td><?php echo $Pendentes['duracao']; ?></td>
+                        <td style="text-align:center;">
+                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#modalHist"
+                                contenteditable="false">Edit</button>
+                        </td>
+                    </tr>
+                    <?php }?>
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -110,5 +112,83 @@
 
 
 </div>
+
+
+<!-- MODAL DE CONFIRMAÇÃO -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalHist" tabindex="-1" role="dialog" aria-labelledby="modalHist" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Confirmação de aceitação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+            <form name="pendentes_aceitar" id="pendentes_aceitar" method="POST" action="/Pendentes/Aceitar  ">
+     
+            <div class="form-row">   
+                <input type="text" style="display:none;" class="form-control bg-light" id="id_hist" readonly  name="id_hist">
+                    <div class="form-group col-lg-3"></div>            
+                    <div class="form-group col-lg-6">
+                                <label for="inputState">Cliente</label>
+                                <input type="text" class="form-control bg-light" readonly id="cliente_hist" name="cliente_hist"
+                                    placeholder="Cliente">
+                            </div>
+                    <div class="form-group col-lg-3"></div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-lg-9">
+                        <label for="inputState">Funcionario</label>
+                        <input type="text" class="form-control bg-light" readonly id="nome_hist" name="nome_hist"
+                            placeholder="nome do funcionário">
+                    </div>
+                    <div class="form-group col-lg-3">
+                        <label for="inputState">Duração(Min)</label>
+                        <input type="text" class="form-control bg-light" readonly id="duracao_hist" name="duracao_hist"
+                            placeholder="duração">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">N° do chamado</label>
+                        <input type="text" class="form-control bg-light" readonly id="num_chamado_hist" name="num_chamado_hist"
+                            placeholder="Numero do chamado">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">hora do apontamento</label>
+                        <input type="text" class="form-control bg-light" readonly id="data_hist" name="data_hist"
+                            placeholder="data apontamento">
+                    </div>
+                </div>
+                <span id="edita_pendente_msg" name="edita_pendente_msg" class="text-success"></span>
+
+            </div>
+            <div class="modal-footer">
+                <div class="form-group col-lg-5">
+                    <button type="button" class="btn-secondary" id="revisar_pendentes"> enviar Revisão</button>
+                </div>
+                <div class="form-group col-lg-5">
+                <button type="submit" class="btn-success" id="aceitar_pendente" >Confirmar</button>
+
+                </div>
+                <div class="form-group col-lg-2">
+                    <button type="button" class=" btn-danger" data-dismiss="modal">Sair</button>    
+                </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <script type="text/javascript" charset="utf8" src="/js/scripts.js"></script>
