@@ -270,6 +270,29 @@ class Apontamento extends Model{
     
 
 
+    public function getMensal($intervalo, $manager){
+        $query = "SELECT * from (
+            SELECT
+            Funcionario.displayName AS nome,
+                    convert(varchar(MAX),apontamento.Data_inicial,103) as data ,
+                    SUM(DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final)) as duracao
+                 FROM apontamento 
+                    JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+                    WHERE manager like ?
+                    GROUP BY 
+                    apontamento.Data_inicial,Funcionario.displayName) em_linha
+                    pivot (sum(duracao) for data in ($intervalo)) em_colunas order by 1";
+        //echo $query;
+
+        $stmt= $this->db->prepare($query);
+        $stmt->bindValue(1,"%" . $manager . "%");
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
 
 
 

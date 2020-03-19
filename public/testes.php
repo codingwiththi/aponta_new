@@ -60,10 +60,16 @@ $dateEnd 		= new DateTime($dateEnd);
 
 
 $dateRange = array();
+$datasql = array();
+
 while($dateStart <= $dateEnd){
-    $dateRange[] = $dateStart->format('d l');
+	$dateRange[] = $dateStart->format('d l');
+	$datasql[] = $dateStart->format('d/m/Y');
+	
     $dateStart = $dateStart->modify('+1day');
 }
+
+
 
 //var_dump($dateRange);
 

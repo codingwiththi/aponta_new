@@ -1,97 +1,45 @@
-<!-- pagina com o total de horas dos  apontamentos concluidos  -->
-<div class="container-fluid bg-light">
-<div class="row">
-        <div class="" >
-            <table class="table table-striped table-bordered table-hover table-responsive " style="overflow: auto;">
-                <thead>
-                    <tr>
-                        <th class="">Funcionario </th>
-                        <th >teste </th>
-                        <th>teste </th>
+<div class="container">
+            <!-- Top Navigation -->
+            
+			
+			<div class="component">
+				
+				<table class="overflow-y">
+					<thead>
+						<tr>
+                            <th>Funcionario</th>
+                            <?php foreach($this->view->dataRange as $data) {?>
+                                <th><?php echo $data; ?></th>
+                            <?php } ?>
+                            
+						</tr>
+					</thead>
+					<tbody>
+                    <?php foreach($this->view->resultadoMensal as $rmensal){?>
+                                <tr>
+  
+                                  <?php  $cont = 0;
+                                    print_r($rmensal);
+                                    foreach($rmensal as $dados){
+                                        if(!$dados){
+                                            ?> <td> <?php echo 0; ?></td> <?php
+                                        }else{
+                                            if($cont == 0){
+                                                ?> <th> <?php echo $dados ?></th> <?php
+                                            }else{
+                                            ?> <td> <?php echo $dados ?></td> <?php
+                                            }
+                                        }
+                                        //echo $cont;
+                                        $cont ++;
+                                    } //echo 'tamanho for:' . $cont . '</br>';
+                              ?>
+                              </tr>      
+                           <?PHP }?>
+
                         
-                        <?php foreach($this->view->dataRange as $data){?>
-                            <th> <?php echo $data ?> </th>
-                        <?php }?>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="headcol"> bruno vicente do nascimento</td>
-                        <td > 10</td>
-                        <td> 10</td>
-                        <td> 01</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-
-                    </tr>
-                    <tr>
-                        <td class="headcol"> bruno vicente do nascimento</td>
-                        <td > 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>                        
-                    </tr>
-                    <tr>
-                        <td class="headcol"> bruno vicente do nascimento</td>
-                        <td > 10</td>
-                        <td> 10</td>
-                        <td> 01</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-
-                    </tr>
-                    <tr>
-                        <td class="headcol"> bruno vicente do nascimento</td>
-                        <td > 10</td>
-                        <td> 10</td>
-                        <td> 01</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-
-                    </tr>
-                    <tr>
-                        <td class="headcol"> bruno vicente do nascimento</td>
-                        <td > 10</td>
-                        <td> 10</td>
-                        <td> 01</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-                        <td> 10</td>
-
-                    </tr>
-                    
-                </tbody>
-                
-            </table>
-
-        </div>
-    </div>
-
-</div>
+					</tbody>
+				</table>
+		
+			</div>
+		</div><!-- /container -->

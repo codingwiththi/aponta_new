@@ -304,10 +304,23 @@ class AppController extends Action {
 
 		require_once('../public/testes.php');
 		$this->view->dataRange = $dateRange;
+		$apontamento = Container::getModel('Apontamento');
+		//print_r($datasql);
+		$str = "";
+		for($i=0; $i <= count($datasql) -1 ;$i++){
+			if($i != (count($datasql) -1)){
+				$str .= '['. strval($datasql[$i]). ']'.','  ;
+
+			}else{
+				$str .= '['. strval($datasql[$i]). ']';
+			}
+		}
+		//echo $str;
+		$this->view->resultadoMensal = $apontamento->getMensal($str,'Vinicius Detoni');
 
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
 			
-			$this->render('concluido','layout2');
+			$this->render('concluido','layout3');
 		}else{
 			header("location: /?login=erro");
 		}
