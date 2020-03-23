@@ -113,7 +113,7 @@ while($dateStart <= $dateEnd){
 // //$user = "CN=Bruno Vicente do Nascimento,OU=USUARIOS,OU=WINTEL,OU=SUPORTE_ESPECIALIZADO,OU=JARDIM_CAMBURI,OU=GERENCIAMENTO_EMPRESA,OU=NEXA TECNOLOGIA,DC=corp,DC=nexa,DC=com,DC=br";
 // $u = "bvnascimento@corp.nexa.com.br";
 // $ldap_porta = 389;
-// $ldap_pass   = '';
+// $ldap_pass   = 'senhaTOSC@321';
 // $ldapcon = ldap_connect($ldap_server,$ldap_porta) or die("nao foi possivel conectar LDAP server");
 
 
@@ -128,7 +128,7 @@ while($dateStart <= $dateEnd){
 //     print_r($bind);
 //     if ($bind) {
 //         echo "LDAP bind successful…";
-//         $filter = "(mailnickname=bruno.nascimento*)";
+//         $filter = "(mailnickname=rogerio.gomes*)";
 //         $result = ldap_search($ldapcon,"OU=NEXA TECNOLOGIA,DC=corp,DC=nexa,DC=com,DC=br",$filter) or exit("Unable to search");
 // 		$entries = ldap_get_entries($ldapcon, $result);
 		
@@ -136,29 +136,29 @@ while($dateStart <= $dateEnd){
 // 		print "<pre>";
 //         print_r ($entries);
 // 		print "</pre>";
-	//$x = [];
+// 	//$x = [];
 
 
-	// 	foreach($entries[0] as $key){
-	// 		//print_r($key[0]);
-	// 		//echo "<br>";
-	// 		$x['teste'] = $key[0];
-	// 		print_r($x);
+// 	// 	foreach($entries[0] as $key){
+// 	// 		//print_r($key[0]);
+// 	// 		//echo "<br>";
+// 	// 		$x['teste'] = $key[0];
+// 	// 		print_r($x);
 
-	// 	}
-	// 	echo json_encode($x);
+// 	 	}
+// 	// 	echo json_encode($x);
 
-		// $retorno = [];
-		// $retorno["company"] = @$info[0]["company"][0];		
-		// $retorno["department"] =  trim( @$info[0]["department"][0] );
-		// $retorno["title"] =  @$info[0]["title"][0];
-		// $retorno["name"] =  $info[0]["name"][0];			
-		// $retorno["mail"] =  @$info[0]["mail"][0];
-		// $retorno["samaccountname"] =  @$info[0]["samaccountname"][0];
-		// $retorno["telephonenumber"] =  @$info[0]["telephonenumber"][0];
-		// $retorno["extensionattribute4"] = @$info[0]["extensionattribute4"][0];
-		// $retorno["extensionattribute2"] = @$info[0]["extensionattribute2"][0];			
-		// $retorno["manager"] = str_replace("CN=", "",explode(",", @$info[0]["manager"][0])[0]);	 
+// 		// $retorno = [];
+// 		// $retorno["company"] = @$info[0]["company"][0];		
+// 		// $retorno["department"] =  trim( @$info[0]["department"][0] );
+// 		// $retorno["title"] =  @$info[0]["title"][0];
+// 		// $retorno["name"] =  $info[0]["name"][0];			
+// 		// $retorno["mail"] =  @$info[0]["mail"][0];
+// 		// $retorno["samaccountname"] =  @$info[0]["samaccountname"][0];
+// 		// $retorno["telephonenumber"] =  @$info[0]["telephonenumber"][0];
+// 		// $retorno["extensionattribute4"] = @$info[0]["extensionattribute4"][0];
+// 		// $retorno["extensionattribute2"] = @$info[0]["extensionattribute2"][0];			
+// 		// $retorno["manager"] = str_replace("CN=", "",explode(",", @$info[0]["manager"][0])[0]);	 
 
 
 
@@ -168,7 +168,7 @@ while($dateStart <= $dateEnd){
 
 //     }
 
-// }
+//}
 
 
 

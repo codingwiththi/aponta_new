@@ -1,6 +1,9 @@
-<div class="container">
+<div class="container " >
             <!-- Top Navigation -->
-            
+
+        <div>
+        <h1 class="text-center text">Horas concluídas <h1>
+        </div>            
 			
 			<div class="component">
 				
@@ -19,7 +22,7 @@
                                 <tr>
   
                                   <?php  $cont = 0;
-                                    print_r($rmensal);
+                                    //print_r($rmensal);
                                     foreach($rmensal as $dados){
                                         if(!$dados){
                                             ?> <td> <?php echo 0; ?></td> <?php
@@ -42,4 +45,6 @@
 				</table>
 		
 			</div>
+
+
 		</div><!-- /container -->
