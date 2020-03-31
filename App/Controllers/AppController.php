@@ -243,6 +243,9 @@ class AppController extends Action {
 			$this->render('historico','layout2');
 
 
+		}else{
+			header("location: /?login=erro");
+
 		}
 
 	}
@@ -265,12 +268,10 @@ class AppController extends Action {
 			$manager = $func->isManager();
 			//print_r($manager);	 
 			if($manager['manager'] == 0){
-				echo "não é manager";
+				//echo "não é manager";
 				//RENDER VOCE NAO TEM ACESSO
-				//HEADER LOCATION 
-			}else{
-				echo "é manager";
-				//setor o atributo manager como true 
+				//HEADER LOCATION
+				header("location: /apontamento");	
 			}
 	
 
@@ -297,28 +298,33 @@ class AppController extends Action {
 
 
 	public function concluido(){
-		
 		session_start();
 
-
-
-		require_once('../public/testes.php');
-		$this->view->dataRange = $dateRange;
-		$apontamento = Container::getModel('Apontamento');
-		//print_r($datasql);
-		$str = "";
-		for($i=0; $i <= count($datasql) -1 ;$i++){
-			if($i != (count($datasql) -1)){
-				$str .= '['. strval($datasql[$i]). ']'.','  ;
-
-			}else{
-				$str .= '['. strval($datasql[$i]). ']';
-			}
-		}
-		//echo $str;
-		$this->view->resultadoMensal = $apontamento->getMensal($str,'Vinicius Detoni');
-
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+
+			$func = Container::getModel('funcionario');
+			$func->__set('nome',$_SESSION['nome'] );
+			$manager = $func->isManager();
+			//print_r($manager);	 
+			if($manager['manager'] == 0){
+				header("location: /apontamento");	
+			}
+			require_once('../public/testes.php');
+			$this->view->dataRange = $dateRange;
+			$apontamento = Container::getModel('Apontamento');
+			//print_r($datasql);
+			$str = "";
+			for($i=0; $i <= count($datasql) -1 ;$i++){
+				if($i != (count($datasql) -1)){
+					$str .= '['. strval($datasql[$i]). ']'.','  ;
+
+				}else{
+					$str .= '['. strval($datasql[$i]). ']';
+				}
+			}
+			//echo $str;
+			$this->view->resultadoMensal = $apontamento->getMensal($str,$_SESSION['nome']);
+				
 			
 			$this->render('concluido','layout3');
 		}else{
@@ -332,14 +338,28 @@ class AppController extends Action {
 
 	public function editaveis(){
 		session_start();
+		$this->view->postEdita = false;
 		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+			
+			$func = Container::getModel('funcionario');
+			$func->__set('nome',$_SESSION['nome'] );
+			$manager = $func->isManager();
+			//print_r($manager);	 
+			if($manager['manager'] == 0){
+				header("location: /apontamento");	
+			}
+			
+			$this->view->postEdita = false;
 			if($_POST['chamado_editavel']){
-				print_r($_POST);
+				//print_r($_POST);
 				$apontamento = Container::getModel('Apontamento');
 				$apontamento->__set('numeroChamado',$_POST['chamado_editavel']);
 				$this->view->editaPorChamado = $apontamento->getPorNumeroChamado();
-				print_r($this->view->editaPorChamado);
+				//print_r($this->view->editaPorChamado);
+				$this->view->postEdita = true;
+		
 			}
+
 
 
 			$this->render('editaveis','layout2');

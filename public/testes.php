@@ -43,7 +43,7 @@
 
 $data_incio = mktime(0, 0, 0, date('m') , 1 , date('Y'));
 $data_fim = mktime(23, 59, 59, date('m'), date("t"), date('Y'));
- $ini = date('d/m/Y',$data_incio);
+$ini = date('d/m/Y',$data_incio);
 $fim = date('d/m/Y',$data_fim);
 // echo $ini;
 // $x = new DateTime($ini);

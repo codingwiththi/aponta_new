@@ -275,7 +275,7 @@ class Apontamento extends Model{
             SELECT
             Funcionario.displayName AS nome,
                     convert(varchar(MAX),apontamento.Data_inicial,103) as data ,
-                    SUM(DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final)) as duracao
+                    SUM(DATEDIFF(hour,apontamento.Data_inicial,apontamento.Data_final)) as duracao
                  FROM apontamento 
                     JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
                     WHERE manager like ?

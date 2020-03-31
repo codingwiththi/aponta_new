@@ -4,7 +4,7 @@
         <div class="col-2"></div>
         <div class="col-7">
 
-            <div class="card">
+            <div class="card" style="margin: 5px;">
                 <div class="card-header bg-info text-white">
                     SUGERIR EDIÇÃO
                 </div>
@@ -35,9 +35,9 @@
     </div>
 
 
-<div class="row " style=" padding: 10px; " >
+<div class="row " style=" padding: 8px; " >
 
-<?php if(empty($this->view->editaPorChamado)){ echo "null";}foreach($this->view->editaPorChamado as $chamado){?>
+<?php if(!empty($this->view->editaPorChamado)){  foreach($this->view->editaPorChamado as $chamado){?>
 
     <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">
     <div class="col-3">
@@ -57,7 +57,10 @@
     </div>
     </form>
 
-<?php }?>
+<?php } }
+if (empty($this->view->editaPorChamado) and ($this->view->postEdita == true)){
+    echo "<h2> Não foi possivel localizar este apontamento <h2>";
+}?>
     
 
     
