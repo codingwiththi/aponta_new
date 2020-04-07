@@ -30,6 +30,15 @@ function parseStringToDate(dateStr, horaStr) {
     //console.log(parts);
     return new Date(parts[0] + "-" + parts[1] + "-" + parts[2] + "T" + horaStr + ":00");
 }
+
+// function RetornaDataHoraAtual(){
+//     var dNow = new Date();
+//     var localdate = dNow.getDate() + '-' + (dNow.getMonth()+1) + '-' + dNow.getFullYear() ;
+//     var hora = dNow.getHours() + ':' + dNow.getMinutes();
+//     return localdate,hora;
+//   }
+  
+// console.log();
 //inicio valida form
 //----------------------------------------
 function ValidaFormInsert() {
@@ -38,9 +47,22 @@ function ValidaFormInsert() {
     var hora_inicio = $('#hora_inicial').val();
     var data_final = $('#data_final').val();
     var hora_final = $('#hora_final').val();
+    var data_atual = new Date();
     console.log(parseStringToDate(data_inicio, hora_inicio));
+  //  console.log(RetornaDataHoraAtual());
     if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
         //mostrar error
+        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').fadeIn(300).delay(5000).fadeOut(400);
+        $('#data_inicial').focus();
+        $('#hora_inicial').focus();
+        $('#data_final').focus();
+        $('#hora_final').focus().slideDown(500);
+
+        return false;
+    }
+
+    if((parseStringToDate(data_inicio, hora_inicio) >= data_atual ) || (parseStringToDate(data_final, hora_final) >= data_atual ) ){
+
         $('#alert_erro').html('INTERVALO DE DATA INVALIDA').fadeIn(300).delay(5000).fadeOut(400);
         $('#data_inicial').focus();
         $('#hora_inicial').focus();

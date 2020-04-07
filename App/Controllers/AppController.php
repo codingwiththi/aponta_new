@@ -73,7 +73,7 @@ class AppController extends Action {
 				$this->view->dataInvalida = 0;//zero significa erro
 				echo "data invalida";
 				echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
-				//header('Location:/apontamento?cadastroAponta=erroCadastro');//
+				header('Location:/apontamento?cadastroAponta=erroCadastro');//
 			}else{
 				//verificar data negativaaa
 				echo "data negativa";
