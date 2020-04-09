@@ -110,8 +110,8 @@ class AppController extends Action {
 					if(!isset($existe)){
 						echo "ja existe";
 						//decidir oque fazer
+						header('Location:/apontamento?cadastroAponta=erroCadastro');
 						//fazer uma view pra receber um valor caso o usur ja exista
-
 					}else{
 						$apontamento->salvar();
 						// echo '<pre>';
@@ -153,8 +153,10 @@ class AppController extends Action {
 			$dataInicio = $_POST['edita_dt_ini'] ."T".$_POST['edita_time_ini'];
 			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'];
 
+			// $date_dataInicio = date($dataInicio);
+			// $date_dataTermino = date($dataTermino);
 			//data precisar respeitar as regras de negocios
-			if(($dataTermino < $dataInicio) or ($dataInicio > $data_atual or $dataFinal > $data_atual) ){
+			if(($dataTermino == $dataInicio) or ($dataTermino < $dataInicio) or ($dataInicio > $data_atual ) or ($dataTermino > $data_atual) ){
 				//if data inicio < (data atual - 2 days) == erro
 				//$this->view->dataInvalida = 0;//zero significa erro
 				// header('Location:/apontamento?cadastroAponta=erroCadastro');//

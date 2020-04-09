@@ -95,7 +95,9 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
-        WHERE (apontamento.FK_func_Id = :fkFuncionarioId AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()))";
+        WHERE (apontamento.FK_func_Id = :fkFuncionarioId 
+        AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) 
+        OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()))";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->execute();

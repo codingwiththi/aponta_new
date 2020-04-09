@@ -3,7 +3,7 @@
         <div class="row bg-">
             <!-- <div class="col-4"></div> -->
             <div class="col-12">
-                <h1 class="text-center ">Aponta NEXA<h1>
+                <h1 class="text-center ">APONTA NEXA<h1>
             </div>
             <!-- <div class="col-2"></div> -->
 
@@ -15,7 +15,7 @@
             <!-- inicio div direita -->
             <div class="col-10 card">
 
-                <h5 class="card-title text-center ">Apontamento de hora</h5>
+                <h5 class="card-title text-center ">Apontamento</h5>
 
                 <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
                     <div class="form-row">
@@ -49,8 +49,8 @@
                             <input type="" name="numero_chamado" id="numero_chamado" class="form-control bg-light"  placeholder="numerochamado" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputState">tipo de atividade</label>
-                            <select id="tipo_atividade" name="tipo_atividade" class="form-control bg-light" required>
+                            <label for="inputState">Tipo de atividade</label>
+                            <select id="tipo_atividade" name="Tipo_atividade" class="form-control bg-light" required>
                             <option value="" disabled selected>tipo de atividade</option>
 
                             <?php foreach($this->view->tipoAtividade as $tp_atividade ){?>
@@ -59,10 +59,10 @@
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputState">atividade</label>
+                            <label for="inputState">Atividade</label>
                             <select id="atividade" name="atividade" class="form-control bg-light" required>
                             <!-- <option>escolha um tipo de atividade</option> -->
-                            <option value="" disabled selected>Selecione o campo interior</option>
+                            <option value="" disabled selected>Selecione o campo anterior</option>
 
 
                             </select>
@@ -72,11 +72,11 @@
 
                     <div class="form-row">
                         <div class="form-group col-sm-2">
-                            <label for="">data inicial</label>
+                            <label for="">Data inicial</label>
                             <input type="date" name="data_inicial" class="form-control bg-light" id="data_inicial" value =<?php echo "\"".date('Y-m-d')."\"" ;?>  required>
                         </div>                    
                         <div class="form-group col-sm-2">
-                            <label for="">hora inicial</label>
+                            <label for="">Hora inicial</label>
                             <input type="time" name="hora_inicial" class="form-control bg-light" id="hora_inicial"  value =<?php echo "\"".date('H:i')."\"" ;?> required>
                         </div>
                         <!-- <div class="form-group col-sm-4">
@@ -84,11 +84,11 @@
                             <input type="datetime-local" name="data_inicial" class="form-control bg-light" id="data_inicial" placeholder="data inicial" required>
                         </div> -->
                         <div class="form-group col-sm-2">
-                            <label for="">data final</label>
+                            <label for="">Data final</label>
                            <input type="date" name="data_final" class="form-control bg-light" id="data_final" value =<?php echo "\"".date('Y-m-d')."\"" ;?> required>
                         </div>                    
                         <div class="form-group col-sm-2">
-                            <label for="">hora final</label>
+                            <label for="">Hora final</label>
                             <input type="time" name="hora_final" class="form-control bg-light" id="hora_final" value =<?php echo "\"".date('H:i')."\"" ;?> required>
                         </div>
                         <!-- <div class="form-group col-sm-4">
@@ -96,7 +96,7 @@
                             <input type="datetime-local" name="data_final" class="form-control bg-light" id="data_final" placeholder="data final" required>
                         </div> -->
                         <div class="form-group col-sm-4">
-                            <label for="inputState">tipo de hora</label>
+                            <label for="inputState">Tipo de hora</label>
                             <select id="" name="tipo_hora" class="form-control bg-light" required>
                             <?php foreach($this->view->tipo_hora as $tp_hora ){?>
                                 <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
@@ -124,7 +124,7 @@
                     <div class="form-row">
                         <div class="form-group col-4"></div>
                         <div class="form-group col-5">
-                            <input class="btn bg-info" type="submit" value="cadastrar">
+                            <input class="btn bg-info text-white" type="submit" value="cadastrar">
                         </div>
                         <div class="form-group col-3"></div>
 
@@ -158,7 +158,7 @@
                             </th>
                             <th class="th-sm">Duracão
                             </th>
-                            <th class="th-sm">editar
+                            <th class="th-sm">
                             </th>
 
 
@@ -179,7 +179,7 @@
                             <td> <?php echo $apontamento['duracao']; ?></td>
                             <td style="text-align:center;">
                                 <button class="btn-sm btn-success" data-toggle="modal" data-target="#myModal"
-                                    contenteditable="false">Edit</button>
+                                    contenteditable="false">Editar</button>
                             </td>
                         </tr>
                         <?php } ?>
@@ -224,10 +224,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×
-                        </span><span class="sr-only">Close</span>
+                        </span><span class="sr-only">Fechar</span>
 
                     </button>
-                    <h4 class="modal-title" id="myModalLabel">editar apontamento</h4>
+                    <h4 class="modal-title" id="myModalLabel">Editar apontamento</h4>
 
                 </div>
                 <div class="modal-body">
@@ -262,7 +262,7 @@
 
                         <div class="form-row">
                             <div class="form-group col-lg-6">
-                                <label for="inputState">tipo de atividade</label>
+                                <label for="inputState">Tipo de atividade</label>
                                 <select id="edita_tp_atv" name="edita_tp_atv" class="form-control bg-light">
                            <?php foreach($this->view->tipoAtividade as $tp_atividade ){?>
                                 <option value="<?php echo $tp_atividade['id'] ?>"> <?php echo $tp_atividade['tipo_atividade']; ?> </option>
@@ -270,7 +270,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="inputState"> atividade</label>
+                                <label for="inputState"> Atividade</label>
                                 <select id="edita_atividade" name="edita_atividade" class="form-control bg-light">
                                 </select>
                             </div>
@@ -278,22 +278,22 @@
                         
                         <div class="form-row">
                             <div class="form-group col-lg-6">
-                                <label for="inputState">data inicial</label>
+                                <label for="inputState">Data inicial</label>
                                 <input type="date" class="form-control bg-light" id="edita_dt_ini" name="edita_dt_ini" placeholder="data inicial">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="inputState">hora inicial</label>
+                                <label for="inputState">Hora inicial</label>
                                 <input type="time" class="form-control bg-light" id="edita_time_ini" name="edita_time_ini" placeholder="data inicial">
                             </div>
                         </div>
                         <div class="form-row">
 
                             <div class="form-group col-lg-6">
-                                <label for="inputState"> data final</label>
+                                <label for="inputState"> Data final</label>
                                 <input type="date" class="form-control bg-light" id="edita_dt_fim" name="edita_dt_fim" placeholder="data inicial">
                             </div>
                             <div class="form-group col-lg-6">
-                                <label for="inputState"> hora final</label>
+                                <label for="inputState"> Hora final</label>
                                 <input type="time" class="form-control bg-light" id="edita_time_fim" name="edita_time_fim" placeholder="data inicial">
                             </div>
                         </div>
@@ -301,7 +301,7 @@
                             <div class="form-group col-lg-3"> </div>
                             
                             <div class="form-group col-lg-6">
-                                <label for="inputState">tipo de hora</label>
+                                <label for="inputState">Tipo de hora</label>
                                 <select id="edita_tp_hr" name="edita_tp_hr" class="form-control bg-light">
                                     <?php foreach($this->view->tipo_hora as $tp_hora ){?>
                                         <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>

@@ -7,8 +7,8 @@
             </div>   
             <div class="form-group">
 
-                <label for="exampleInputEmail1">Matricula</label>
-                <input type="text" name="matricula" class="form-control" id="" aria-describedby="emailHelp" placeholder="Entre com a matricula ">
+                <label for="exampleInputEmail1">Usuário</label>
+                <input type="text" name="matricula" class="form-control" id="" aria-describedby="emailHelp" placeholder="Digite seu usuário">
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Senha</label>
@@ -17,10 +17,10 @@
               <?php if($this->view->login == 'erro'){?>
               <div class ="row">
                 <div class="col">
-                  <span class="text text-danger"> matricula ou senha nvalida </span>
+                  <span class="text text-danger" id="erro_login"> Usuário ou senha inválido </span>
                 </div>
               </div>          
               <?php }?>
-              <button type="submit" class="btn btn-primary">entrar</button>
+              <button type="submit" class="btn btn-primary">Entrar</button>
         </form>
       </div>

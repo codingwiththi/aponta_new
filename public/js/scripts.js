@@ -25,6 +25,9 @@ $(document).ready(function() {
 });
 
 
+
+
+
 function parseStringToDate(dateStr, horaStr) {
     var parts = dateStr.split("-");
     //console.log(parts);
@@ -40,6 +43,11 @@ function parseStringToDate(dateStr, horaStr) {
   
 // console.log();
 //inicio valida form
+
+
+setTimeout(function(){
+        $('#erro_login').remove();
+},3000);
 //----------------------------------------
 function ValidaFormInsert() {
     //FAZER VALIDAÇÃO DE DATA AQUIIII
@@ -234,6 +242,7 @@ $('.modal-footer .btn-primary').click(function() {
         if (data == 1)
             window.location.href = '/apontamento';
         else
+            //console.log(data);
             $('#erro_edita').html(data).fadeIn(300).delay(5000).fadeOut(400);
 
         //se tiver tudo certo eu só recarrego a pagina
