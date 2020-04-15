@@ -60,18 +60,18 @@ function ValidaFormInsert() {
   //  console.log(RetornaDataHoraAtual());
     if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
         //mostrar error
-        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').fadeIn(300).delay(5000).fadeOut(400);
-        $('#data_inicial').focus();
-        $('#hora_inicial').focus();
-        $('#data_final').focus();
-        $('#hora_final').focus().slideDown(500);
+        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        // $('#data_inicial').focus();
+        // $('#hora_inicial').focus();
+        // $('#data_final').focus();
+        $('#hora_inicial').focus().slideDown(500);
 
         return false;
     }
 
     if((parseStringToDate(data_inicio, hora_inicio) >= data_atual ) || (parseStringToDate(data_final, hora_final) >= data_atual ) ){
 
-        $('#alert_erro').html('INTERVALO DE DATA INVALIDA').fadeIn(300).delay(5000).fadeOut(400);
+        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
         $('#data_inicial').focus();
         $('#hora_inicial').focus();
         $('#data_final').focus();
