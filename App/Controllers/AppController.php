@@ -89,15 +89,22 @@ class AppController extends Action {
 					//echo $dataInicio;
 					// echo "tudo certo";
 					// echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
+					if(isset($_POST['numero_chamado']) or empty($_POST['numero_chamado'])){
+						$numero_chamado = "";
+					}else{
+						$numero_chamado = $_POST['numero_chamado'];
+					}
 
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
 					$apontamento->__set('dataFinal',strval($dataTermino));
-					$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
+					$apontamento->__set('numeroChamado',$numero_chamado);
 					$apontamento->__set('fkAtividadeId',$_POST['atividade']);
 					$apontamento->__set('fkContratoId',strval($_POST['contrato']));
 					$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 					$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
+					$apontamento->__set('descricao',$_POST['descricao']);
+
 					//data inicial menor que 2 dias atrás o staus vira pendente
 					if ($_POST['data_inicial'] < $data_comparacao){
 						$apontamento->__set('fkStatusId',1);

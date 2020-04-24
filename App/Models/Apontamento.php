@@ -18,6 +18,8 @@ class Apontamento extends Model{
     private $fkStatusId;
     private $editavel;
     private $data_editavel;
+    private $descricao;
+
 
     public function __get($atributo){
         return $this->$atributo;
@@ -37,7 +39,8 @@ class Apontamento extends Model{
         FK_contrato_Id,
         FK_func_Id,
         FK_tipo_hora_Id,
-        FK_status_Id)values
+        FK_status_Id,
+        descricao)values
         (CONVERT(DATETIME,:dataInicial,126),
         CONVERT(DATETIME,:dataFinal,126),
         :numeroChamado,
@@ -45,7 +48,8 @@ class Apontamento extends Model{
         :fkContratoId,
         :fkFuncionarioId,
         :fkTipoHoraId,
-        :fkStatusId)";
+        :fkStatusId,
+        :descricao)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal'));   
@@ -55,6 +59,7 @@ class Apontamento extends Model{
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->bindValue(':fkTipoHoraId',$this->__get('fkTipoHoraId'));
         $stmt->bindValue(':fkStatusId',$this->__get('fkStatusId'));
+        $stmt->bindValue(':descricao',$this->__get('descricao'));
 
         $stmt->execute();
         //print_r($this);

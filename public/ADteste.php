@@ -128,7 +128,7 @@ if ($ldapcon){
     print_r($bind);
     if ($bind) {
         echo "LDAP bind successful…";
-        $filter = "(mailnickname=suporte.gempi*)";
+        $filter = "(mailnickname=bruno.nascimento*)";
         $result = ldap_search($ldapcon,"OU=NEXA TECNOLOGIA,DC=corp,DC=nexa,DC=com,DC=br",$filter) or exit("Unable to search");
 		$entries = ldap_get_entries($ldapcon, $result);
 		
