@@ -9,140 +9,158 @@
 
         </div>
 
-
-        <div class="row  bg-light">
-            <div class="col-1"></div>
-            <!-- inicio div direita -->
-            <div class="col-10 card">
-
-                <h5 class="card-title text-center ">Apontamento</h5>
-
-                <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
-                    <div class="form-row">
-                        <div class="form-group col-lg-2"></div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputState">Cliente</label>
-                            <select id="cliente" name="cliente" class="form-control bg-light" required>
-                            <option value="" disabled selected>Selecione o cliente </option>
-                            <?php foreach($this->view->clientes as $cliente ){?>
-                                <option value="<?php echo $cliente['id'] ?>"> <?php echo $cliente['nome']; ?> </option>
-                           <?php };?>     
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputState">Contrato</label>
-                            <select id="contrato" name="contrato" class="form-control bg-light" required>
-                            <!-- <option value="erro">escolha um contrato</option> -->
-                            <option value="" disabled selected>Selecione o campo interior</option>
-
-                            </select>
-                        </div>
-
-                        <div class="form-group col-lg-2"></div>
-
-                    </div>
-
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4 ">
-                            <label for="">N° chamado</label>
-                            <input type="" name="numero_chamado" id="numero_chamado" class="form-control bg-light"   placeholder="numerochamado" >
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputState">Tipo de atividade</label>
-                            <select id="tipo_atividade" name="Tipo_atividade" class="form-control bg-light" required>
-                            <option value="" disabled selected>tipo de atividade</option>
-
-                            <?php foreach($this->view->tipoAtividade as $tp_atividade ){?>
-                                <option value="<?php echo $tp_atividade['id'] ?>"> <?php echo $tp_atividade['tipo_atividade']; ?> </option>
-                           <?php };?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputState">Atividade</label>
-                            <select id="atividade" name="atividade" class="form-control bg-light" required>
-                            <!-- <option>escolha um tipo de atividade</option> -->
-                            <option value="" disabled selected>Selecione o campo anterior</option>
-
-
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-sm-2">
-                            <label for="">Data inicial</label>
-                            <input type="date" name="data_inicial" class="form-control bg-light" id="data_inicial" value =<?php echo "\"".date('Y-m-d')."\"" ;?>  required>
-                        </div>                    
-                        <div class="form-group col-sm-2">
-                            <label for="">Hora inicial</label>
-                            <input type="time" name="hora_inicial" class="form-control bg-light" id="hora_inicial"  value =<?php echo "\"".date('H:i')."\"" ;?> required>
-                        </div>
-                        <!-- <div class="form-group col-sm-4">
-                            <label for="">data inicial</label>
-                            <input type="datetime-local" name="data_inicial" class="form-control bg-light" id="data_inicial" placeholder="data inicial" required>
-                        </div> -->
-                        <div class="form-group col-sm-2">
-                            <label for="">Data final</label>
-                           <input type="date" name="data_final" class="form-control bg-light" id="data_final" value =<?php echo "\"".date('Y-m-d')."\"" ;?> required>
-                        </div>                    
-                        <div class="form-group col-sm-2">
-                            <label for="">Hora final</label>
-                            <input type="time" name="hora_final" class="form-control bg-light" id="hora_final" value =<?php echo "\"".date('H:i')."\"" ;?> required>
-                        </div>
-                        <!-- <div class="form-group col-sm-4">
-                            <label for="">data final</label>
-                            <input type="datetime-local" name="data_final" class="form-control bg-light" id="data_final" placeholder="data final" required>
-                        </div> -->
-                        <div class="form-group col-sm-4">
-                            <label for="inputState">Tipo de hora</label>
-                            <select id="" name="tipo_hora" class="form-control bg-light" required>
-                            <?php foreach($this->view->tipo_hora as $tp_hora ){?>
-                                <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
-                           <?php };?>
-                            </select>
-                        </div>
-                    </div>
-<!-- 
-                    <?php //if($this->view->dataInvalida == "erroCadastro"){?>
-                    <div class ="row">
-                    <div class="col-6"></div>
-                        <div class="col-3"  style="align = center">
-                        <h6 class="text text-danger" > Intervalo de data invalido,teste novamente</h6>
-                        </div>
-                    </div>          
-                <?php// }?> -->
-                <div class="row">
-                <div class="col-5" ></div>
-                    <div class="col-4">
-                        <div id="alert_erro" class="text text-danger" style="align = center">  </div>
-                    </div>
-                <div class="col-2" ></div>
-                </div>
-                <div class="row">
-                <div class="col-3" ></div>
-                    <div class="col-4 ">
-                    <label for="inputState">Descrição da atividade</label>
-                    <textarea class="d-flex justify-content-center" name="descricao" id="descricao" cols="75" rows="6" required ></textarea>
-                    </div>
-                <div class="col-2" ></div>
-                </div>
-                    <div class="form-row">
-                        <div class="form-group col-4"></div>
-                        <div class="form-group col-5">
-                            <input class="btn bg-info text-white" type="submit" value="cadastrar">
-                        </div>
-                        <div class="form-group col-3"></div>
-
-                    </div>
-                </form>
-            </div><!-- fim  div meio -->
-            <div class="col-1"></div>
-
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-7">
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a aria-selected="true" class="nav-link active" data-toggle="tab" href="#home" >Chamado</a>
+                </li>
+                <!-- <li><a data-toggle="tab" href="#menu1">Menu 1</a></li> -->
+                <li>
+                    <a aria-selected="false" class="nav-link " data-toggle="tab" href="#menu2">atividades</a>
+                </li>
+                <li>
+                <a aria-selected="false" class="nav-link " data-toggle="tab" href="#menu3">Meu dia</a>
+                </li>
+            </ul>
+                        
+            </div>
         </div>
 
-        <div class="row" style="overflow: auto; width: 100%; height: 400px; ">
+<div class="tab-content">
+    <div id="home" class="tab-pane fade show active">
+        <div class="row  bg-light">
+                <div class="col-1"></div>
+                <!-- inicio div direita -->
+                <div class="col-10 card">
+
+                    <h5 class="card-title text-center ">Chamado</h5>
+
+                    <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
+                        <div class="form-row">
+                            <div class="form-group col-lg-2"></div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputState">Cliente</label>
+                                <select id="cliente" name="cliente" class="form-control bg-light" required>
+                                <option value="" disabled selected>Selecione o cliente </option>
+                                <?php foreach($this->view->clientes as $cliente ){?>
+                                    <option value="<?php echo $cliente['id'] ?>"> <?php echo $cliente['nome']; ?> </option>
+                            <?php };?>     
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputState">Contrato</label>
+                                <select id="contrato" name="contrato" class="form-control bg-light" required>
+                                <!-- <option value="erro">escolha um contrato</option> -->
+                                <option value="" disabled selected>Selecione o campo interior</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group col-lg-2"></div>
+
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4 ">
+                                <label for="">N° chamado</label>
+                                <input type="" name="numero_chamado" id="numero_chamado" class="form-control bg-light" required   placeholder="numerochamado" >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Tipo de atividade</label>
+                                <select id="tipo_atividade" name="Tipo_atividade" class="form-control bg-light" required>
+                                <option value="" disabled selected>tipo de atividade</option>
+
+                                <?php foreach($this->view->tipoAtividade as $tp_atividade ){?>
+                                    <option value="<?php echo $tp_atividade['id'] ?>"> <?php echo $tp_atividade['tipo_atividade']; ?> </option>
+                            <?php };?>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputState">Atividade</label>
+                                <select id="atividade" name="atividade" class="form-control bg-light" required>
+                                <!-- <option>escolha um tipo de atividade</option> -->
+                                <option value="" disabled selected>Selecione o campo anterior</option>
+
+
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-sm-2">
+                                <label for="">Data inicial</label>
+                                <input type="date" name="data_inicial" class="form-control bg-light" id="data_inicial" value =<?php echo "\"".date('Y-m-d')."\"" ;?>  required>
+                            </div>                    
+                            <div class="form-group col-sm-2">
+                                <label for="">Hora inicial</label>
+                                <input type="time" name="hora_inicial" class="form-control bg-light" id="hora_inicial"  value =<?php echo "\"".date('H:i')."\"" ;?> required>
+                            </div>
+                            <!-- <div class="form-group col-sm-4">
+                                <label for="">data inicial</label>
+                                <input type="datetime-local" name="data_inicial" class="form-control bg-light" id="data_inicial" placeholder="data inicial" required>
+                            </div> -->
+                            <div class="form-group col-sm-2">
+                                <label for="">Data final</label>
+                            <input type="date" name="data_final" class="form-control bg-light" id="data_final" value =<?php echo "\"".date('Y-m-d')."\"" ;?> required>
+                            </div>                    
+                            <div class="form-group col-sm-2">
+                                <label for="">Hora final</label>
+                                <input type="time" name="hora_final" class="form-control bg-light" id="hora_final" value =<?php echo "\"".date('H:i')."\"" ;?> required>
+                            </div>
+                            <!-- <div class="form-group col-sm-4">
+                                <label for="">data final</label>
+                                <input type="datetime-local" name="data_final" class="form-control bg-light" id="data_final" placeholder="data final" required>
+                            </div> -->
+                            <div class="form-group col-sm-4">
+                                <label for="inputState">Tipo de hora</label>
+                                <select id="" name="tipo_hora" class="form-control bg-light" required>
+                                <?php foreach($this->view->tipo_hora as $tp_hora ){?>
+                                    <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
+                            <?php };?>
+                                </select>
+                            </div>
+                        </div>
+    <!-- 
+                        <?php //if($this->view->dataInvalida == "erroCadastro"){?>
+                        <div class ="row">
+                        <div class="col-6"></div>
+                            <div class="col-3"  style="align = center">
+                            <h6 class="text text-danger" > Intervalo de data invalido,teste novamente</h6>
+                            </div>
+                        </div>          
+                    <?php// }?> -->
+                    <div class="row">
+                    <div class="col-5" ></div>
+                        <div class="col-4">
+                            <div id="alert_erro" class="text text-danger" style="align = center">  </div>
+                        </div>
+                    <div class="col-2" ></div>
+                    </div>
+                    <div class="row">
+                    <div class="col-4" ></div>
+                        <div class="col-6 ">
+                        <label for="inputState">Descrição da atividade</label>
+                        <textarea class="d-flex justify-content-center" name="descricao" id="descricao" cols="60" rows="5" required ></textarea>
+                        </div>
+                    <div class="col-2" ></div>
+                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-4"></div>
+                            <div class="form-group col-5">
+                                <input class="btn bg-info text-white" type="submit" value="cadastrar">
+                            </div>
+                            <div class="form-group col-3"></div>
+
+                        </div>
+                    </form>
+                </div><!-- fim  div meio -->
+                <div class="col-1"></div>
+            </div>
+            <div class="row" style="overflow: auto; width: 100%; height: 400px; ">
             <!-- inicio div esquerda -->
             <!-- <div class="col-1"></div> -->
             <div class="col-12  ">
@@ -218,8 +236,170 @@
             </div>
             <!-- <div class="col-1"></div> -->
 
-        </div><!-- fim  div direita -->
+        </div><!-- fim  div direita --> 
     </div>
+    <div id="menu2" class="tab-pane fade">
+    <div class="row  bg-light">
+                <div class="col-2"></div>
+                <!-- inicio div direita -->
+                <div class="col-8 card">
+
+                    <h5 class="card-title text-center ">Atividade</h5>
+
+                    <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
+                        <div class="form-row">
+                            <div class="form-group col-lg-2"></div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputState">Cliente</label>
+                                <select id="cliente" name="cliente" class="form-control bg-light" required>
+                                <option value="" disabled selected>Selecione o cliente </option>
+                                <?php foreach($this->view->clientes as $cliente ){?>
+                                    <option value="<?php echo $cliente['id'] ?>"> <?php echo $cliente['nome']; ?> </option>
+                            <?php };?>     
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputState">Contrato</label>
+                                <select id="contrato" name="contrato" class="form-control bg-light" required>
+                                <!-- <option value="erro">escolha um contrato</option> -->
+                                <option value="" disabled selected>Selecione o campo interior</option>
+
+                                </select>
+                            </div>
+
+                            <div class="form-group col-lg-2"></div>
+
+                        </div>
+
+
+                        <div class="form-row">
+                        <div class="form-group col-lg-2"></div>
+
+                        <div class="form-group col-sm-4">
+                                <label for="inputState">Tipo de apontamento</label>
+                                <select id="" name="tipo_hora" class="form-control bg-light" required>
+                                    <option>Reunião</option>
+                                    <option>Pausa</option>
+                                    <option>Atendimento emergencial</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div>
+
+                        <div class="form-group col-sm-4">
+                                <label for="inputState">Tipo de hora</label>
+                                <select id="" name="tipo_hora" class="form-control bg-light" required>
+                                <?php foreach($this->view->tipo_hora as $tp_hora ){?>
+                                    <option value="<?php echo $tp_hora['id'] ?>"> <?php echo $tp_hora['tipo_hora']; ?> </option>
+                            <?php };?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                        <div class="form-group col-lg-2"></div>
+
+                            <div class="form-group col-sm-2">
+                                <label for="">Data inicial</label>
+                                <input type="date" name="data_inicial" class="form-control bg-light" id="data_inicial" value =<?php echo "\"".date('Y-m-d')."\"" ;?>  required>
+                            </div>                    
+                            <div class="form-group col-sm-2">
+                                <label for="">Hora inicial</label>
+                                <input type="time" name="hora_inicial" class="form-control bg-light" id="hora_inicial"  value =<?php echo "\"".date('H:i')."\"" ;?> required>
+                            </div>
+                            <!-- <div class="form-group col-sm-4">
+                                <label for="">data inicial</label>
+                                <input type="datetime-local" name="data_inicial" class="form-control bg-light" id="data_inicial" placeholder="data inicial" required>
+                            </div> -->
+                            <div class="form-group col-sm-2">
+                                <label for="">Data final</label>
+                            <input type="date" name="data_final" class="form-control bg-light" id="data_final" value =<?php echo "\"".date('Y-m-d')."\"" ;?> required>
+                            </div>                    
+                            <div class="form-group col-sm-2">
+                                <label for="">Hora final</label>
+                                <input type="time" name="hora_final" class="form-control bg-light" id="hora_final" value =<?php echo "\"".date('H:i')."\"" ;?> required>
+                            </div>
+                            <!-- <div class="form-group col-sm-4">
+                                <label for="">data final</label>
+                                <input type="datetime-local" name="data_final" class="form-control bg-light" id="data_final" placeholder="data final" required>
+                            </div> -->
+
+                        </div>
+    <!-- 
+                        <?php //if($this->view->dataInvalida == "erroCadastro"){?>
+                        <div class ="row">
+                        <div class="col-6"></div>
+                            <div class="col-3"  style="align = center">
+                            <h6 class="text text-danger" > Intervalo de data invalido,teste novamente</h6>
+                            </div>
+                        </div>          
+                    <?php// }?> -->
+                    <div class="row">
+                    <div class="col-5" ></div>
+                        <div class="col-4">
+                            <div id="alert_erro" class="text text-danger" style="align = center">  </div>
+                        </div>
+                    <div class="col-2" ></div>
+                    </div>
+                    <div class="row">
+                    <div class="col-4" ></div>
+                        <div class="col-6 ">
+                        <label for="inputState">Descrição da atividade</label>
+                        <textarea class="d-flex justify-content-center" name="descricao" id="descricao" cols="60" rows="5" required ></textarea>
+                        </div>
+                    <div class="col-2" ></div>
+                    </div>
+                        <div class="form-row">
+                            <div class="form-group col-4"></div>
+                            <div class="form-group col-5">
+                                <input class="btn bg-info text-white" type="submit" value="cadastrar">
+                            </div>
+                            <div class="form-group col-3"></div>
+
+                        </div>
+                    </form>
+                </div><!-- fim  div meio -->
+                <div class="col-2"></div>
+            </div>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Menu 3</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- MODAL DO APONTAMENTO DE CHAMADO -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content"></div>
@@ -330,5 +510,11 @@
             </div>
         </div>
     </div>
+
+
+
+
+
+    <!-- FIM DO CONTAINER DA TELA  -->
     </div>
      <script type="text/javascript" charset="utf8" src="/js/scripts.js"></script>
