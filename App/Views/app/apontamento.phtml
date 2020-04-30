@@ -10,7 +10,7 @@
         </div>
 
         <div class="row">
-            <div class="col-3"></div>
+            <div class="col-4"></div>
             <div class="col-7">
             <ul class="nav nav-pills">
                 <li class="nav-item">
@@ -242,14 +242,14 @@
     <div class="row  bg-light">
                 <div class="col-2"></div>
                 <!-- inicio div direita -->
-                <div class="col-8 card">
+                <div class="col-7 card">
 
                     <h5 class="card-title text-center ">Atividade</h5>
 
                     <form name="insereApontamento" onsubmit="javascript:return ValidaFormInsert(this);" method="POST" action="/apontamento/criaApontamento">
                         <div class="form-row">
-                            <div class="form-group col-lg-2"></div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-1"></div>
+                            <div class="form-group col-lg-5">
                                 <label for="inputState">Cliente</label>
                                 <select id="cliente" name="cliente" class="form-control bg-light" required>
                                 <option value="" disabled selected>Selecione o cliente </option>
@@ -258,7 +258,7 @@
                             <?php };?>     
                                 </select>
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-5">
                                 <label for="inputState">Contrato</label>
                                 <select id="contrato" name="contrato" class="form-control bg-light" required>
                                 <!-- <option value="erro">escolha um contrato</option> -->
@@ -267,26 +267,28 @@
                                 </select>
                             </div>
 
-                            <div class="form-group col-lg-2"></div>
+                            <!-- <div class="form-group col-lg-2"></div> -->
+  
 
+  <!-- e -->
                         </div>
 
 
                         <div class="form-row">
-                        <div class="form-group col-lg-2"></div>
+                        <div class="form-group col-lg-1"></div>
 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-5">
                                 <label for="inputState">Tipo de apontamento</label>
                                 <select id="" name="tipo_hora" class="form-control bg-light" required>
                                     <option>Reunião</option>
                                     <option>Pausa</option>
                                     <option>Atendimento emergencial</option>
-                                    <option>4</option>
+                                    <option>Apoio informativo</option>
                                     <option>5</option>
                                 </select>
                             </div>
 
-                        <div class="form-group col-sm-4">
+                        <div class="form-group col-sm-5">
                                 <label for="inputState">Tipo de hora</label>
                                 <select id="" name="tipo_hora" class="form-control bg-light" required>
                                 <?php foreach($this->view->tipo_hora as $tp_hora ){?>
@@ -297,13 +299,13 @@
                         </div>
 
                         <div class="form-row">
-                        <div class="form-group col-lg-2"></div>
+                        <!-- <div class="form-group col-lg-1"></div> -->
 
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-3">
                                 <label for="">Data inicial</label>
                                 <input type="date" name="data_inicial" class="form-control bg-light" id="data_inicial" value =<?php echo "\"".date('Y-m-d')."\"" ;?>  required>
                             </div>                    
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-3">
                                 <label for="">Hora inicial</label>
                                 <input type="time" name="hora_inicial" class="form-control bg-light" id="hora_inicial"  value =<?php echo "\"".date('H:i')."\"" ;?> required>
                             </div>
@@ -311,11 +313,13 @@
                                 <label for="">data inicial</label>
                                 <input type="datetime-local" name="data_inicial" class="form-control bg-light" id="data_inicial" placeholder="data inicial" required>
                             </div> -->
-                            <div class="form-group col-sm-2">
+                            <!-- <div class="form-group col-lg-1"></div> -->
+
+                            <div class="form-group col-sm-3">
                                 <label for="">Data final</label>
                             <input type="date" name="data_final" class="form-control bg-light" id="data_final" value =<?php echo "\"".date('Y-m-d')."\"" ;?> required>
                             </div>                    
-                            <div class="form-group col-sm-2">
+                            <div class="form-group col-sm-3">
                                 <label for="">Hora final</label>
                                 <input type="time" name="hora_final" class="form-control bg-light" id="hora_final" value =<?php echo "\"".date('H:i')."\"" ;?> required>
                             </div>
@@ -342,15 +346,15 @@
                     <div class="col-2" ></div>
                     </div>
                     <div class="row">
-                    <div class="col-4" ></div>
-                        <div class="col-6 ">
-                        <label for="inputState">Descrição da atividade</label>
-                        <textarea class="d-flex justify-content-center" name="descricao" id="descricao" cols="60" rows="5" required ></textarea>
-                        </div>
-                    <div class="col-2" ></div>
+                        <div class="col-3" ></div>
+                            <div class="col-6 ">
+                            <label for="inputState">Descrição da atividade</label>
+                            <textarea class="d-flex justify-content-center" name="descricao" id="descricao" cols="60" rows="5" required ></textarea>
+                            </div>
+                        <div class="col-2" ></div>
                     </div>
                         <div class="form-row">
-                            <div class="form-group col-4"></div>
+                            <div class="form-group col-3"></div>
                             <div class="form-group col-5">
                                 <input class="btn bg-info text-white" type="submit" value="cadastrar">
                             </div>
@@ -362,10 +366,103 @@
                 <div class="col-2"></div>
             </div>
     </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <div id="menu3" class="tab-pane fade">  
+
+
+    <div class="row">
+            <div class="col-2"></div>
+            <div class="col-7">
+               
+                <div class="card">
+                    <div class="card-header">
+                        MEU DIA
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">ordem</th>
+                                <th scope="col">chamado / ID</th>
+                                <th scope="col">tipo</th>
+                                <th scope="col">inicio</th>
+                                <th scope="col">fim</th>
+                                <th scope="col">duração</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>278954</td>
+                                    <td>chamado</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>278954</td>
+                                    <td>chamado</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>278954</td>
+                                    <td>chamado</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">4</th>
+                                    <td>278954</td>
+                                    <td>chamado</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>60</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">5</th>
+                                    <td>147</td>
+                                    <td>reunião</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>2020-04-27 14:33:00</td>
+                                    <td>60</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                        <tr>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">8 horas
+                            </th>
+ 
+
+                        </tr>
+                    </tfoot>
+                        </table>
+                    </div>
+                </div>
+                        
+            </div>
+        </div>
+
+
+
+
+
     </div>
+    <!-- fim menu3 -->
   </div>
 
 
