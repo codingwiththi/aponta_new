@@ -40,7 +40,8 @@ class Apontamento extends Model{
         FK_func_Id,
         FK_tipo_hora_Id,
         FK_status_Id,
-        descricao)values
+        descricao
+        )values
         (CONVERT(DATETIME,:dataInicial,126),
         CONVERT(DATETIME,:dataFinal,126),
         :numeroChamado,
@@ -63,6 +64,7 @@ class Apontamento extends Model{
 
         $stmt->execute();
         //print_r($this);
+        // print_r($stmt->errorInfo());
         return $this;
     }
 
@@ -91,8 +93,12 @@ class Apontamento extends Model{
         atividade.nome as atividade,
         apontamento.Data_inicial,
         apontamento.Data_final,
+        status.status,
         apontamento.FK_status_Id,
-        tipo_hora.tipo_hora,DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao 
+        tipo_hora.tipo_hora,
+        DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        apontamento.data_alteracao,
+        apontamento.descricao
         FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
@@ -100,6 +106,7 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
+        join status on (Apontamento.FK_status_Id =  status.id)
         WHERE (apontamento.FK_func_Id = :fkFuncionarioId 
         AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) 
         OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()))";
@@ -124,7 +131,8 @@ class Apontamento extends Model{
         FK_atividade_Id = :fkAtividadeId,
         FK_contrato_Id = :fkContratoId,
         FK_tipo_hora_Id = :fkTipoHoraId,
-        FK_status_Id = :fkStatusId
+        FK_status_Id = :fkStatusId,
+        descricao = :descricao
         where Id=:id";
         $stmt = $this->db->prepare($query);
         
@@ -136,6 +144,8 @@ class Apontamento extends Model{
         $stmt->bindValue(':fkContratoId',$this->__get('fkContratoId'));
         $stmt->bindValue(':fkTipoHoraId',$this->__get('fkTipoHoraId'));
         $stmt->bindValue(':fkStatusId',$this->__get('fkStatusId'));
+        $stmt->bindValue(':descricao',$this->__get('descricao'));
+
 
         $stmt->execute();
         
@@ -146,9 +156,13 @@ class Apontamento extends Model{
 
     public function getAll(){
         $query = "SELECT apontamento.Id,
-        apontamento.num_chamado,
+        case
+		when LEN(LTRIM(RTRIM(apontamento.num_chamado))) = 0
+			then CONVERT(VARCHAR(40),Apontamento.Id)
+		else apontamento.num_chamado 
+        end as num_chamado,
         cliente.nome AS cliente,
-        tipo_atividade.tipo_atividade,
+        status.status,
         atividade.nome
         as atividade,
         apontamento.Data_inicial,
@@ -163,6 +177,7 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
+        join status on (Apontamento.FK_status_Id =  status.id)
         WHERE apontamento.FK_func_Id = :fkFuncionarioId";
 
         $stmt= $this->db->prepare($query);
@@ -179,7 +194,7 @@ class Apontamento extends Model{
         $query = "SELECT apontamento.Id,
         apontamento.num_chamado,
         cliente.nome AS cliente,
-        tipo_atividade.tipo_atividade,
+        status.status,
         atividade.nome
         as atividade,
         apontamento.Data_inicial,
@@ -193,6 +208,7 @@ class Apontamento extends Model{
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
+        join status on (Apontamento.FK_status_Id =  status.id)
         WHERE apontamento.Data_inicial >= CONVERT(DATETIME,:dataInicial,126) 
         and apontamento.Data_inicial <= CONVERT(DATETIME,:dataFinal,126)
         and apontamento.FK_func_Id = :fkFuncionarioId";
@@ -211,7 +227,7 @@ class Apontamento extends Model{
 
     public function  aceitaPendente(){
         $query = "update apontamento set 
-        FK_status_Id = 1
+        FK_status_Id = 2
         where Id=:id";
         $stmt = $this->db->prepare($query);
         if(!$stmt){
@@ -226,12 +242,54 @@ class Apontamento extends Model{
     }
 
     
+    public function  getApontamentosDia(){
+        try {
+
+        $query = "SELECT  
+        apontamento.Id,
+        apontamento.FK_func_Id,
+        case
+		when LEN(LTRIM(RTRIM(apontamento.num_chamado))) = 0
+			then CONVERT(VARCHAR(40),Apontamento.Id)
+		else apontamento.num_chamado 
+        end as numero_chamado_OU_id,
+        Atividade.nome as tipo,
+        status.status,
+        apontamento.Data_inicial,
+        apontamento.Data_final,
+        DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        (SELECT SUM(DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final ))
+		from Apontamento
+		where Data_inicial >  DATEADD(day, DATEDIFF(day, 0, GETDATE()), 0)) as total
+        FROM Apontamento join Atividade on (Apontamento.FK_atividade_Id = Atividade.id)
+        join status on (Apontamento.FK_status_Id =  status.id)
+        where Data_inicial >  DATEADD(day, DATEDIFF(day, 0, GETDATE()), 0) 
+        and apontamento.FK_func_Id = :fkFuncionarioId";
+        $stmt = $this->db->prepare($query);
+        if(!$stmt){
+            return $db->errorInfo();
+        }
+        // $stmt->bindValue($data,$this->__get('id'));
+        $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
+        $stmt->execute();
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    } catch (\PDOException $e) {
+    		echo "\nErro: " . $e->getMessage();
+			return $e;
+		}
+
+
+
+    }
+    
 
     public function tornarEditavel(){
         // zero nao é editavell
         // 1 é editavels
         $query = "update apontamento set 
         editavel = 1,
+        FK_status_Id = 3,
         data_editavel = GETDATE()
         where Id=:id";
         $stmt = $this->db->prepare($query);
@@ -254,20 +312,21 @@ class Apontamento extends Model{
         apontamento.num_chamado,
         funcionario.displayName as nome,
         cliente.nome AS cliente,
-        tipo_atividade.tipo_atividade,
+        status.status,
         atividade.nome as atividade,
         apontamento.Data_inicial,
-        apontamento.Data_final,
-        apontamento.FK_status_Id,
-        tipo_hora.tipo_hora,DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, apontamento.data_alteracao 
+        tipo_hora.tipo_hora,
+        DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, 
+        apontamento.data_alteracao 
         FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
         JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
         JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
-        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
-        WHERE apontamento.num_chamado = :numeroChamado";
+        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
+        join status on (Apontamento.FK_status_Id =  status.id) 
+        WHERE apontamento.num_chamado = :numeroChamado  ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':numeroChamado',$this->__get('numeroChamado'));
         $stmt->execute();
@@ -304,6 +363,48 @@ class Apontamento extends Model{
 
 
 
+
+
+    public function getMensalFuncionario($intervalo){
+        $query = "SELECT * from (
+            SELECT
+            Funcionario.displayName AS nome,
+                    convert(varchar(MAX),apontamento.Data_inicial,103) as data ,
+                    SUM(DATEDIFF(hour,apontamento.Data_inicial,apontamento.Data_final)) as duracao
+                 FROM apontamento 
+                    JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+                    WHERE apontamento.FK_func_Id = :fkFuncionarioId
+                    GROUP BY 
+                    apontamento.Data_inicial,Funcionario.displayName) em_linha
+                    pivot (sum(duracao) for data in ($intervalo)) em_colunas order by 1";
+        //echo $query;
+
+        $stmt= $this->db->prepare($query);
+        $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 }
 
 ?>

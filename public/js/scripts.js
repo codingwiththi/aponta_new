@@ -22,8 +22,42 @@ $(document).ready(function() {
     // hora_inicial.value = data_atual[1].split(":", 1) + ":00";
     // hora_final.value = data_atual[1].split(":", 1) + ":00";
 
+    // $('#tabela').empty(); //Limpando a tabela
+	// $.ajax({
+	// 	type:'post',		//Definimos o método HTTP usado
+	// 	dataType: 'json',	//Definimos o tipo de retorno
+	// 	url: '/pendentes/Dadospendentes',//Definindo o arquivo onde serão buscados os dados
+	// 	success: function(dados){
+    //         console.log(dados);
+	// 		//for(var i=0;dados.length>i;i++){
+	// 			//Adicionando registros retornados na tabela
+	// 			//$('#tabela').append('<tr><td>'+dados[i].id+'</td><td>'+dados[i].nome+'</td><td>'+dados[i].email+'</td></tr>');
+	// 		//}
+	// 	}
+	// });
+
+
+
 });
 
+// $('#pesquisaPendentesFunc').click(function() {
+//     //Limpando a tabela
+// 	$.ajax({
+// 		type:'post',		//Definimos o método HTTP usado
+//         dataType: 'json',
+//         data: $('#pendentes').serialize() ,	//Definimos o tipo de retorno
+// 		url: '/pendentes/Dadospendentes',//Definindo o arquivo onde serão buscados os dados
+// 		success: function(dados){
+//             console.log(dados);
+// 			//for(var i=0;dados.length>i;i++){
+// 				//Adicionando registros retornados na tabela
+// 				//$('#tabela').append('<tr><td>'+dados[i].id+'</td><td>'+dados[i].nome+'</td><td>'+dados[i].email+'</td></tr>');
+// 			//}
+// 		}
+// 	});
+
+
+// });
 
 
 
@@ -48,6 +82,7 @@ function parseStringToDate(dateStr, horaStr) {
 setTimeout(function(){
         $('#erro_login').remove();
 },3000);
+
 //----------------------------------------
 function ValidaFormInsert() {
     //FAZER VALIDAÇÃO DE DATA AQUIIII
@@ -81,8 +116,81 @@ function ValidaFormInsert() {
     }
 
 }
+
+
+// valida form insere atividade 
+
+function ValidaFormInsertAtividade() {
+    //FAZER VALIDAÇÃO DE DATA AQUIIII
+    var data_inicio = $('#data_inicial_atv').val();
+    var hora_inicio = $('#hora_inicial_atv').val();
+    var data_final = $('#data_final_atv').val();
+    var hora_final = $('#hora_final_atv').val();
+    var data_atual = new Date();
+    console.log(parseStringToDate(data_inicio, hora_inicio));
+  //  console.log(RetornaDataHoraAtual());
+    if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
+        //mostrar error
+        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        // $('#data_inicial').focus();
+        // $('#hora_inicial').focus();
+        // $('#data_final').focus();
+        $('#hora_inicial_atv').focus().slideDown(500);
+
+        return false;
+    }
+
+    if((parseStringToDate(data_inicio, hora_inicio) >= data_atual ) || (parseStringToDate(data_final, hora_final) >= data_atual ) ){
+
+        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        $('#data_inicial').focus();
+        $('#hora_inicial').focus();
+        $('#data_final').focus();
+        $('#hora_final_atv').focus().slideDown(500);
+
+        return false;
+    }
+
+}
 //----------------------------------------
 
+
+
+//----------------------------------------
+
+function ValidaFormAltera() {
+    //FAZER VALIDAÇÃO DE DATA AQUIIII
+    var data_inicio = $('#edita_dt_ini').val();
+    var hora_inicio = $('#edita_time_ini').val();
+    var data_final = $('#edita_dt_fim').val();
+    var hora_final = $('#edita_time_fim').val();
+    var descricao = $('#edita_descricao').val();
+    var data_atual = new Date();
+    console.log(parseStringToDate(data_inicio, hora_inicio));
+  //  console.log(RetornaDataHoraAtual());
+    if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
+        //mostrar error
+        $('#erro_edita').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        // $('#data_inicial').focus();
+        // $('#hora_inicial').focus();
+        // $('#data_final').focus();
+        $('#edita_time_ini').focus().slideDown(500);
+
+        return false;
+    }
+
+    if((parseStringToDate(data_inicio, hora_inicio) >= data_atual ) || (parseStringToDate(data_final, hora_final) >= data_atual ) ){
+
+        $('#erro_edita').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        // $('#data_inicial').focus();
+        // $('#hora_inicial').focus();
+        // $('#data_final').focus();
+        $('#edita_time_fim').focus().slideDown(500);
+
+        return false;
+    }
+
+}
 
 
 
@@ -110,7 +218,6 @@ function ValidaFormInsert() {
 // ativando tabela de apontamento pendentes
 
 //fim tabela apontamentos pendentes
-
 
 
 //ABRINDO MODEL E PEGANDO DADOS PARA ALETRAR E APAGAR
@@ -145,23 +252,24 @@ $(".btn-sm[data-target='#myModal']").click(function() {
     //$('#edita_cliente').val(ok);
     $('#id_linha_edita').val(columnValues[0]);
     $('#edita_num_chamado').val(columnValues[1]);
+    $('#edita_status').val(columnValues[3]);
     $("#edita_cliente").val($('option:contains("' + columnValues[2] + '")').val());
-    $("#edita_tp_atv").val($('option:contains("' + columnValues[3] + '")').val());
-    $("#edita_atv").val($('option:contains("' + columnValues[4] + '")').val());
+    $("#edita_tp_atv").val($('option:contains("' + columnValues[4] + '")').val());
+    $("#edita_atv").val($('option:contains("' + columnValues[5] + '")').val());
     //var data =new Date();
     //console.log(data);
     //columnValues[5] = columnValues[5].replace(" ", "T");
-    var data_inicio = columnValues[5].split(" ");
+    var data_inicio = columnValues[6].split(" ");
     //console.log(data_inicio);
     $('#edita_dt_ini').val(data_inicio[0]);
     $('#edita_time_ini').val(data_inicio[1]);
     //columnValues[6] = columnValues[6].replace("", "T");
-    var data_fim = columnValues[6].split(" ");
+    var data_fim = columnValues[7].split(" ");
     $('#edita_dt_fim').val(data_fim[0]);
     $('#edita_time_fim').val(data_fim[1]);
 
-    $("#edita_tp_hr").val($('option:contains("' + columnValues[7] + '")').val());
-
+    $("#edita_tp_hr").val($('option:contains("' + columnValues[8] + '")').val());
+    $("#edita_descricao").val(columnValues[10]);
     //------------------------------------------------------------------------------------
 
     //-- preeencher a o select dinamico de dentro da opção editar
@@ -518,3 +626,28 @@ $("#revisar_pendentes").click(function() {
 
 
 });
+
+// FUNÇÕES PAGINA ATIVDADE --------------------
+
+// jQuery(document).ready(function() {
+
+//     $('#cliente_atv').on('change load DOMContentLoaded', function(e) {
+//         var cliente_id = $(this).val();
+//         $.ajax({
+//             type: "GET",
+//             data: "cliente_id=" + cliente_id,
+//             url: "/apontamento/baseCadastro",
+//             async: false
+//         }).done(function(data) {
+//             var contratos = "";
+//             $.each($.parseJSON(data), function(chave, valor) {
+//                 contratos += '<option value="' + valor.id + '">' + valor.contrato + '</option>'
+    
+//             });
+//             $('#contrato_atv').html(contratos);
+//         })
+//     })
+    
+
+
+// });

@@ -17,7 +17,7 @@
     line-height: 1.5em;
     margin: 0 auto;
     padding: 2em 0 3em;
-    width: 90%;
+    width: 100%;
     max-width: 100%;
     overflow: hidden;
 }
@@ -123,5 +123,5 @@ td.user-name {
 
 .sticky-wrap.overflow-y {
     overflow-y: auto;
-    max-height: 50vh;
+    max-height: 80vh;
 }

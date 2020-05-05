@@ -12,6 +12,8 @@ class AppController extends Action {
 	public function apontamento(){
 		session_start();
 
+
+		
 		$this->view->dataInvalida = isset($_GET['cadastroAponta'])?$_GET['cadastroAponta'] : ''  ;//esse codigo significa estado incial
 
 		//echo "chegou no apontamento";
@@ -27,6 +29,10 @@ class AppController extends Action {
 		$apontamento = Container::getModel('apontamento');
 		$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 		$this->view->apontamentosRecentes = $apontamento->recentes();
+
+		$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+		$this->view->apontamentosDoDia = $apontamento->getApontamentosDia();
+
 		//============================================
 		//print_r($this->view->apontamentosRecentes);
 
@@ -89,16 +95,16 @@ class AppController extends Action {
 					//echo $dataInicio;
 					// echo "tudo certo";
 					// echo "data inicio: ". $dataInicio . "<br>" . "data termino: ".$dataTermino . "<br>" ."data atual: ". $data_atual;
-					// if(isset($_POST['numero_chamado']) or empty($_POST['numero_chamado'])){
-					// 	$numero_chamado = "";
-					// }else{
-					// 	$numero_chamado = $_POST['numero_chamado'];
-					// }
+					if(!isset($_POST['numero_chamado']) or empty($_POST['numero_chamado'])){
+						$numero_chamado = "";
+					}else{
+						$numero_chamado = $_POST['numero_chamado'];
+					}
 
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
 					$apontamento->__set('dataFinal',strval($dataTermino));
-					$apontamento->__set('numeroChamado',$_POST['numero_chamado']);
+					$apontamento->__set('numeroChamado',$numero_chamado);
 					$apontamento->__set('fkAtividadeId',$_POST['atividade']);
 					$apontamento->__set('fkContratoId',strval($_POST['contrato']));
 					$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
@@ -106,6 +112,8 @@ class AppController extends Action {
 					$apontamento->__set('descricao',$_POST['descricao']);
 
 					//data inicial menor que 2 dias atrás o staus vira pendente
+					//1 - pendentes
+					//2 - VALIDOS 
 					if ($_POST['data_inicial'] < $data_comparacao){
 						$apontamento->__set('fkStatusId',1);
 
@@ -135,6 +143,14 @@ class AppController extends Action {
 
 	}//fim metodo
 
+
+
+	public function criaApontamentoTpAtivi(){
+		echo "cuk";
+		print_r($_POST);
+
+	}
+
 	public function alterarApotamento(){
 		//echo "chegamos ate aqui";
 		//print_r($_POST);
@@ -160,6 +176,23 @@ class AppController extends Action {
 			$dataInicio = $_POST['edita_dt_ini'] ."T".$_POST['edita_time_ini'];
 			$dataTermino = $_POST['edita_dt_fim'] ."T".$_POST['edita_time_fim'];
 
+			if (empty($_POST['edita_descricao']) ){
+				echo "campo descrição vazio";
+				exit();
+			}
+
+			// if (empty($_POST['edita_num_chamado']) or $_POST['edita_num_chamado']=="" ){
+			// 	echo "campo numero do chamado vazio";
+			// 	exit();
+			// }
+
+			if(!isset($_POST['edita_num_chamado']) or empty($_POST['edita_num_chamado'])){
+				$numero_chamado = "";
+			}else{
+				$numero_chamado = $_POST['edita_num_chamado'];
+			}
+
+
 			// $date_dataInicio = date($dataInicio);
 			// $date_dataTermino = date($dataTermino);
 			//data precisar respeitar as regras de negocios
@@ -173,6 +206,8 @@ class AppController extends Action {
 				// nao pode ser anterior a dois dias
 				//if 
 					//se for anterior aos dois dias eu seto o id como pendente
+					//1 - PENDENTES
+					//2 - VALIDO
 				if ($dataInicio < $data_comparacao ){
 					$status_apontamento = 1;
 					//1 == pendente
@@ -184,19 +219,22 @@ class AppController extends Action {
 				$apontamento = Container::getModel('Apontamento');
 				$apontamento->__set('dataInicial',$dataInicio);
 				$apontamento->__set('dataFinal',$dataTermino);
-				$apontamento->__set('numeroChamado',$_POST['edita_num_chamado']);
+				$apontamento->__set('numeroChamado',$numero_chamado);
 				$apontamento->__set('fkAtividadeId',$_POST['edita_atividade']);
 				$apontamento->__set('fkContratoId',strval($_POST['edita_contrato']));
 				$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 				$apontamento->__set('fkTipoHoraId',$_POST['edita_tp_hr']);
 				$apontamento->__set('id',$_POST['id_linha_edita']);
 				$apontamento->__set('fkStatusId',$status_apontamento);
+				$apontamento->__set('descricao',$_POST['edita_descricao']);
+
 
 				//print_r($apontamento);
 				$verifica_update = $apontamento->update();
 				if(!$verifica_update){
 					echo "errado";
-				}else{
+				}
+				else{
 					echo 1;
 
 				}
@@ -282,8 +320,6 @@ class AppController extends Action {
 				//HEADER LOCATION
 				header("location: /apontamento");	
 			}
-	
-
 			$this->view->meusFuncionario = $func->GetFuncByManager();
 
 			if(!$_POST){
@@ -305,6 +341,41 @@ class AppController extends Action {
 	}
 
 
+	// public function Dadospendentes(){
+	// 	session_start();
+
+	// 	if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+	// 		$func = Container::getModel('funcionario');
+	// 		$aponta = Container::getModel('apontamento');
+	// 		$func->__set('nome',$_SESSION['nome'] );// session manager == true??? então faço tudo
+	
+	// 		$manager = $func->isManager();
+	// 		//print_r($manager);	 
+	// 		// if($manager['manager'] == 0){
+	// 		// 	//echo "não é manager";
+	// 		// 	//RENDER VOCE NAO TEM ACESSO
+	// 		// 	//HEADER LOCATION
+	// 		// 	header("location: /apontamento");	
+	// 		// }
+	// 		// $this->view->meusFuncionario = $func->GetFuncByManager();
+
+	// 		if(!$_POST){
+	// 			$this->view->meusPendentes = $func->getPendentesManager(); 
+	// 		}else{
+	// 			print_r($_POST);
+	// 			$func->__set('fk_id_supervisionado',$_POST['funcionario']);
+	// 			$this->view->meusPendentes = $func->getPendentesByFunc(); 
+	// 		}	
+	// 		echo json_encode($this->view->meusPendentes);
+
+
+	// 		// $this->render('pendentes','layout2');
+	// 	}
+
+	// }
+
+
+
 
 	public function concluido(){
 		session_start();
@@ -313,14 +384,15 @@ class AppController extends Action {
 
 			$func = Container::getModel('funcionario');
 			$func->__set('nome',$_SESSION['nome'] );
-			$manager = $func->isManager();
-			//print_r($manager);	 
-			if($manager['manager'] == 0){
-				header("location: /apontamento");	
-			}
+			$func->__set('nome',$_SESSION['id'] );
+			
 			require_once('../public/testes.php');
 			$this->view->dataRange = $dateRange;
+			$this->view->fds = $finaisdesemana;
+
 			$apontamento = Container::getModel('Apontamento');
+			$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
+
 			//print_r($datasql);
 			$str = "";
 			for($i=0; $i <= count($datasql) -1 ;$i++){
@@ -332,7 +404,15 @@ class AppController extends Action {
 				}
 			}
 			//echo $str;
-			$this->view->resultadoMensal = $apontamento->getMensal($str,$_SESSION['nome']);
+
+			$manager = $func->isManager();
+			//print_r($manager);	 
+			if($manager['manager'] == 0){
+				$this->view->resultadoMensal = $apontamento->getMensalFuncionario($str);
+			}else{
+				$this->view->resultadoMensal = $apontamento->getMensal($str,$_SESSION['nome']);
+			}
+
 				
 			
 			$this->render('concluido','layout3');
@@ -363,13 +443,11 @@ class AppController extends Action {
 				//print_r($_POST);
 				$apontamento = Container::getModel('Apontamento');
 				$apontamento->__set('numeroChamado',$_POST['chamado_editavel']);
-				$this->view->editaPorChamado = $apontamento->getPorNumeroChamado();
+				$this->view->editaPorChamado = $apontamento->getPorNumeroChamado('teste');
 				//print_r($this->view->editaPorChamado);
 				$this->view->postEdita = true;
 		
 			}
-
-
 
 			$this->render('editaveis','layout2');
 
@@ -392,7 +470,7 @@ class AppController extends Action {
 		}
 
 		if($_POST){
-			print_r($_POST);
+			//print_r($_POST);
 			$apontamento = Container::getModel('Apontamento');
 			$apontamento->__set('id',$_POST['id_hist']);
 			$verifica = $apontamento->aceitaPendente();
@@ -421,7 +499,7 @@ class AppController extends Action {
 				$ID =$_POST['id_hist'];
 			}
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('id',$_POST['id_hist']);
+			$apontamento->__set('id',$ID);
 			$verifica = $apontamento->tornarEditavel();
 			if($verifica){
 				if(array_key_exists("id_edt",$_POST)){

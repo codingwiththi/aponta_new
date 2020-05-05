@@ -1,8 +1,8 @@
 <div class="container-fluid bg-light" style=" height: 100%; "   >
 
     <div class="row">
-        <div class="col-2"></div>
-        <div class="col-7">
+        <div class="col-3"></div>
+        <div class="col-6">
 
             <div class="card" style="margin: 5px;">
                 <div class="card-header bg-info text-white">
@@ -36,28 +36,75 @@
 
 
 <div class="row " style=" padding: 8px; " >
+<!-- <div class="col-1"></div> -->
+            <div class="col-12">
+               
+                <div class="card">
+                    <div class="card-header">
+                        chamados encontrados
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                <th scope="col">chamado / ID</th>
+                                <th scope="col">funcionario</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">status</th>
+                                <th scope="col">Atividade</th>
+                                <th scope="col">data inicial</th>
+                                <th scope="col">Duração</th>
+                                <th scope="col">Autorizar</th>
 
-<?php if(!empty($this->view->editaPorChamado)){  foreach($this->view->editaPorChamado as $chamado){?>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($this->view->editaPorChamado as $chamado){?>
+                        <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">    
+                            <tr  >
+                            <input type="text" value="<?php echo $chamado['Id'] ?>" style="display:none;" class="form-control bg-light" id="id_edt" readonly  name="id_edt">
+                                <td  > <?php echo $chamado['num_chamado']; ?> </td>
+                                <td><?php echo $chamado['nome']; ?></td>
+                                <td><?php echo $chamado['cliente']; ?></td>
+                                <td><?php echo $chamado['status']; ?></td>
+                                <td> <?php echo $chamado['atividade']; ?></td>
+                                <td> <?php echo $chamado['Data_inicial']; ?></td>
+                                <td> <?php echo $chamado['duracao']; ?></td>
+                            <td> <button type="submit" class="btn-success" id="" >Autorizar edição</button> </td>
 
-    <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">
-    <div class="col-3">
-        <div class="card" >
-            <input type="text" value="<?php echo $chamado['Id'] ?>" style="display:none;" class="form-control bg-light" id="id_edt" readonly  name="id_edt">
-            <img src="img/logo-nexa-1.png" width="50" height="100" class="card-img-top img-responsive" >
-            <div class="card-body">
-                <h5 class="card-title">Chamado: <?php echo $chamado['num_chamado'] ?></h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Data inicio: <?php  echo $chamado['Data_inicial'] ?></li>
-                    <li class="list-group-item"> Duração(min): <?php echo $chamado['duracao'] ?></li>
-                    <li class="list-group-item">Funcionario: <?php echo $chamado['nome'] ?></li>
-                </ul>            
-                <button type="submit" class="btn-success" id="" >Confirmar</button>
+                            </tr>
+                            <?php } ?>
+                        </form>
+                            </tbody>
+                            <tfoot>
+                        <tr>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+                            <th class="th-sm">
+                            </th>
+ 
+
+                        </tr>
+                    </tfoot>
+                        </table>
+                    </div>
+                </div>
+                        
             </div>
-        </div>
-    </div>
-    </form>
 
-<?php } }
+<?php
 if (empty($this->view->editaPorChamado) and ($this->view->postEdita == true)){
     echo "<h2> Não foi possivel localizar este apontamento <h2>";
 }?>

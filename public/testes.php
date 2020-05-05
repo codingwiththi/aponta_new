@@ -61,11 +61,14 @@ $dateEnd 		= new DateTime($dateEnd);
 
 $dateRange = array();
 $datasql = array();
+$finaisdesemana = array();
 
 while($dateStart <= $dateEnd){
-	$dateRange[] = $dateStart->format('d l');
+	$dateRange[] = $dateStart->format('d');
 	$datasql[] = $dateStart->format('d/m/Y');
-	
+	if (in_array($dateStart->format('w'), [0, 6])){
+	 $finaisdesemana[] = $dateStart->format('d');
+	}
     $dateStart = $dateStart->modify('+1day');
 }
 

@@ -79,11 +79,11 @@
         <table id="historico" class="table table-striped table-bordered display " style="width:100%">
             <thead>
                 <tr>
-                    <th class="th-sm">N° chamado
+                    <th class="th-sm">chamado/ID
                     </th>
                     <th class="th-sm">cliente
                     </th>
-                    <th class="th-sm">tipo Atividade
+                    <th class="th-sm">status
                     </th>
                     <th class="th-sm">Atividade
                     </th>
@@ -95,6 +95,7 @@
                     </th>
                     <th class="th-sm">Duracão
                     </th>
+                    
 
 
                 </tr>
@@ -105,7 +106,7 @@
                 <tr <?php if($aponta['FK_status_Id']=='1'){ echo "";} ?>>
                     <td> <?php echo $aponta['num_chamado']; ?> </td>
                     <td><?php echo $aponta['cliente']; ?></td>
-                    <td><?php echo $aponta['tipo_atividade']; ?></td>
+                    <td><?php echo $aponta['status']; ?></td>
                     <td> <?php echo $aponta['atividade']; ?></td>
                     <td><?php echo $aponta['Data_inicial']; ?></td>
                     <td><?php echo $aponta['Data_final']; ?></td>
@@ -116,11 +117,11 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th class="th-sm">N° chamado
+                    <th class="th-sm">N° chamado/ID
                     </th>
                     <th class="th-sm">cliente
                     </th>
-                    <th class="th-sm">tipo Atividade
+                    <th class="th-sm">status
                     </th>
                     <th class="th-sm">Atividade
                     </th>

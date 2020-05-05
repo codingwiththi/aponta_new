@@ -45,6 +45,12 @@ class Route extends Bootstrap {
 			'action' => 'criaApontamento'
 		);
 
+		$routes['criaApontamentoTpAtivi'] = array(
+			'route' => '/apontamento/criaApontamentoTpAtivi',
+			'controller' => 'AppController',
+			'action' => 'criaApontamentoTpAtivi'
+		);
+
 		$routes['alterarApotamento'] = array(
 			'route' => '/apontamento/alterarApotamento',
 			'controller' => 'AppController',
@@ -86,14 +92,20 @@ class Route extends Bootstrap {
 			'action' => 'editaveisPendentes'
 		);
 
+		$routes['Dadospendentes'] = array(
+			'route' => '/pendentes/Dadospendentes',
+			'controller' => 'AppController',
+			'action' => 'Dadospendentes'
+		);
 
 		$routes['aceitarPendentes'] = array(
 			'route' => '/Pendentes/Aceitar',
 			'controller' => 'AppController',
 			'action' => 'aceitarPendentes'
 		);
-		
 
+		
+		
 
 
 

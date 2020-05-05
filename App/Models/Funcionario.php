@@ -90,7 +90,7 @@ public function getPendentesManager (){
                 inner join Funcionario on (Apontamento.FK_func_Id = Funcionario.id)
                 inner join Contrato on ( Apontamento.FK_contrato_Id = Contrato.Id)
                 JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
-                where status.id =2 and Funcionario.manager like ?";
+                where status.id =1 and Funcionario.manager like ?";
         $stmt= $this->db->prepare($query);
         $nome = $this->__get('nome') ; //'Vinicius Detoni Capelli Soares';
         //return $nome;
@@ -116,7 +116,7 @@ public function getPendentesManager (){
 								inner join Contrato on ( Apontamento.FK_contrato_Id =
 				Contrato.Id)
                 JOIN cliente ON (contrato.FK_cliente_Id =  cliente.Id)
-                where status.id =2 and Funcionario.id = :fk_id_supervisionado";
+                where status.id =1 and Funcionario.id = :fk_id_supervisionado";
 
         $stmt= $this->db->prepare($query);
         $stmt->bindValue(':fk_id_supervisionado',$this->__get('fk_id_supervisionado'));

@@ -12,7 +12,12 @@
 						<tr>
                             <th>Funcionario</th>
                             <?php foreach($this->view->dataRange as $data) {?>
-                                <th><?php echo $data; ?></th>
+                                <th <?php if(in_array($data, $this->view->fds)){echo "class=bg-info"; } ?>   > 
+                                <?php echo $data; 
+
+                               //echo $data->format('w') % 6 ? 'Não é fim de semana' : 'é fim de semana';
+
+                                ?> </th>
                             <?php } ?>
                             
 						</tr>
@@ -25,15 +30,21 @@
                                     //print_r($rmensal);
                                     foreach($rmensal as $dados){
                                         if(!$dados){
-                                            ?> <td> <?php echo 0; ?></td> <?php
+                                            ?> <td <?php if(in_array($cont, $this->view->fds)){echo "class=bg-info"; } ?> >
+                                                <?php echo 0; ?>
+                                             </td> <?php
                                         }else{
                                             if($cont == 0){
-                                                ?> <th> <?php echo $dados ?></th> <?php
+                                                ?> <th>
+                                                 <?php echo $dados ?>
+                                                 </th> <?php
                                             }else{
-                                            ?> <td> <?php echo $dados ?></td> <?php
+                                            ?> <td <?php if(in_array($cont, $this->view->fds)){echo "class=bg-info"; } ?>> 
+                                                <?php echo $dados ?></td>
+                                             <?php
                                             }
                                         }
-                                        //echo $cont;
+                                       // echo $cont;
                                         $cont ++;
                                     } //echo 'tamanho for:' . $cont . '</br>';
                               ?>
