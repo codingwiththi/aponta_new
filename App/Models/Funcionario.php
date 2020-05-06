@@ -132,7 +132,7 @@ public function getPendentesManager (){
 
 	$query = "SELECT id,displayName as nome FROM funcionario WHERE manager like ? order by 2";
 	$stmt= $this->db->prepare($query);
-	$nome = $this->__get('nome');//'Vinicius Detoni Capelli Soares';
+	$nome = 'Vinicius Detoni Capelli Soares';// $this->__get('nome');//
 	$stmt->bindValue(1,"%" . $nome . "%");
 	$stmt->execute();
 

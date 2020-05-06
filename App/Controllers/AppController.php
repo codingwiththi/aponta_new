@@ -314,12 +314,12 @@ class AppController extends Action {
 	
 			$manager = $func->isManager();
 			//print_r($manager);	 
-			if($manager['manager'] == 0){
-				//echo "não é manager";
-				//RENDER VOCE NAO TEM ACESSO
-				//HEADER LOCATION
-				header("location: /apontamento");	
-			}
+			// if($manager['manager'] == 0){
+			// 	//echo "não é manager";
+			// 	//RENDER VOCE NAO TEM ACESSO
+			// 	//HEADER LOCATION
+			// 	header("location: /apontamento");	
+			// }
 			$this->view->meusFuncionario = $func->GetFuncByManager();
 
 			if(!$_POST){
@@ -503,14 +503,14 @@ class AppController extends Action {
 			$verifica = $apontamento->tornarEditavel();
 			if($verifica){
 				if(array_key_exists("id_edt",$_POST)){
-				header("location: /editaveis");
+					// header("location: /editaveis");
+					echo "correto";
 				}else{
 					echo 1;
 				}
 				//echo 1;
 				//vouta para pendentes
 				//
-
 			}
 		}
 

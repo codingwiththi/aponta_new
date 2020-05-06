@@ -570,7 +570,51 @@ $(document).ready(function() {
 //ativando o data table de apontamento pendentes
 
 //---------------------------//
+$(".enviareditavel").click(function() {
+    console.log("click");
+    var columnHeadings = $("thead th").map(function() {
+        return $(this).text();
+    }).get();
 
+    columnHeadings.pop();
+    // console.log(columnHeadings);
+    var columnValues = $(this).parent().siblings().map(function() {
+        return $(this).text();
+    }).get();
+    //console.log();
+    console.log(columnValues);
+    var id = columnValues[0];
+    var dados = {id_edt: id}
+    var acerto ="<div class='alert alert-success' role='alert'>Alteração realizada com sucesso</div>";
+    var erro ="<div class='alert alert-success' role='alert'>erro ao realizar ação</div>";
+
+    $.ajax({
+        type: "POST",
+        data: dados,
+        url: "/editaveis/Pendentes",
+        async: false
+    }).done(function(data) {
+        console.log(data);
+        $('#mensagem_editaveis').html(acerto).fadeIn(250).delay(4000).fadeOut(300);
+        //exibir mensagem de acerto
+        //se tiver tudo certo eu só recarrego a pagina
+        //window.location.href = '/apontamento';
+        //exibir mensagem ou erro
+        //$('#erro_edita').html("");
+    }).fail(function(xhr, status, error) {
+        console.log("erro");
+        $('#mensagem_editaveis').html(erro).fadeIn(250).delay(4000).fadeOut(300);
+
+        //Ajax erro
+        //$('#erro_edita').html("deu erro");
+        //alert('Error -');
+    })
+
+
+
+
+
+});
 
 //MODAL DA PAGINA PENDENTES
 //------------------------------------------------------

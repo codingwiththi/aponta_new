@@ -35,6 +35,12 @@
     </div>
 
 
+
+<div id="mensagem_editaveis">
+</div>
+
+
+
 <div class="row " style=" padding: 8px; " >
 <!-- <div class="col-1"></div> -->
             <div class="col-12">
@@ -60,9 +66,10 @@
                             </thead>
                             <tbody>
                             <?php foreach($this->view->editaPorChamado as $chamado){?>
-                        <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">    
+                        <!-- <form name="edt" id="edt" method="POST" action="/editaveis/Pendentes  ">     -->
                             <tr  >
-                            <input type="text" value="<?php echo $chamado['Id'] ?>" style="display:none;" class="form-control bg-light" id="id_edt" readonly  name="id_edt">
+                            <!-- <input type="text" value="<?php //echo $chamado['Id'] ?>" style="display:none;" class="form-control bg-light" id="id_edt" readonly  name="id_edt"> -->
+                            <td style="display:none;"> <?php echo $chamado['Id']; ?> </td>
                                 <td  > <?php echo $chamado['num_chamado']; ?> </td>
                                 <td><?php echo $chamado['nome']; ?></td>
                                 <td><?php echo $chamado['cliente']; ?></td>
@@ -70,11 +77,11 @@
                                 <td> <?php echo $chamado['atividade']; ?></td>
                                 <td> <?php echo $chamado['Data_inicial']; ?></td>
                                 <td> <?php echo $chamado['duracao']; ?></td>
-                            <td> <button type="submit" class="btn-success" id="" >Autorizar edição</button> </td>
+                            <td> <button  class="btn-success enviareditavel " id="" name="" >Autorizar edição</button> </td>
 
                             </tr>
                             <?php } ?>
-                        </form>
+                        <!-- </form> -->
                             </tbody>
                             <tfoot>
                         <tr>
@@ -124,3 +131,5 @@ if (empty($this->view->editaPorChamado) and ($this->view->postEdita == true)){
 
 
 </div>
+
+<script type="text/javascript" charset="utf8" src="/js/scripts.js"></script>

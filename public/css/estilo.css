@@ -190,4 +190,14 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 
+
+
+
+.enviaEditavel{
+  margin: 0;  
+}
+
+.aceitaPendente{
+    margin: 0;  
+  }
 /* fim fomr login */
