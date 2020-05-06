@@ -14,7 +14,7 @@
                         <div class="form-row">
                             <div class="form-group col-7">
                                 <label for="inputState">Funcionario</label>
-                                <select name="funcionario" class="form-control">
+                                <select name="funcionario" id="funcionario" class="form-control">
                                     <?php ;foreach($this->view->meusFuncionario as $func ){?>
                                     <option value="<?php echo $func['id'] ?>"> <?php echo $func['nome']; ?> </option>
                                     <?php };?>
@@ -22,11 +22,11 @@
                             </div>
                             <div class="form-group col-2">
                                 <label for="inputState"> </br></label>
-                                <button type="submit" class=" btn-info btn-sm btn-block">Pesquisar</button>
+                                <button type="submit" id="pesquisarPendentesFunc" class=" btn-info btn-sm btn-block">Pesquisar</button>
                             </div>
                             <div class="form-group col-2">
                                 <label for="inputState"> </br></label>
-                                <button type="button" class=" btn-danger btn-sm  btn-block"><a href="/pendentes"
+                                <button type="submit" class=" btn-danger btn-sm  btn-block"><a href="/pendentes"
                                         class="text-white">Limpar filtro </a></button>
                             </div>
                         </div>
@@ -40,6 +40,7 @@
 
     </div>
 
+<div id="mensagem_pendentes"></div>
 
     <div class="row" style="padding-top:10px; overflow: auto; height: 100%; ">
         <div class="col-12">
@@ -60,8 +61,8 @@
                         <th class="th-sm">Duracão
                         </th>
                         <th class="th-sm">
-                            
-
+                        </th>
+                        <th class="th-sm">
                         </th>
 
 
@@ -69,20 +70,23 @@
                 </thead>
                 <tbody>
 
-                    <?php foreach($this->view->meusPendentes as $Pendentes){?>
+                    <?php  foreach($this->view->meusPendentes as $Pendentes){?>
                     <tr>
                         <td style="display:none;"> <?php echo $Pendentes['id']; ?> </td>
                         <td><?php echo $Pendentes['nome']; ?></td>
-                        <td><?php echo $Pendentes['department']; ?></td>
+                        <td><?php  echo $Pendentes['department']; ?></td>
                         <td> <?php echo $Pendentes['cliente']; ?></td>
                         <td><?php echo $Pendentes['num_chamado']; ?></td>
                         <td><?php echo $Pendentes['Data_inicial']; ?></td>
                         <td><?php echo $Pendentes['duracao']; ?></td>
+                        <td>  
+                        <button id="" name="" class="btn-sm btn-success aceitei " >Aceitar </button>
+                        </td>
                         <td style="text-align:center;">
-                            <button class="btn-sm btn-success" data-toggle="modal" data-target="#modalHist"
+                            <button class="btn-sm btn-info" data-toggle="modal" data-target="#modalHist"
                                 contenteditable="false">Abrir</button>
                         </td>
-                    </tr>
+                    </tr> 
                     <?php }?>
 
                 </tbody>
@@ -101,9 +105,11 @@
                         <th class="th-sm">Duracão
                         </th>
                         <th class="th-sm">
-                            
-
                         </th>
+                        <th class="th-sm">
+                        </th>
+
+                        
 
                     </tr>
                 </tfoot>

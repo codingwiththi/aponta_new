@@ -314,12 +314,12 @@ class AppController extends Action {
 	
 			$manager = $func->isManager();
 			//print_r($manager);	 
-			// if($manager['manager'] == 0){
-			// 	//echo "não é manager";
-			// 	//RENDER VOCE NAO TEM ACESSO
-			// 	//HEADER LOCATION
-			// 	header("location: /apontamento");	
-			// }
+			if($manager['manager'] == 0){
+				//echo "não é manager";
+				//RENDER VOCE NAO TEM ACESSO
+				//HEADER LOCATION
+				header("location: /apontamento");	
+			}
 			$this->view->meusFuncionario = $func->GetFuncByManager();
 
 			if(!$_POST){
@@ -340,42 +340,35 @@ class AppController extends Action {
 
 	}
 
+	public function Dadospendentes(){
+		session_start();
+		if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
+			$func = Container::getModel('funcionario');
+			$aponta = Container::getModel('apontamento');
+			$func->__set('nome',$_SESSION['nome'] );// session manager == true??? então faço tudo
+			$manager = $func->isManager();
+			//print_r($manager);	 
+			// if($manager['manager'] == 0){
+			// 	//echo "não é manager";
+			// 	//RENDER VOCE NAO TEM ACESSO
+			// 	//HEADER LOCATION
+			// 	header("location: /apontamento");	
+			// }
+			// $this->view->meusFuncionario = $func->GetFuncByManager();
+			if(!$_POST['funcionario']){
+				$this->view->meusPendentes = $func->getPendentesManager(); 
+			}else{
+				// print_r($_POST);
+				$func->__set('fk_id_supervisionado',$_POST['funcionario']);
+				$this->view->meusPendentes = $func->getPendentesByFunc(); 
+			}	
+			 echo json_encode($this->view->meusPendentes);
+			// echo json_encode($_POST);
+			//echo "ok";
 
-	// public function Dadospendentes(){
-	// 	session_start();
-
-	// 	if($_SESSION['id'] !='' && $_SESSION['nome'] !=''){
-	// 		$func = Container::getModel('funcionario');
-	// 		$aponta = Container::getModel('apontamento');
-	// 		$func->__set('nome',$_SESSION['nome'] );// session manager == true??? então faço tudo
-	
-	// 		$manager = $func->isManager();
-	// 		//print_r($manager);	 
-	// 		// if($manager['manager'] == 0){
-	// 		// 	//echo "não é manager";
-	// 		// 	//RENDER VOCE NAO TEM ACESSO
-	// 		// 	//HEADER LOCATION
-	// 		// 	header("location: /apontamento");	
-	// 		// }
-	// 		// $this->view->meusFuncionario = $func->GetFuncByManager();
-
-	// 		if(!$_POST){
-	// 			$this->view->meusPendentes = $func->getPendentesManager(); 
-	// 		}else{
-	// 			print_r($_POST);
-	// 			$func->__set('fk_id_supervisionado',$_POST['funcionario']);
-	// 			$this->view->meusPendentes = $func->getPendentesByFunc(); 
-	// 		}	
-	// 		echo json_encode($this->view->meusPendentes);
-
-
-	// 		// $this->render('pendentes','layout2');
-	// 	}
-
-	// }
-
-
-
+			// $this->render('pendentes','layout2');
+		}
+	}
 
 	public function concluido(){
 		session_start();
@@ -471,16 +464,28 @@ class AppController extends Action {
 
 		if($_POST){
 			//print_r($_POST);
+			if(array_key_exists("id_hist",$_POST)){
+				$ID =$_POST['id_hist'];
+			}else{
+				$ID =$_POST['id_hist_bt'];
+			}
 			$apontamento = Container::getModel('Apontamento');
-			$apontamento->__set('id',$_POST['id_hist']);
+			$apontamento->__set('id',$ID);
 			$verifica = $apontamento->aceitaPendente();
 			if(!$verifica){
+				if(array_key_exists("id_hist",$_POST)){
+					header("location: /pendentes");
+					}
 				echo "erro";
 				//vouta para pendentes
 				//
 			}else{
-				//print_r($verifica);
+				if(array_key_exists("id_hist",$_POST)){
 				header("location: /pendentes");
+				}
+
+				//print_r($verifica);
+				echo "correto";
 
 			}
 

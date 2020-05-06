@@ -349,7 +349,6 @@ class Apontamento extends Model{
                     apontamento.Data_inicial,Funcionario.displayName) em_linha
                     pivot (sum(duracao) for data in ($intervalo)) em_colunas order by 1";
         //echo $query;
-
         $stmt= $this->db->prepare($query);
         $stmt->bindValue(1,"%" . $manager . "%");
 

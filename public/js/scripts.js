@@ -1,63 +1,201 @@
-//ativando o data table 
+// //ativando o data table 
 $(document).ready(function() {
     $('#example').DataTable();
-    //ativar datatable
+//     //ativar datatable
 
-    //------------------------------------
-    // var data_inicial = document.getElementById('data_inicial');
-    // var data_final = document.getElementById('data_final');
-    // var hora_inicial = document.getElementById('hora_inicial');
-    // var hora_final = document.getElementById('hora_final');
-    // //---
-    //preeenchendo datas atuais
-    // var data_temp = new Date();
-    // var data_string = data_temp.toISOString();
-    // var data_atual = data_string.split("T", 2);
-    // console.log(data_temp, data_string, data_atual);
-    // data_inicial.value = data_atual[0];
-    // data_final.value = data_atual[0];
-    // //preenchendo horas -> preeenchendo mesmo
-    // //console.log(data_atual[1]);
-    // //AUTO PREEENCHER DATA
-    // hora_inicial.value = data_atual[1].split(":", 1) + ":00";
-    // hora_final.value = data_atual[1].split(":", 1) + ":00";
+//     //------------------------------------
+//     // var data_inicial = document.getElementById('data_inicial');
+//     // var data_final = document.getElementById('data_final');
+//     // var hora_inicial = document.getElementById('hora_inicial');
+//     // var hora_final = document.getElementById('hora_final');
+//     // //---
+//     //preeenchendo datas atuais
+//     // var data_temp = new Date();
+//     // var data_string = data_temp.toISOString();
+//     // var data_atual = data_string.split("T", 2);
+//     // console.log(data_temp, data_string, data_atual);
+//     // data_inicial.value = data_atual[0];
+//     // data_final.value = data_atual[0];
+//     // //preenchendo horas -> preeenchendo mesmo
+//     // //console.log(data_atual[1]);
+//     // //AUTO PREEENCHER DATA
+//     // hora_inicial.value = data_atual[1].split(":", 1) + ":00";
+//     // hora_final.value = data_atual[1].split(":", 1) + ":00";
 
-    // $('#tabela').empty(); //Limpando a tabela
 	// $.ajax({
 	// 	type:'post',		//Definimos o método HTTP usado
-	// 	dataType: 'json',	//Definimos o tipo de retorno
 	// 	url: '/pendentes/Dadospendentes',//Definindo o arquivo onde serão buscados os dados
-	// 	success: function(dados){
-    //         console.log(dados);
-	// 		//for(var i=0;dados.length>i;i++){
-	// 			//Adicionando registros retornados na tabela
-	// 			//$('#tabela').append('<tr><td>'+dados[i].id+'</td><td>'+dados[i].nome+'</td><td>'+dados[i].email+'</td></tr>');
-	// 		//}
-	// 	}
-	// });
+    //     async: false,
+	// }).done(function(data) {
+    //    // console.log(data);
+    //     var elementos = "";
+    //     var linhas = "";
+    //     var tabela = $('#apontamentosPendentes');
+    //     $.each($.parseJSON(data), function(chave, valor) {
+    //         //linha += '<option value="' + valor.id+ '">' + valor.nome + '</option>'
+    //         elementos += '<tr>';
+    //         elementos += '<td style="display:none";> '+ valor.id + '</td> ';
+    //         elementos += '<td> '+ valor.nome + '</td> ';
+    //         elementos += '<td> '+ valor.department + '</td> ';
+    //         elementos += '<td> '+ valor.cliente + '</td> ';
+    //         elementos += '<td> '+ valor.num_chamado + '</td> ';
+    //         elementos += '<td> '+ valor.Data_inicial + '</td> ';
+    //         elementos += '<td> '+ valor.duracao + '</td> ';
+    //         elementos += '<td> '+ '<button id="" name="" class="btn-sm btn-success aceitei " >Aceitar </button>' + '</td> ';
+    //         elementos += '<td> '+ '<button class="btn-sm btn-info" data-toggle="modal" data-target="#modalHist" contenteditable="false">Abrir</button>' + '</td> ';
+    //         elementos += '</tr>';
+    //         //linha ='<tr> ' +elementos + '</tr> ';
+    //      //   $('#apontamentosPendentes tbody').html(linha);
+
+    //        // linhas+= linha;
+           
+    //        // elementos ='';
+    //        // linha = '';
+
+    //     });
+    //     tabela.find('tbody').html(elementos);
+    //     //$('#apontamentosPendentes tbody').html(linhas);
+    // }).fail(function(xhr, status, error) {
+    //     console.log("erro");
+    //     // $('#mensagem_editaveis').html(erro).fadeIn(250).delay(4000).fadeOut(300);
+
+    //     //Ajax erro
+    //     //$('#erro_edita').html("deu erro");
+    //     //alert('Error -');
+    // })
 
 
 
 });
 
-// $('#pesquisaPendentesFunc').click(function() {
+// $('#pesquisarPendentesFunc').click(function() {
 //     //Limpando a tabela
+//    // $('#apontamentosPendentes').empty(); //Limpando a tabela
+//     $('#apontamentosPendentes tbody tr').remove();
+
+
+//     var func = $('#funcionario option:selected').val();
+//     var dados = {funcionario: func};
+//     // console.log(dados);
 // 	$.ajax({
 // 		type:'post',		//Definimos o método HTTP usado
-//         dataType: 'json',
-//         data: $('#pendentes').serialize() ,	//Definimos o tipo de retorno
-// 		url: '/pendentes/Dadospendentes',//Definindo o arquivo onde serão buscados os dados
-// 		success: function(dados){
-//             console.log(dados);
-// 			//for(var i=0;dados.length>i;i++){
-// 				//Adicionando registros retornados na tabela
-// 				//$('#tabela').append('<tr><td>'+dados[i].id+'</td><td>'+dados[i].nome+'</td><td>'+dados[i].email+'</td></tr>');
-// 			//}
-// 		}
-// 	});
+//         // dataType: 'json',
+//         data: dados,	//Definimos o tipo de retorno
+//         url: '/pendentes/Dadospendentes',//Definindo o arquivo onde serão buscados os dados
+//         async: false,
+// 		// success: function(data){
+//         //     console.log(data);
+// 		// 	//for(var i=0;dados.length>i;i++){
+// 		// 		//Adicionando registros retornados na tabela
+// 		// 		//$('#tabela').append('<tr><td>'+dados[i].id+'</td><td>'+dados[i].nome+'</td><td>'+dados[i].email+'</td></tr>');
+// 		// 	//}
+// 		// }
+//     }).done(function(data) {
+//         console.log(data);
+//         var elementos = "";
+//         var linhas = "";
+//         var tabela = $('#apontamentosPendentes');
+//         $.each($.parseJSON(data), function(chave, valor) {
+//             //linha += '<option value="' + valor.id+ '">' + valor.nome + '</option>'
+//             elementos += '<tr>';
+//             elementos += '<td style="display:none";> '+ valor.id + '</td> ';
+//             elementos += '<td> '+ valor.nome + '</td> ';
+//             elementos += '<td> '+ valor.department + '</td> ';
+//             elementos += '<td> '+ valor.cliente + '</td> ';
+//             elementos += '<td> '+ valor.num_chamado + '</td> ';
+//             elementos += '<td> '+ valor.Data_inicial + '</td> ';
+//             elementos += '<td> '+ valor.duracao + '</td> ';
+//             elementos += '<td> '+ '<button id="" name="" class="btn-sm btn-success aceitei " >Aceitar </button>' + '</td> ';
+//             elementos += '<td> '+ '<button class="btn-sm btn-info" data-toggle="modal" data-target="#modalHist" contenteditable="false">Abrir</button>' + '</td> ';
+//             elementos += '</tr>';
+//         });
+//         tabela.find('tbody').html(elementos);
+//     }).fail(function(xhr, status, error) {
+//         console.log("erro");
+//         // $('#mensagem_editaveis').html(erro).fadeIn(250).delay(4000).fadeOut(300);
+
+//         //Ajax erro
+//         //$('#erro_edita').html("deu erro");
+//         //alert('Error -');
+//     })
+    
+
+//});
 
 
-// });
+
+//---------------------------//
+$('.aceitei').click(function() {
+    console.log("click");
+    var columnHeadings = $("thead th").map(function() {
+        return $(this).text();
+    }).get();
+
+    columnHeadings.pop();
+    // console.log(columnHeadings);
+    var columnValues = $(this).parent().siblings().map(function() {
+        return $(this).text();
+    }).get();
+    //console.log();
+    console.log(columnValues);
+    var id = columnValues[0];
+    var dados = {id_hist_bt: id}
+    var acerto ="<div class='alert alert-success' role='alert'>Alteração realizada com sucesso</div>";
+    var erro ="<div class='alert alert-danger' role='alert'>erro ao realizar ação</div>";
+
+
+
+
+
+    $.ajax({
+        type: "POST",
+        data: dados,
+        url: "/Pendentes/Aceitar",
+        async: false
+    }).done(function(data) {
+        console.log(data);
+        $('#mensagem_pendentes').html(acerto).fadeIn(250).delay(4000).fadeOut(300);
+        //exibir mensagem de acerto
+        //se tiver tudo certo eu só recarrego a pagina
+        //window.location.href = '/apontamento';
+        //exibir mensagem ou erro
+        //$('#erro_edita').html("");
+    }).fail(function(xhr, status, error) {
+        console.log("erro");
+        $('#mensagem_pendentes').html(erro).fadeIn(250).delay(4000).fadeOut(300);
+
+        //Ajax erro
+        //$('#erro_edita').html("deu erro");
+        //alert('Error -');
+    })
+
+
+    // var tr = $(item).closest('tr');
+
+    // tr.fadeOut(400, function() {
+    //     tr.remove();  
+    //   });    
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -586,7 +724,7 @@ $(".enviareditavel").click(function() {
     var id = columnValues[0];
     var dados = {id_edt: id}
     var acerto ="<div class='alert alert-success' role='alert'>Alteração realizada com sucesso</div>";
-    var erro ="<div class='alert alert-success' role='alert'>erro ao realizar ação</div>";
+    var erro ="<div class='alert alert-danger' role='alert'>erro ao realizar ação</div>";
 
     $.ajax({
         type: "POST",
