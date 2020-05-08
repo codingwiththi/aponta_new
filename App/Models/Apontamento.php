@@ -91,8 +91,8 @@ class Apontamento extends Model{
         cliente.nome AS cliente,
         tipo_atividade.tipo_atividade,
         atividade.nome as atividade,
-        apontamento.Data_inicial,
-        apontamento.Data_final,
+        convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+        convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         status.status,
         apontamento.FK_status_Id,
         tipo_hora.tipo_hora,
@@ -102,8 +102,9 @@ class Apontamento extends Model{
         FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
-        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
-        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+        JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+        JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+        JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)  
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
         join status on (Apontamento.FK_status_Id =  status.id)
@@ -165,16 +166,17 @@ class Apontamento extends Model{
         status.status,
         atividade.nome
         as atividade,
-        apontamento.Data_inicial,
-        apontamento.Data_final,
+        convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+        convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         tipo_hora.tipo_hora,
         apontamento.FK_status_Id,
         DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
-        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
-        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+		JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+        JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+        JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id) 
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
         join status on (Apontamento.FK_status_Id =  status.id)
@@ -197,15 +199,16 @@ class Apontamento extends Model{
         status.status,
         atividade.nome
         as atividade,
-        apontamento.Data_inicial,
-        apontamento.Data_final,
+        convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+        convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         tipo_hora.tipo_hora,
         DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
-        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
-        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+		JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+        JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+        JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
         join status on (Apontamento.FK_status_Id =  status.id)
@@ -255,8 +258,8 @@ class Apontamento extends Model{
         end as numero_chamado_OU_id,
         Atividade.nome as tipo,
         status.status,
-        apontamento.Data_inicial,
-        apontamento.Data_final,
+        convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+        convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao,
         (SELECT SUM(DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final ))
 		from Apontamento

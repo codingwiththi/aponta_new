@@ -20,7 +20,10 @@ class Contrato extends Model{
     }
 
     public function getPorCliente(){
-        $query = "select id,contrato, FK_cliente_Id from contrato where FK_cliente_Id= :fk_cliente_id ";
+        $query = "select Cliente_Contrato.id,Contrato.contrato, Cliente_Contrato.Fk_cliente_Id from cliente 
+        join Cliente_Contrato on (Cliente_Contrato.Fk_cliente_Id = Cliente.Id)
+        join Contrato on (contrato.Id = Cliente_Contrato.Fk_contrato_Id)
+        where Cliente_Contrato.Fk_cliente_Id =  :fk_cliente_id ";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(":fk_cliente_id",$this->__get("fk_cliente_id"));
         $stmt->execute();

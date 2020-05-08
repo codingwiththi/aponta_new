@@ -83,13 +83,14 @@ public function getPendentesManager (){
                 funcionario.displayName as nome,
                 apontamento.num_chamado,
                 DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
-                apontamento.Data_inicial,
+				convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
                 funcionario.department,
                 cliente.nome AS cliente
                 from apontamento inner join status on (Apontamento.FK_status_Id = status.id) 
                 inner join Funcionario on (Apontamento.FK_func_Id = Funcionario.id)
-                inner join Contrato on ( Apontamento.FK_contrato_Id = Contrato.Id)
-                JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+				JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+				JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+				JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id) 
                 where status.id =1 and Funcionario.manager like ?";
         $stmt= $this->db->prepare($query);
         $nome = $this->__get('nome') ; //'Vinicius Detoni Capelli Soares';//
@@ -107,7 +108,7 @@ public function getPendentesManager (){
                 funcionario.displayName as nome,
                 apontamento.num_chamado,
 				DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
-								apontamento.Data_inicial,
+				convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
 								funcionario.department,
 								cliente.nome AS cliente
 								from apontamento inner join status on (Apontamento.FK_status_Id = status.id)
@@ -115,7 +116,9 @@ public function getPendentesManager (){
 				Funcionario.id)
 								inner join Contrato on ( Apontamento.FK_contrato_Id =
 				Contrato.Id)
-                JOIN cliente ON (contrato.FK_cliente_Id =  cliente.Id)
+				JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+				JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+				JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)
                 where status.id =1 and Funcionario.id = :fk_id_supervisionado";
 
         $stmt= $this->db->prepare($query);
