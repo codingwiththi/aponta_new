@@ -142,10 +142,7 @@ $('.aceitei').click(function() {
     var dados = {id_hist_bt: id}
     var acerto ="<div class='alert alert-success' role='alert'>Alteração realizada com sucesso</div>";
     var erro ="<div class='alert alert-danger' role='alert'>erro ao realizar ação</div>";
-
-
-
-
+    var flag_tira_linha = '';
 
     $.ajax({
         type: "POST",
@@ -155,6 +152,8 @@ $('.aceitei').click(function() {
     }).done(function(data) {
         console.log(data);
         $('#mensagem_pendentes').html(acerto).fadeIn(250).delay(4000).fadeOut(300);
+        flag_tira_linha = true;
+
         //exibir mensagem de acerto
         //se tiver tudo certo eu só recarrego a pagina
         //window.location.href = '/apontamento';
@@ -163,13 +162,15 @@ $('.aceitei').click(function() {
     }).fail(function(xhr, status, error) {
         console.log("erro");
         $('#mensagem_pendentes').html(erro).fadeIn(250).delay(4000).fadeOut(300);
-
+        flag_tira_linha = false;
         //Ajax erro
         //$('#erro_edita').html("deu erro");
         //alert('Error -');
     })
 
-
+    if (flag_tira_linha){
+        $(this).closest('tr').remove();
+    }
     // var tr = $(item).closest('tr');
 
     // tr.fadeOut(400, function() {
@@ -757,6 +758,7 @@ $(".enviareditavel").click(function() {
 //MODAL DA PAGINA PENDENTES
 //------------------------------------------------------
 $(".btn-sm[data-target='#modalHist']").click(function() {
+    
 
     console.log("entrei");
     var columnHeadings = $("thead th").map(function() {
@@ -777,7 +779,14 @@ $(".btn-sm[data-target='#modalHist']").click(function() {
     $('#nome_hist').val(columnValues[1]);
     $('#duracao_hist').val(columnValues[6]);
     $('#num_chamado_hist').val(columnValues[4]);
-    $('#data_hist').val(columnValues[5]);
+    $('#funcionario_hist').val(columnValues[1]);
+    $('#departamento_hist').val(columnValues[2]);
+    $('#contrato_hist').val(columnValues[8]);
+    $('#tipo_atv_hist').val(columnValues[13]);
+    $('#atividade_hist').val(columnValues[11]);
+    $('#descricao_hist').val(columnValues[12]);
+    $('#data_ini_hist').val(columnValues[5]);
+    $('#data_fim_hist').val(columnValues[7]);
 
 
 });

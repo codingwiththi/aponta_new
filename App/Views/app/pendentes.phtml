@@ -72,13 +72,20 @@
 
                     <?php  foreach($this->view->meusPendentes as $Pendentes){?>
                     <tr>
-                        <td style="display:none;"> <?php echo $Pendentes['id']; ?> </td>
+                        <td style="display:none;"> <?php echo $Pendentes['Id']; ?> </td>
                         <td><?php echo $Pendentes['nome']; ?></td>
                         <td><?php  echo $Pendentes['department']; ?></td>
                         <td> <?php echo $Pendentes['cliente']; ?></td>
                         <td><?php echo $Pendentes['num_chamado']; ?></td>
                         <td><?php echo $Pendentes['Data_inicial']; ?></td>
                         <td><?php echo $Pendentes['duracao']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['Data_final']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['contrato']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['tipo_hora']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['status']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['atividade']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['descricao']; ?></td>
+                        <td style="display:none;"> <?php echo $Pendentes['tipo_atividade']; ?></td>
                         <td>  
                         <button id="" name="" class="btn-sm btn-success aceitei " >Aceitar </button>
                         </td>
@@ -104,10 +111,10 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalHist" tabindex="-1" role="dialog" aria-labelledby="modalHist" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Confirmação de aceitação</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Aceitar apontamento</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,40 +124,80 @@
             <div class="modal-body">
             <form name="pendentes_aceitar" id="pendentes_aceitar" method="POST" action="/Pendentes/Aceitar  ">
      
+            <div class="form-row">
+                <div class="form-group col-lg-6">
+                        <label for="inputState">Funcionario</label>
+                        <input type="text" class="form-control bg-light" readonly id="funcionario_hist" name="funcionario_hist"
+                            placeholder="nome do funcionário">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">Departamento</label>
+                        <input type="text" class="form-control bg-light" readonly id="departamento_hist" name="departamento_hist"
+                            placeholder="Departamento">
+                    </div>
+
+                </div>
             <div class="form-row">   
                 <input type="text" style="display:none;" class="form-control bg-light" id="id_hist" readonly  name="id_hist">
-                    <div class="form-group col-lg-3"></div>            
                     <div class="form-group col-lg-6">
                                 <label for="inputState">Cliente</label>
                                 <input type="text" class="form-control bg-light" readonly id="cliente_hist" name="cliente_hist"
                                     placeholder="Cliente">
                             </div>
-                    <div class="form-group col-lg-3"></div>
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">Contrato</label>
+                        <input type="text" class="form-control bg-light" readonly id="contrato_hist" name="contrato_hist"
+                            placeholder="Cliente">
+                    </div>
             </div>
             <div class="form-row">
-            <div class="form-group col-lg-9">
-                        <label for="inputState">Funcionario</label>
-                        <input type="text" class="form-control bg-light" readonly id="nome_hist" name="nome_hist"
-                            placeholder="nome do funcionário">
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">tipo de ativdade</label>
+                        <input type="text" class="form-control bg-light" readonly id="tipo_atv_hist" name="tipo_atv_hist"
+                            placeholder="Numero do chamado">
                     </div>
-                    <div class="form-group col-lg-3">
-                        <label for="inputState">Duração(Min)</label>
-                        <input type="text" class="form-control bg-light" readonly id="duracao_hist" name="duracao_hist"
-                            placeholder="duração">
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">Atividade</label>
+                        <input type="text" class="form-control bg-light" readonly id="atividade_hist" name="atividade_hist"
+                            placeholder="atividade">
                     </div>
                 </div>
+
+
+                <div class="form-row">
+                <div class="form-group col-lg-6">
+                        <label for="inputState">data incial</label>
+                        <input type="text" class="form-control bg-light" readonly id="data_ini_hist" name="data_ini_hist"
+                            placeholder="data apontamento">
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label for="inputState">data final</label>
+                        <input type="text" class="form-control bg-light" readonly id="data_fim_hist" name="data_ini_hist"
+                            placeholder="data apontamento">
+                    </div>
+                </div>
+
                 <div class="form-row">
                     <div class="form-group col-lg-6">
                         <label for="inputState">N° do chamado</label>
                         <input type="text" class="form-control bg-light" readonly id="num_chamado_hist" name="num_chamado_hist"
                             placeholder="Numero do chamado">
                     </div>
+
                     <div class="form-group col-lg-6">
-                        <label for="inputState">hora do apontamento</label>
-                        <input type="text" class="form-control bg-light" readonly id="data_hist" name="data_hist"
-                            placeholder="data apontamento">
+                        <label for="inputState">Duração(Min)</label>
+                        <input type="text" class="form-control bg-light" readonly id="duracao_hist" name="duracao_hist"
+                            placeholder="duração">
                     </div>
                 </div>
+                <div class="form-row">
+                <div class="form-group col-lg-3"></div>
+                    <div class="form-group col-lg-6">
+                        <label for="exampleFormControlTextarea1">Descrição da atividade</label>
+                        <textarea class="form-control" name="descricao_hist" id="descricao_hist" rows="3" rows="3"></textarea>
+                    </div>
+                </div>
+                
                 <span id="edita_pendente_msg" name="edita_pendente_msg" class="text-success"></span>
 
             </div>

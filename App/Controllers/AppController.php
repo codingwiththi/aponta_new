@@ -314,12 +314,12 @@ class AppController extends Action {
 	
 			$manager = $func->isManager();
 			//print_r($manager);	 
-			if($manager['manager'] == 0){
-				//echo "não é manager";
-				//RENDER VOCE NAO TEM ACESSO
-				//HEADER LOCATION
-				header("location: /apontamento");	
-			}
+			// if($manager['manager'] == 0){
+			// 	//echo "não é manager";
+			// 	//RENDER VOCE NAO TEM ACESSO
+			// 	//HEADER LOCATION
+			// 	header("location: /apontamento");	
+			// }
 			$this->view->meusFuncionario = $func->GetFuncByManager();
 
 			if(!$_POST){
@@ -377,7 +377,7 @@ class AppController extends Action {
 
 			$func = Container::getModel('funcionario');
 			$func->__set('nome',$_SESSION['nome'] );
-			$func->__set('nome',$_SESSION['id'] );
+			$func->__set('id',$_SESSION['id'] );
 			
 			require_once('../public/testes.php');
 			$this->view->dataRange = $dateRange;

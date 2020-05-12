@@ -96,7 +96,7 @@ class Apontamento extends Model{
         status.status,
         apontamento.FK_status_Id,
         tipo_hora.tipo_hora,
-        DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao,
         apontamento.descricao
         FROM apontamento 
@@ -110,7 +110,8 @@ class Apontamento extends Model{
         join status on (Apontamento.FK_status_Id =  status.id)
         WHERE (apontamento.FK_func_Id = :fkFuncionarioId 
         AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) 
-        OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()))";
+        OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE())) 
+        order by apontamento.Data_inicial";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
         $stmt->execute();
@@ -170,7 +171,7 @@ class Apontamento extends Model{
         convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         tipo_hora.tipo_hora,
         apontamento.FK_status_Id,
-        DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        DATEDIFF(HOUR,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
@@ -202,7 +203,7 @@ class Apontamento extends Model{
         convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
         convert(varchar, apontamento.Data_final ,120) AS  Data_final,
         tipo_hora.tipo_hora,
-        DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
+        DATEDIFF(HOUR,apontamento.Data_inicial,apontamento.Data_final) as duracao,
         apontamento.data_alteracao FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
@@ -319,13 +320,14 @@ class Apontamento extends Model{
         atividade.nome as atividade,
         apontamento.Data_inicial,
         tipo_hora.tipo_hora,
-        DATEDIFF(MINUTE, apontamento.Data_inicial,apontamento.Data_final) as duracao, 
+        DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao, 
         apontamento.data_alteracao 
         FROM apontamento 
         JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
         JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
-        JOIN contrato ON (apontamento.FK_contrato_Id = contrato.Id) 
-        JOIN cliente ON (contrato.FK_cliente_Id = cliente.Id) 
+        JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+        JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+        JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)
         JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
         JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
         join status on (Apontamento.FK_status_Id =  status.id) 

@@ -16,7 +16,9 @@
     margin-left: 20em;
 }
 
-
+table{
+    font-size: 15;
+}
 /* 
 .headcol {
     position: absolute;

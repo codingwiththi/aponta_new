@@ -79,21 +79,34 @@ class Funcionario extends Model{
 	
 //    }
 public function getPendentesManager (){
-    $query = "select apontamento.id,
-                funcionario.displayName as nome,
-                apontamento.num_chamado,
-                DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
-				convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
-                funcionario.department,
-                cliente.nome AS cliente
-                from apontamento inner join status on (Apontamento.FK_status_Id = status.id) 
-                inner join Funcionario on (Apontamento.FK_func_Id = Funcionario.id)
-				JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
-				JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
-				JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id) 
+    $query = "SELECT apontamento.Id,
+	apontamento.num_chamado,
+	cliente.nome AS cliente,
+	funcionario.displayName as nome,
+	contrato.contrato as contrato,
+	funcionario.department,
+	tipo_atividade.tipo_atividade,
+	atividade.nome as atividade,
+	convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+	convert(varchar, apontamento.Data_final ,120) AS  Data_final,
+	status.status,
+	apontamento.FK_status_Id,
+	tipo_hora.tipo_hora,
+	DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao,
+	apontamento.data_alteracao,
+	apontamento.descricao
+	from apontamento
+		JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+		JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+		JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+		JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+		JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)  
+		JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+		JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
+		join status on (Apontamento.FK_status_Id =  status.id)
                 where status.id =1 and Funcionario.manager like ?";
         $stmt= $this->db->prepare($query);
-        $nome = $this->__get('nome') ; //'Vinicius Detoni Capelli Soares';//
+        $nome = 'Vinicius Detoni Capelli Soares';//$this->__get('nome') ; ////
         //return $nome;
 		$stmt->bindValue(1,"%" . $nome . "%");
 		$stmt->execute();
@@ -104,21 +117,31 @@ public function getPendentesManager (){
 	
 
 	public function getPendentesByFunc(){
-        $query = "select apontamento.id,
-                funcionario.displayName as nome,
-                apontamento.num_chamado,
-				DATEDIFF(minute,apontamento.Data_inicial,apontamento.Data_final) as duracao,
-				convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
-								funcionario.department,
-								cliente.nome AS cliente
-								from apontamento inner join status on (Apontamento.FK_status_Id = status.id)
-								inner join Funcionario on (Apontamento.FK_func_Id =
-				Funcionario.id)
-								inner join Contrato on ( Apontamento.FK_contrato_Id =
-				Contrato.Id)
+        $query = "SELECT apontamento.Id,
+						apontamento.num_chamado,
+						cliente.nome AS cliente,
+						contrato.contrato as contrato,
+						funcionario.displayName as nome,
+						funcionario.department,
+						tipo_atividade.tipo_atividade,
+						atividade.nome as atividade,
+						convert(varchar, apontamento.Data_inicial ,120) AS  Data_inicial,
+						convert(varchar, apontamento.Data_final ,120) AS  Data_final,
+						status.status,
+						apontamento.FK_status_Id,
+						tipo_hora.tipo_hora,
+						DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao,
+						apontamento.data_alteracao,
+						apontamento.descricao
+						from apontamento
+				JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+				JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
 				JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
 				JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
-				JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)
+				JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)  
+				JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+				JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id) 
+				join status on (Apontamento.FK_status_Id =  status.id)
                 where status.id =1 and Funcionario.id = :fk_id_supervisionado";
 
         $stmt= $this->db->prepare($query);
@@ -135,7 +158,7 @@ public function getPendentesManager (){
 
 	$query = "SELECT id,displayName as nome FROM funcionario WHERE manager like ? order by 2";
 	$stmt= $this->db->prepare($query);
-	$nome = $this->__get('nome');//'Vinicius Detoni Capelli Soares';
+	$nome = 'Vinicius Detoni Capelli Soares';// $this->__get('nome');//
 	$stmt->bindValue(1,"%" . $nome . "%");
 	$stmt->execute();
 
