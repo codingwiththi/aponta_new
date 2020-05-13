@@ -106,7 +106,7 @@ public function getPendentesManager (){
 		join status on (Apontamento.FK_status_Id =  status.id)
                 where status.id =1 and Funcionario.manager like ?";
         $stmt= $this->db->prepare($query);
-        $nome = 'Vinicius Detoni Capelli Soares';//$this->__get('nome') ; ////
+        $nome = $this->__get('nome') ; //'Vinicius Detoni Capelli Soares';
         //return $nome;
 		$stmt->bindValue(1,"%" . $nome . "%");
 		$stmt->execute();
@@ -158,7 +158,7 @@ public function getPendentesManager (){
 
 	$query = "SELECT id,displayName as nome FROM funcionario WHERE manager like ? order by 2";
 	$stmt= $this->db->prepare($query);
-	$nome = 'Vinicius Detoni Capelli Soares';// $this->__get('nome');//
+	$nome = $this->__get('nome');//'Vinicius Detoni Capelli Soares';
 	$stmt->bindValue(1,"%" . $nome . "%");
 	$stmt->execute();
 

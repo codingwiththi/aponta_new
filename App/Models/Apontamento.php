@@ -340,6 +340,48 @@ class Apontamento extends Model{
 
     
 
+    public function getPorNumeroChamadoOuId($id){
+
+        $query="SELECT apontamento.Id,
+        apontamento.num_chamado,
+        case
+		when LEN(LTRIM(RTRIM(apontamento.num_chamado))) = 0
+			then CONVERT(VARCHAR(40),Apontamento.Id)
+		else apontamento.num_chamado 
+        end as numero_chamado_OU_id,
+        funcionario.displayName as nome,
+        cliente.nome AS cliente,
+        status.status,
+        atividade.nome as atividade,
+        apontamento.Data_inicial,
+        tipo_hora.tipo_hora,
+        DATEDIFF(HOUR, apontamento.Data_inicial,apontamento.Data_final) as duracao, 
+        apontamento.data_alteracao 
+        FROM apontamento 
+        JOIN tipo_hora ON (apontamento.FK_tipo_hora_Id = tipo_hora.Id) 
+        JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
+        JOIN Cliente_Contrato on (Apontamento.FK_contrato_Id = Cliente_Contrato.Id)
+        JOIN cliente ON (Cliente_Contrato.Fk_cliente_Id = cliente.Id)
+        JOIN Contrato ON (Cliente_Contrato.Fk_contrato_Id = Contrato.Id)
+        JOIN atividade ON (apontamento.FK_atividade_Id = atividade.Id) 
+        JOIN tipo_atividade ON (atividade.FK_tipo_ativ_Id = tipo_atividade.Id)
+        join status on (Apontamento.FK_status_Id =  status.id) 
+        WHERE apontamento.num_chamado = :numeroChamado or apontamento.Id =$id";
+        //echo $query;
+        //echo $this->__get('numeroChamado');
+        $stmt = $this->db->prepare($query);
+        //$id = intval($this->__get('numeroChamado'));
+        $stmt->bindValue(':numeroChamado',$this->__get('numeroChamado'));
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
+
+
 
     public function getMensal($intervalo, $manager){
         $query = "SELECT * from (

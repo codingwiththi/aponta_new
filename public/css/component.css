@@ -32,6 +32,7 @@ table {
     margin-bottom: 3em;
     width: 100%;
     background: #fff;
+
 }
 
 td,
@@ -125,3 +126,5 @@ td.user-name {
     overflow-y: auto;
     max-height: 80vh;
 }
+
+

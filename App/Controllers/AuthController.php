@@ -50,10 +50,14 @@ class AuthController extends Action {
 					if($manager['manager'] == 1){
 						//print_r($manager);
 						//echo "DEU CERTO";
-						$_SESSION['manager'] = true; 
+						$_SESSION['manager'] = true;
+						$_SESSION['managerInt'] = 1; 
+
 					}else{
 						//echo "nao deu";
 						$_SESSION['manager'] = false;
+						$_SESSION['managerInt'] = 0; 
+
 					}
 
 					header("Location:/apontamento");

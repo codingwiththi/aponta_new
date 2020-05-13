@@ -43,14 +43,18 @@
                     <a class="nav-link text-dark" href="/historico">Historico</a> 
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-dark" href="/concluido">Mensal</a>
+                </li>
+
+                <?php if($_SESSION['managerInt'] == 1) {?>
+                <li class="nav-item">
                     <a class="nav-link text-dark" href="/pendentes">Pendentes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/concluido">Mensal</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-dark" href="/editaveis">Editaveis</a>
+
                 </li>
+                <?php }?>
 
             </ul>
             <!-- <label style="padding: 5px;">Dia: </label>

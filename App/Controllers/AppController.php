@@ -322,12 +322,12 @@ class AppController extends Action {
 	
 			$manager = $func->isManager();
 			//print_r($manager);	 
-			// if($manager['manager'] == 0){
-			// 	//echo "não é manager";
-			// 	//RENDER VOCE NAO TEM ACESSO
-			// 	//HEADER LOCATION
-			// 	header("location: /apontamento");	
-			// }
+			if($manager['manager'] == 0){
+				//echo "não é manager";
+				//RENDER VOCE NAO TEM ACESSO
+				//HEADER LOCATION
+				header("location: /apontamento");	
+			}
 			$this->view->meusFuncionario = $func->GetFuncByManager();
 
 			if(!$_POST){
@@ -435,18 +435,35 @@ class AppController extends Action {
 			$func->__set('nome',$_SESSION['nome'] );
 			$manager = $func->isManager();
 			//print_r($manager);	 
-			if($manager['manager'] == 0){
-				header("location: /apontamento");	
-			}
+			// if($manager['manager'] == 0){
+			// 	header("location: /apontamento");	
+			// }
 			
 			$this->view->postEdita = false;
 			if($_POST['chamado_editavel']){
+
+
 				//print_r($_POST);
+				if (is_numeric($_POST['chamado_editavel'])){
+					//print "so numero";
+					$apontamento = Container::getModel('Apontamento');
+					$apontamento->__set('numeroChamado',$_POST['chamado_editavel']);
+					$id = intval($_POST['chamado_editavel']);
+					$this->view->editaPorChamado = $apontamento->getPorNumeroChamadoOuId($id);
+					//print_r($this->view->editaPorChamado);
+					$this->view->postEdita = true;
+
+				}else{
+					//echo "tem letra";
 				$apontamento = Container::getModel('Apontamento');
 				$apontamento->__set('numeroChamado',$_POST['chamado_editavel']);
-				$this->view->editaPorChamado = $apontamento->getPorNumeroChamado('teste');
+				$this->view->editaPorChamado = $apontamento->getPorNumeroChamado();
 				//print_r($this->view->editaPorChamado);
 				$this->view->postEdita = true;
+
+
+				}
+
 		
 			}
 
