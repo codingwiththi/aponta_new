@@ -225,6 +225,8 @@ setTimeout(function(){
 //----------------------------------------
 function ValidaFormInsert() {
     //FAZER VALIDAÇÃO DE DATA AQUIIII
+    var numero_chamado = $('#numero_chamado').val();
+    var descricao = $('#descricao').val();
     var data_inicio = $('#data_inicial').val();
     var hora_inicio = $('#hora_inicial').val();
     var data_final = $('#data_final').val();
@@ -234,7 +236,7 @@ function ValidaFormInsert() {
   //  console.log(RetornaDataHoraAtual());
     if (parseStringToDate(data_inicio, hora_inicio) >= parseStringToDate(data_final, hora_final)) {
         //mostrar error
-        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        $('#alert_erro').html('Intervalo de data inválido').fadeIn(300).delay(5000).fadeOut(400);
         // $('#data_inicial').focus();
         // $('#hora_inicial').focus();
         // $('#data_final').focus();
@@ -245,11 +247,21 @@ function ValidaFormInsert() {
 
     if((parseStringToDate(data_inicio, hora_inicio) >= data_atual ) || (parseStringToDate(data_final, hora_final) >= data_atual ) ){
 
-        $('#alert_erro').html('INTERVALO DE DATA INVÁLIDA').fadeIn(300).delay(5000).fadeOut(400);
+        $('#alert_erro').html('Intervalo de data inválido').fadeIn(300).delay(5000).fadeOut(400);
         $('#data_inicial').focus();
         $('#hora_inicial').focus();
         $('#data_final').focus();
         $('#hora_final').focus().slideDown(500);
+
+        return false;
+    }
+
+
+    if(numero_chamado.trim() == "" && descricao.trim() ==""){
+        $('#alert_erro').html('A descrição ou o número do chamado deve ser preenchido').fadeIn(300).delay(5000).fadeOut(400);
+        //$('#descricao').focus().slideDown(500);
+       // $('#numero_chamado').focus().slideDown(500);
+
 
         return false;
     }

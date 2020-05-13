@@ -101,6 +101,14 @@ class AppController extends Action {
 						$numero_chamado = $_POST['numero_chamado'];
 					}
 
+					if(!isset($_POST['descricao']) or empty($_POST['descricao'])){
+						$descricao = "";
+					}else{
+						$descricao = $_POST['descricao'];
+					}
+
+
+
 					$apontamento = Container::getModel('Apontamento');
 					$apontamento->__set('dataInicial',strval($dataInicio));
 					$apontamento->__set('dataFinal',strval($dataTermino));
@@ -109,7 +117,7 @@ class AppController extends Action {
 					$apontamento->__set('fkContratoId',strval($_POST['contrato']));
 					$apontamento->__set('fkFuncionarioId',$_SESSION['id']);
 					$apontamento->__set('fkTipoHoraId',$_POST['tipo_hora']);
-					$apontamento->__set('descricao',$_POST['descricao']);
+					$apontamento->__set('descricao',$descricao);
 
 					//data inicial menor que 2 dias atrás o staus vira pendente
 					//1 - pendentes
@@ -278,7 +286,7 @@ class AppController extends Action {
 			
 			if(isset($_POST['dataInicio'])){
 				$aponta->__set('dataInicial',strval($_POST['dataInicio'].'T00:00:00'));
-				$aponta->__set('dataFinal',strval($_POST['dataFim'].'T00:00:00'));
+				$aponta->__set('dataFinal',strval($_POST['dataFim'].'T23:59:59'));
 				//print_r($_POST['dataInicio']);
 				$this->view->todosApontamentos = $aponta->getPorIntervalo();
 
