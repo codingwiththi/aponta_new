@@ -30,16 +30,23 @@
                                     //print_r($rmensal);
                                     foreach($rmensal as $dados){
                                         if(!$dados){
-                                            ?> <td <?php if(in_array($cont, $this->view->fds)){echo "class=bg-info"; } ?> >
+                                            ?> <td <?php if(in_array($cont - 1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> >
                                                 <?php echo 0; ?>
                                              </td> <?php
                                         }else{
                                             if($cont == 0){
-                                                ?> <th>
+                                                ?> <th hidden class="dados_func" >
                                                  <?php echo $dados ?>
                                                  </th> <?php
+                                            }elseif($cont == 1){
+                                                ?> 
+                                                <th id="" class="dados_func" >
+                                                 <?php echo $dados ?>
+                                                 </th> 
+                                                 <?php
+
                                             }else{
-                                            ?> <td <?php if(in_array($cont, $this->view->fds)){echo "class=bg-info"; } ?>> 
+                                            ?> <td id="" <?php if(in_array($cont -1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> > 
                                                 <?php echo $dados ?></td>
                                              <?php
                                             }
@@ -59,3 +66,30 @@
 
 
 		</div><!-- /container -->
+
+        <div id="testem" >
+                                </div>
+
+<!-- <script type="text/javascript" charset="utf8" src="/js/scripts.js"></script> -->
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="testem" class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

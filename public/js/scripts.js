@@ -64,6 +64,10 @@ $(document).ready(function() {
     //     //alert('Error -');
     // })
 
+    function abrirModalMensal(){
+       return $('#modalMensal').modal('show');
+ 
+    }
 
 
 });
@@ -854,3 +858,4 @@ $("#revisar_pendentes").click(function() {
 
 
 // });
+

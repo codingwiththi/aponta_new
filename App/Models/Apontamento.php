@@ -110,7 +110,7 @@ class Apontamento extends Model{
         join status on (Apontamento.FK_status_Id =  status.id)
         WHERE (apontamento.FK_func_Id = :fkFuncionarioId 
         AND apontamento.data_alteracao >  DATEADD(DAY, -2 , GETDATE())) 
-        OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE())) 
+        OR ( editavel = 1 AND apontamento.data_editavel > DATEADD(DAY, -2 , GETDATE()) AND apontamento.FK_func_Id = :fkFuncionarioId  ) 
         order by apontamento.Data_inicial";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':fkFuncionarioId',$this->__get('fkFuncionarioId'));
@@ -414,6 +414,7 @@ class Apontamento extends Model{
     public function getMensalFuncionario($intervalo){
         $query = "SELECT * from (
             SELECT
+            Funcionario.id,
             Funcionario.displayName AS nome,
                     convert(varchar(MAX),apontamento.Data_inicial,103) as data ,
                     SUM(DATEDIFF(hour,apontamento.Data_inicial,apontamento.Data_final)) as duracao
@@ -421,7 +422,7 @@ class Apontamento extends Model{
                     JOIN funcionario ON (apontamento.FK_func_Id = funcionario.Id) 
                     WHERE apontamento.FK_func_Id = :fkFuncionarioId
                     GROUP BY 
-                    apontamento.Data_inicial,Funcionario.displayName) em_linha
+                    apontamento.Data_inicial,Funcionario.displayName, funcionario.id) em_linha
                     pivot (sum(duracao) for data in ($intervalo)) em_colunas order by 1";
         //echo $query;
 

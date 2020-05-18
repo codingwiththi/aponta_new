@@ -146,4 +146,51 @@ $(function(){
 			.scroll($.throttle(250, repositionStickyHead));
 		}
 	});
+
+
+
+	$("table tbody td").click(function() {
+
+		var col = $(this).parent().children().index($(this));
+		var row = $(this).parent().parent().children().index($(this).parent());
+		console.log('Row: ' + row + ', Column: ' + (col -1));
+		// $('#modalMensal').removeClass('visible');
+		// $('#testem').html("testandooo");
+		var valores =  $('table tbody td').parent().children().siblings().map(function() {
+			return $.trim($(this).text());
+		}).get();
+		console.log(valores);
+		//abrirModalMensal();
+		
+		console.log("cliquei");
+		var total;
+		var cont = 0 ;
+		// $("table tbody tr").each(function() {
+		// 	total = $(this).text();
+		// 	console.log(total);
+		// 	cont += 1
+
+		// });
+		//console.log($(this).parent().parent().text());
+
+		// var columnHeadings = $("thead th").map(function() {
+		// 	return $(this).text();
+		// }).get();
+	
+		// //columnHeadings.pop();
+		// //console.log(columnHeadings);
+		// var columnValues = $('tbody th').parent().siblings().map(function() {
+		// 	return $(this).text();
+		// }).get();
+		// // //console.log();
+		// console.log(columnValues);
+	
+		});
+
+
 });
+
+
+// function abrir (){
+// 	$('#modalMensal').modal('show');
+// }
