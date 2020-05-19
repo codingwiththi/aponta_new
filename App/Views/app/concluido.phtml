@@ -30,12 +30,12 @@
                                     //print_r($rmensal);
                                     foreach($rmensal as $dados){
                                         if(!$dados){
-                                            ?> <td <?php if(in_array($cont - 1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> >
+                                            ?> <td data-toggle="" data-target="#" <?php if(in_array($cont - 1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> >
                                                 <?php echo 0; ?>
                                              </td> <?php
                                         }else{
                                             if($cont == 0){
-                                                ?> <th hidden class="dados_func" >
+                                                ?> <th  hidden class="dados_func" >
                                                  <?php echo $dados ?>
                                                  </th> <?php
                                             }elseif($cont == 1){
@@ -46,7 +46,7 @@
                                                  <?php
 
                                             }else{
-                                            ?> <td id="" <?php if(in_array($cont -1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> > 
+                                            ?> <td id="" data-toggle="" data-target="#" <?php if(in_array($cont -1, $this->view->fds)){echo "class=bg-info dados_func"; } ?> > 
                                                 <?php echo $dados ?></td>
                                              <?php
                                             }
@@ -74,7 +74,8 @@
 
 <!-- Modal -->
 <!-- Modal -->
-<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+<!-- 
+<div class="modal fade" id="modalMensal" tabindex="-1" role="dialog" aria-labelledby="modalMensal" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -83,8 +84,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div id="testem" class="modal-body">
-        ...
+      <div id="testem" class="card">
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -93,3 +94,42 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+<div id="cardTabelaMensal"class="card invisible">
+  <div class="card-header">
+      <p>chamados encontrados</p>
+      <button type="button" id="fechaDivMensal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+  </div>
+    <div class="card-body">
+      <table id="tabelaModalMensal" class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">chamado / ID</th>
+                <th scope="col">funcionario</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">status</th>
+                <th scope="col">Atividade</th>
+                <th scope="col">data inicial</th>
+                <th scope="col">Duração</th>
+                <th scope="col">Autorizar</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+       </table>
+    </div>
+</div>
+
+
+ -->
+
+

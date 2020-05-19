@@ -104,6 +104,12 @@ class Route extends Bootstrap {
 			'action' => 'aceitarPendentes'
 		);
 
+		$routes['MensalFuncionario'] = array(
+			'route' => '/Mensal/Funcionario',
+			'controller' => 'AppController',
+			'action' => 'MensalFuncionario'
+		);
+
 		
 		
 

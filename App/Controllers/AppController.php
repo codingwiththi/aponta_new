@@ -548,6 +548,58 @@ class AppController extends Action {
 
 
 
+  public function MensalFuncionario(){
+	  if(Isset($_POST)){
+		// echo json_encode($_POST);
+		$dia = $_POST['dia'] <= 9  ?  '0'.$_POST['dia'] : $_POST['dia'] ; 
+		$data_inicio = date('Y-m-'.$dia.'\T00:00:00');
+		$data_fim = date('Y-m-'.$dia.'\T23:59:59');
+
+		// echo json_encode($data_inicio);
+		// echo json_encode($data_fim);
+
+		// // $data_inicio = date();
+		// // $data_fim = date();
+
+		$aponta = Container::getModel('Apontamento');
+		$aponta->__set('fkFuncionarioId',intval($_POST['funcionario']));
+		$aponta->__set('dataInicial',strval($data_inicio));
+		$aponta->__set('dataFinal',strval($data_fim));
+		//$aponta->__set('dataFinal',strval($POST['dataFim'].'T23:59:59'));
+
+		//print_r($aponta);
+		//print_r($_POST['dataInicio']);
+		
+
+		echo json_encode($aponta->getPorIntervalo());
+	  }
+
+	 	
+		
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

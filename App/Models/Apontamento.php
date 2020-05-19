@@ -222,7 +222,7 @@ class Apontamento extends Model{
         $stmt->bindValue(':dataInicial',$this->__get('dataInicial'));
         $stmt->bindValue(':dataFinal',$this->__get('dataFinal')); 
         $stmt->execute();
-
+       // echo $query;
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
     }

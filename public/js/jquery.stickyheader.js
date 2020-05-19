@@ -160,11 +160,40 @@ $(function(){
 			return $.trim($(this).text());
 		}).get();
 		console.log(valores);
+
+		//--------------------------
+		$('#cardTabelaMensal').removeClass('invisible')
+		$('#cardTabelaMensal').addClass('visible')
 		//abrirModalMensal();
+		dia = col-1
+		dados = {'dia': dia ,'funcionario': valores[0] }
+		$.ajax({
+			type: "POST",
+			data: dados,
+			url: "/Mensal/Funcionario",
+			async: false
+		}).done(function(data) {
+			console.log(data);
+			//$('#mensagem_editaveis').html(acerto).fadeIn(250).delay(4000).fadeOut(300);
+			//exibir mensagem de acerto
+			//se tiver tudo certo eu só recarrego a pagina
+			//window.location.href = '/apontamento';
+			//exibir mensagem ou erro
+			//$('#erro_edita').html("");
+		}).fail(function(xhr, status, error) {
+			console.log("erro");
+			//$('#mensagem_editaveis').html(erro).fadeIn(250).delay(4000).fadeOut(300);
+	
+			//Ajax erro
+			//$('#erro_edita').html("deu erro");
+			//alert('Error -');
+		})
+	
 		
-		console.log("cliquei");
-		var total;
-		var cont = 0 ;
+
+		// console.log("cliquei");
+		// var total;
+		// var cont = 0 ;
 		// $("table tbody tr").each(function() {
 		// 	total = $(this).text();
 		// 	console.log(total);
@@ -194,3 +223,9 @@ $(function(){
 // function abrir (){
 // 	$('#modalMensal').modal('show');
 // }
+	$('#fechaDivMensal').click(function() {
+		$('#cardTabelaMensal').removeClass('visible')
+		$('#cardTabelaMensal').addClass('invisible')
+	});
+
+
